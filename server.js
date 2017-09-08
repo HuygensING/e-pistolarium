@@ -1,34 +1,29 @@
 #!/usr/bin/env node
 
-var browserSync = require('browser-sync').create();
-var modRewrite = require('connect-modrewrite');
-var debounce = require('lodash.debounce');
-var proxy = require('proxy-middleware');
-var url = require('url');
+const browserSync = require('browser-sync').create();
+const modRewrite = require('connect-modrewrite');
+const debounce = require('lodash.debounce');
+const url = require('url');
 
-var baseDir = './';
-var watchFiles = [
+const baseDir = './';
+const watchFiles = [
 	baseDir + 'build/**/*.js',
 	baseDir + 'build/**/*.css',
 	'./index.html'
 ];
 
-function onFilesChanged(event, file) {
+const onFilesChanged = (event, file) => {
 	if (event === 'change') {
 		browserSync.reload(file);
 	}
-}
+};
 
 browserSync.watch(watchFiles, debounce(onFilesChanged, 300));
-
-var proxyOptions = url.parse('http://janus:8080');
-proxyOptions.route = '/api';
 
 browserSync.init({
 	server: {
 		baseDir: [baseDir],
 		middleware: [
-			proxy(proxyOptions),
 			modRewrite([
 				'^/css/(.*)$ /css/$1 [L]',
 				'^/js/(.*)$ /js/$1 [L]',

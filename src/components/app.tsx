@@ -5,8 +5,8 @@ import { ConnectedRouter } from 'react-router-redux'
 import styled from "styled-components";
 import Messages, { addMessage } from 'hire-messages';
 import store from "../store";
-
 import Home from './home';
+import history from '../store/history';
 
 const App = styled.div`
 	display: flex;

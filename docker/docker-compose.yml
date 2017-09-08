@@ -9,7 +9,3 @@ services:
       - "3001:3001"
     volumes:
       - ../:/app
-networks:
-  default:
-    external:
-      name: janus_default
