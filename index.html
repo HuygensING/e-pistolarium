@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>e-Pistolarium</title>
+		<link
+			href="/node_modules/hire-forms-input/index.css"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link
+			href="/node_modules/hire-forms-select/index.css"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<style>
+			html, body, #container {
+				height: 100%;
+				width: 100%;
+			}
+
+			body, ul, h1, h2, h3, h4, h5 {
+				margin: 0;
+				padding: 0;
+			}
+
+			ul {
+				list-style: none;
+			}
+		</style>
+		<style>
+            .node {
+				cursor: pointer;
+			}
+
+			.node circle {
+				fill: #999;
+			}
+
+			.node text {
+				font: 10px sans-serif;
+			}
+
+			.node--internal circle {
+				fill: #555;
+			}
+
+			.node--internal text {
+				text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+			}
+
+			.link {
+				fill: none;
+				stroke: #555;
+				stroke-opacity: 0.4;
+				stroke-width: 1.5px;
+			}
+
+			#tooltip {
+				background: rgba(200, 200, 200, 0.6);
+                position: absolute;
+				padding: 1em;
+				border-radius: 3px;
+				box-sizing: border-box;
+                width: 300px
+			}
+
+		</style>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+   crossorigin=""/>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script src="/node_modules/react/dist/react.js"></script>
+		<script src="/node_modules/react-dom/dist/react-dom.js"></script>
+		<script src="/build/bundle.js"></script>
+	</body>
+</html>
