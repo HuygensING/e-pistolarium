@@ -8,7 +8,6 @@ export default (props) =>
 			flex: 9
 		}}
 	>
-		<Link to="/documents">documents</Link><br />
-		<Link to="/visualisation-tests">visualisations</Link>
+		<Link to="/root-annotations">Root annotations</Link><br />
 	</div>;
 

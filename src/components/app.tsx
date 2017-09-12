@@ -5,8 +5,10 @@ import { ConnectedRouter } from 'react-router-redux'
 import styled from "styled-components";
 import Messages, { addMessage } from 'hire-messages';
 import store from "../store";
-import Home from './home';
 import history from '../store/history';
+import Home from './home';
+import Document from './document';
+import RootAnnotations from './root-annotations';
 
 const App = styled.div`
 	display: flex;
@@ -35,6 +37,14 @@ export default () => (
 					component={Home}
 					exact
 					path="/"
+				/>
+				<Route
+					component={Document}
+					path="/documents/:id"
+				/>
+				<Route
+					component={RootAnnotations}
+					path="/root-annotations"
 				/>
 				{/*{Messages}*/}
 			</App>
