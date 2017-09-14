@@ -12,3 +12,4 @@ export const IGNORE_CLASSNAME = '__ignore';
 // annotation in order to treat it like the other annotations. Added value is,
 // the text can be styled in one component.
 export const SYSTEM_TEXT_TYPE = '__text';
+export const SYSTEM_ROOT_TYPE = '__root';

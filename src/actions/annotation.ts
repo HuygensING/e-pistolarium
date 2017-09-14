@@ -1,5 +1,6 @@
 import {renameProp, setProps} from "../reducers/utils";
 import { defaultAnnotation } from 'pergamon-components';
+import { SYSTEM_ROOT_TYPE } from "../../src/constants";
 
 const fetchRootAnnotation = async (id: string) => {
 	const response = await fetch(`/api/documents/${id}`);
@@ -12,7 +13,7 @@ export const setRootAnnotation = (id) => async (dispatch, getState) => {
 	if (rootAnnotation.type == null) {
 		const fetchedAnnotation = await fetchRootAnnotation(id);
 		rootAnnotation = setProps(rootAnnotation, fetchedAnnotation);
-		rootAnnotation = setProps(rootAnnotation, { type: 'root' });
+		rootAnnotation = setProps(rootAnnotation, { type: SYSTEM_ROOT_TYPE });
 		rootAnnotation = renameProp(rootAnnotation, 'annotations', 'children');
 
 		dispatch({

@@ -11,9 +11,9 @@ import Document from './document';
 import RootAnnotations from './root-annotations';
 
 const App = styled.div`
-	display: flex;
-	flex-direction: column;
-	height: 100%;
+	display: grid;
+	grid-template-columns: 100vw;
+	grid-template-rows: 10vh 90vh;
 `;
 
 const Header = styled.header`
