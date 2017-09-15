@@ -15,24 +15,38 @@ interface IState {
 	activeAside: Aside;
 }
 
-const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
+const inlineBlock: React.CSSProperties = {
 	boxSizing: 'border-box',
 	display: 'inline-block',
-	transition: 'all 300ms',
 	verticalAlign: 'top',
-	whiteSpace: 'normal',
-	width: activeAside === Aside.None ? '100%' : '50%',
+};
+
+const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
+	...inlineBlock,
+	...{
+		transition: 'all 300ms',
+		whiteSpace: 'normal',
+		width: activeAside === Aside.None ? '100%' : '50%',
+	}
 });
 
 const asideStyle: React.CSSProperties = {
-	backgroundColor: '#EEE',
-	boxSizing: 'border-box',
-	display: 'inline-block',
-	height: '100%',
-	padding: '1em',
-	position: 'relative',
-	verticalAlign: 'top',
-	width: '50%',
+	...inlineBlock,
+	...{
+		backgroundColor: '#EEE',
+		height: '100%',
+		padding: '1em',
+		position: 'relative',
+		whiteSpace: 'normal',
+		width: '50%',
+	}
+};
+
+const asideMenuStyle: React.CSSProperties = {
+	position: 'absolute',
+	left: '-2em',
+	top: '50%',
+	width: '2em',
 };
 
 class Document extends React.Component<IProps, IState> {
@@ -63,12 +77,7 @@ class Document extends React.Component<IProps, IState> {
 				</div>
 				<div style={asideStyle}>
 					<ul
-						style={{
-							position: 'absolute',
-							left: '-2em',
-							top: '50%',
-							width: '2em',
-						}}
+						style={asideMenuStyle}
 					>
 						<li onClick={() => this.setState({ activeAside: Aside.Annotations })}>
 							<Button>a</Button>

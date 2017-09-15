@@ -10,29 +10,28 @@ import Home from './home';
 import Document from './document';
 import RootAnnotations from './root-annotations';
 
-const App = styled.div`
-	display: grid;
-	grid-template-columns: 100vw;
-	grid-template-rows: 10vh 90vh;
-`;
+const wrapperStyle: React.CSSProperties = {
+	display: 'grid',
+	gridTemplateColumns: '100vw',
+	gridTemplateRows: '10vh 90vh',
+};
 
-const Header = styled.header`
-	background: #CCC;
-	flex: 1;
-	font-size: 2em;
-	font-weight: bold;
-	height: 8vh;
-	line-height: 8vh;
-	padding-left: 1vw;
-`;
+const headerStyle: React.CSSProperties = {
+	background: '#CCC',
+	fontSize: '2em',
+	fontWeight: 'bold',
+	height: '8vh',
+	lineHeight: '8vh',
+	paddingLeft: '1vw',
+};
 
 export default () => (
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
-			<App>
-				<Header>
+			<div style={{wrapperStyle}}>
+				<header style={headerStyle}>
 					<Link to="/">ePistolarium</Link>
-				</Header>
+				</header>
 				<Route
 					component={Home}
 					exact
@@ -47,7 +46,7 @@ export default () => (
 					path="/root-annotations"
 				/>
 				{/*{Messages}*/}
-			</App>
+			</div>
 		</ConnectedRouter>
 	</Provider>
 );
