@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IAnnotation, AnnotationList, Button, RenderedText } from 'pergamon-components';
+import { IAnnotation, AnnotationList, Button, ePistolariumTags, RenderedText } from 'pergamon-components';
 import {activateAnnotation, setRootAnnotation} from "../../actions/annotation";
 
 interface IProps {
 	activateAnnotation: (a: IAnnotation) => void;
 	activeAnnotation: IAnnotation;
+	match: any;
 	rootAnnotation: IAnnotation;
 	setRootAnnotation: (s: string) => void;
 }
@@ -72,6 +73,7 @@ class Document extends React.Component<IProps, IState> {
 						<RenderedText
 							activeAnnotation={this.props.activeAnnotation}
 							root={this.props.rootAnnotation}
+							tags={ePistolariumTags}
 						/>
 					</div>
 				</div>

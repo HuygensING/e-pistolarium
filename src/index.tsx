@@ -4,6 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './components/app';
 import './array';
 
+declare global {
+	interface Window {
+		DEBUG: boolean;
+	}
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	const container = document.getElementById('container');
 	ReactDOM.render(
