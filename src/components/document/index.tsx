@@ -68,7 +68,7 @@ class Document extends React.Component<IProps, IState> {
 				}}
 			>
 				<div style={textDivStyle(this.state.activeAside)}>
-					<div style={{ width: '700px', margin: 'auto' }}>
+					<div style={{ maxWidth: '700px', margin: 'auto' }}>
 						<RenderedText
 							activeAnnotation={this.props.activeAnnotation}
 							root={this.props.rootAnnotation}

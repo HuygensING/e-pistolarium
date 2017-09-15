@@ -19,6 +19,7 @@ export const setRootAnnotation = (id) => async (dispatch, getState) => {
 			type: SYSTEM_ROOT_TYPE,
 		});
 		rootAnnotation = renameProp(rootAnnotation, 'annotations', 'children');
+		rootAnnotation = renameProp(rootAnnotation, 'target', 'parent');
 
 		dispatch({
 			rootAnnotation,

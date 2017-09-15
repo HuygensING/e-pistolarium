@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import history from './history';
 import reducers from '../reducers';
 const logger = (/* store */) => next => action => {
-	if (action.hasOwnProperty('type')) {
+	if (window.DEBUG && action.hasOwnProperty('type')) {
 		console.log('[REDUX]', action.type, action);
 	}
 	return next(action);
