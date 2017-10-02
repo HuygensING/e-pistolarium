@@ -16,38 +16,33 @@ interface IState {
 	activeAside: Aside;
 }
 
-const inlineBlock: React.CSSProperties = {
-	boxSizing: 'border-box',
-	display: 'inline-block',
-	verticalAlign: 'top',
-};
-
 const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
-	...inlineBlock,
-	...{
-		transition: 'all 300ms',
-		whiteSpace: 'normal',
-		width: activeAside === Aside.None ? '100%' : '50%',
-	}
+	boxSizing: 'border-box',
+	padding: '1em',
+	transition: 'all 300ms',
+	whiteSpace: 'normal',
+	width: activeAside === Aside.None ? '100%' : '50%',
 });
 
-const asideStyle: React.CSSProperties = {
-	...inlineBlock,
-	...{
-		backgroundColor: '#EEE',
-		height: '100%',
-		padding: '1em',
-		position: 'relative',
-		whiteSpace: 'normal',
-		width: '50%',
-	}
-};
-
-const asideMenuStyle: React.CSSProperties = {
+const asideStyle = (activeAside: Aside): React.CSSProperties => ({
+	bottom: 0,
+	boxSizing: 'border-box',
+	display: 'grid',
+	gridTemplateColumns: '40px auto',
+	left: activeAside === Aside.None ? 'calc(100% - 40px)' : '50%',
+	overflow: 'hidden',
 	position: 'absolute',
-	left: '-2em',
-	top: '50%',
-	width: '2em',
+	right: 0,
+	top: '8vh',
+	transition: 'left 300ms',
+	whiteSpace: 'normal',
+	width: '50%',
+});
+
+const asideBodyStyle: React.CSSProperties = {
+	backgroundColor: '#EEE',
+	overflow: 'auto',
+	padding: '1em',
 };
 
 class Document extends React.Component<IProps, IState> {
@@ -77,9 +72,12 @@ class Document extends React.Component<IProps, IState> {
 						/>
 					</div>
 				</div>
-				<div style={asideStyle}>
+				<div style={asideStyle(this.state.activeAside)}>
 					<ul
-						style={asideMenuStyle}
+						style={{
+							alignSelf: 'center',
+							justifySelf: 'end',
+						}}
 					>
 						<li onClick={() => this.setState({ activeAside: Aside.Annotations })}>
 							<Button>a</Button>
@@ -88,6 +86,13 @@ class Document extends React.Component<IProps, IState> {
 							<Button>v</Button>
 						</li>
 					</ul>
+					<div style={asideBodyStyle}>
+						<AnnotationList
+							activateAnnotation={this.props.activateAnnotation}
+							activeAnnotation={this.props.activeAnnotation}
+							rootAnnotation={this.props.rootAnnotation}
+						/>
+					</div>
 					{
 						this.state.activeAside !== Aside.None && 
 						<Button
@@ -95,17 +100,13 @@ class Document extends React.Component<IProps, IState> {
 							onClick={() => this.setState({ activeAside: Aside.None })}
 							style={{
 								position: 'absolute',
-								right: 0
+								right: '1em',
+								top: '1em',
 							}}
 						>
 							x
 						</Button>
 					}
-					<AnnotationList
-						activateAnnotation={this.props.activateAnnotation}
-						activeAnnotation={this.props.activeAnnotation}
-						rootAnnotation={this.props.rootAnnotation}
-					/>
 				</div>
 			</div>
 		);
