@@ -9,6 +9,7 @@ import history from '../store/history';
 import Home from './home';
 import Document from './document';
 import RootAnnotations from './root-annotations';
+import { HucHeader } from 'huc-ui-components';
 
 const wrapperStyle: React.CSSProperties = {
 	display: 'grid',
@@ -29,9 +30,10 @@ export default () => (
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
 			<div style={{wrapperStyle}}>
-				<header style={headerStyle}>
-					<Link to="/">ePistolarium</Link>
-				</header>
+				<HucHeader
+					title="ePistolarium"
+					menuItems={["Home", "ePistolarium", "About"]}
+				/>
 				<Route
 					component={Home}
 					exact

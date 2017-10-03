@@ -6,8 +6,9 @@
   "scripts": {
     "build": "webpack",
     "compose-dev": "docker-compose -p epistolarium -f docker/docker-compose.yml",
-    "compose-prod": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose-prod.yml",
+    "compose-prod": "npm run compose-dev -- -f docker/docker-compose-prod.yml",
     "dev": "npm run compose-dev -- up",
+    "prod": "npm run compose-prod -- up",
     "watch": "webpack -w"
   },
   "author": "",
