@@ -33,22 +33,29 @@ export default () => (
 				<HucHeader
 					title="ePistolarium"
 					menuItems={["Home", "ePistolarium", "About"]}
+					onClickLogo={() => history.push('/')}
+					onClickMenuItem={(mi) => {
+						if (mi === 'Home') history.push('/');
+					}}
+					onClickTitle={() => history.push('/')}
 				/>
-				<Route
-					component={Home}
-					exact
-					path="/"
-				/>
-				<Route
-					component={Document}
-					path="/documents/:id"
-				/>
-				<Route
-					component={RootAnnotations}
-					path="/root-annotations"
-				/>
-				{/*{Messages}*/}
+				<main>
+					<Route
+						component={Home}
+						exact
+						path="/"
+					/>
+					<Route
+						component={Document}
+						path="/documents/:id"
+					/>
+					<Route
+						component={RootAnnotations}
+						path="/root-annotations"
+					/>
+				</main>
 			</div>
+			{/*{Messages}*/}
 		</ConnectedRouter>
 	</Provider>
 );
