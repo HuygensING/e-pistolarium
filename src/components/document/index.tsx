@@ -37,13 +37,13 @@ class Document extends React.Component<IProps, IState> {
 	
 	public render() {
 		return (
-			<div
+			<section
 				style={{
 					height: '100%',
 					whiteSpace: 'nowrap',
 				}}
 			>
-				<div style={textDivStyle(this.state.activeAside)}>
+				<article style={textDivStyle(this.state.activeAside)}>
 					<div style={{ maxWidth: '700px', margin: 'auto' }}>
 						<RenderedText
 							activeAnnotation={this.props.activeAnnotation}
@@ -51,7 +51,7 @@ class Document extends React.Component<IProps, IState> {
 							tags={ePistolariumTags}
 						/>
 					</div>
-				</div>
+				</article>
 				<HucOffCanvasAside>
 					<AnnotationList
 						activateAnnotation={this.props.activateAnnotation}
@@ -59,7 +59,7 @@ class Document extends React.Component<IProps, IState> {
 						rootAnnotation={this.props.rootAnnotation}
 					/>
 				</HucOffCanvasAside>
-			</div>
+			</section>
 		);
 	}
 }

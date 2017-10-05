@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import { routerReducer } from 'react-router-redux';
 import annotationReducer from './annotation';
-import rootAnnotations from './root-annotations';
+import rootAnnotationsReducer from './root-annotations';
+import searchReducer from './search';
 
 export default combineReducers({
 	annotation: annotationReducer,
-	rootAnnotations: rootAnnotations,
-	router: routerReducer
+	rootAnnotations: rootAnnotationsReducer,
+	router: routerReducer,
+	search: searchReducer,
 });
