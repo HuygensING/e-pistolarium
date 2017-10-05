@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
-import { HucFullTextSearchInput, HucSearchResults, IResultBody } from 'huc-ui-components';
+import { HucFullTextSearchInput, HucSearchResults } from 'huc-ui-components';
+import history from '../../store/history'
 import { fullTextSearch } from '../../actions/search';
-
-const ResultBody: React.SFC<IResultBody> = (props) =>
-	<section>
-		{props.result}	
-	</section>
+import ResultBody from './result-body';
 
 const Search: React.SFC = (props) =>
 	<div
@@ -28,10 +25,9 @@ const Home = (props) =>
 		/>
 		<div />
 		<HucSearchResults
+			onClickResult={(result) => history.push(`/documents/${result.id}`)}
 			resultBodyComponent={ResultBody}
-			searchResults={[
-				'eerste', 'tweede', 'derde', 'vierde'
-			]}
+			searchResults={props.searchResults[props.searchResults.length - 1]}
 		/>
 	</Search>;
 

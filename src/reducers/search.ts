@@ -6,7 +6,10 @@ interface IState {
 }
 
 const initialState: IState = {
-	results: [],
+	results: [{
+		hits: [],
+		total: 0,
+	}],
 }
 
 export default (state: IState = initialState, action) => {
