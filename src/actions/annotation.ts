@@ -1,5 +1,5 @@
 import {renameProp, setProps} from "../reducers/utils";
-import { defaultAnnotation } from 'pergamon-components';
+import { defaultAnnotation } from 'pergamon-ui-components';
 import { SYSTEM_ROOT_TYPE } from "../../src/constants";
 
 const fetchRootAnnotation = async (id: string) => {

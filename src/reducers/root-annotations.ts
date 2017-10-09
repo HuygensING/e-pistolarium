@@ -1,4 +1,4 @@
-import { defaultAnnotation, IAnnotation } from 'pergamon-components';
+import { defaultAnnotation, IAnnotation } from 'pergamon-ui-components';
 import {renameProp, replaceItemInArray, setProps} from "./utils";
 
 const initialState: IAnnotation[] = [];

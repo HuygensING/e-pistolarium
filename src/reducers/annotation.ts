@@ -1,4 +1,4 @@
-import { defaultAnnotation, IAnnotation } from 'pergamon-components';
+import { defaultAnnotation, IAnnotation } from 'pergamon-ui-components';
 import {unsetProp, setProps} from "./utils";
 
 interface IState {
