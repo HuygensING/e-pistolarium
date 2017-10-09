@@ -1,7 +1,10 @@
 FROM nginx:1.11.8-alpine
 
-# RUN npm install
-# RUN npm run build
+RUN apk update
+RUN apk add nodejs
+
+RUN npm install
+RUN npm run build
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY build /usr/share/nginx/html/build/
