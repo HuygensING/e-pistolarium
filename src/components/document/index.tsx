@@ -1,8 +1,9 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { IAnnotation, AnnotationList, Button, ePistolariumTags, RenderedText } from 'pergamon-ui-components';
-import {activateAnnotation, setRootAnnotation} from "../../actions/annotation";
-import { HucOffCanvasAside } from 'huc-ui-components';
+import * as React from 'react'
+import { connect } from 'react-redux'
+import { IAnnotation, Button, ePistolariumTags, RenderedText } from 'pergamon-ui-components'
+import {activateAnnotation, setRootAnnotation} from "../../actions/annotation"
+import { Aside } from 'huc-ui-components'
+import OffCanvasAside from './aside'
 
 interface IProps {
 	activateAnnotation: (a: IAnnotation) => void;
@@ -12,7 +13,6 @@ interface IProps {
 	setRootAnnotation: (s: string) => void;
 }
 
-enum Aside { None, Annotations, Visualisations }
 interface IState {
 	activeAside: Aside;
 }
@@ -52,13 +52,11 @@ class Document extends React.Component<IProps, IState> {
 						/>
 					</div>
 				</article>
-				<HucOffCanvasAside>
-					<AnnotationList
-						activateAnnotation={this.props.activateAnnotation}
-						activeAnnotation={this.props.activeAnnotation}
-						rootAnnotation={this.props.rootAnnotation}
-					/>
-				</HucOffCanvasAside>
+				<OffCanvasAside
+					activateAnnotation={this.props.activateAnnotation}
+					activeAnnotation={this.props.activeAnnotation}
+					rootAnnotation={this.props.rootAnnotation}
+				/>
 			</section>
 		);
 	}
