@@ -5,8 +5,8 @@
   "repository": "https://github.com/HuygensING/e-pistolarium-client.git",
   "scripts": {
     "build": "webpack",
-    "compose-dev": "docker-compose -p epistolarium -f docker/docker-compose.yml",
-    "compose-prod": "npm run compose-dev -- -f docker/docker-compose-prod.yml",
+    "compose-dev": "npm run compose-prod -- -f docker/development.yml",
+    "compose-prod": "docker-compose -p epistolarium -f docker/production.yml",
     "dev": "npm run compose-dev -- up",
     "prod": "npm run compose-prod -- up",
     "watch": "webpack -w"
@@ -32,7 +32,7 @@
     "hire-forms-select": "^2.2.10",
     "hire-messages": "^1.1.0",
     "huc-ui-components": "^1.0.1",
-    "pergamon-ui-components": "^1.0.1",
+    "pergamon-ui-components": "^1.0.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
