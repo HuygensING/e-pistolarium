@@ -12,8 +12,6 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
-      topmod:
-        condition: service_healthy
     ports:
       - "8080:8080"
     entrypoint:
@@ -31,10 +29,5 @@ services:
 
   topmod:
     image: huygensing/topmod
-    healthcheck:
-      test: ["CMD", "curl", "-fI", "http://localhost:8080/about"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
     expose:
       - "8080"
