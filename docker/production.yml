@@ -16,6 +16,7 @@ services:
       - "8080:8080"
     entrypoint:
       ["/usr/local/bin/janus", "server", "config-docker-compose.yml"]
+    restart: always
 
   elasticsearch:
     image: huygensing/elasticsearch-tiny
@@ -31,3 +32,4 @@ services:
     image: huygensing/topmod
     expose:
       - "8080"
+    restart: always
