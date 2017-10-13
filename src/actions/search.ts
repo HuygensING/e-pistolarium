@@ -1,8 +1,10 @@
 export const fullTextSearch = (query: string) => async (dispatch, getState) => {
 	const xhr = await fetch(`/api/documents/search`, {
 		body: JSON.stringify({
-			query_string: {
-				query: query
+			query: {
+				query_string: {
+					query: query
+				}
 			}
 		}),
 		headers: {
