@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import {Link} from "react-router-dom"
 import { HucFullTextSearchInput, HucSearchResults } from 'huc-ui-components'
+import Facets from './facets'
 import Aside from './aside'
 import history from '../../store/history'
 import { fullTextSearch } from '../../actions/search';
@@ -21,9 +22,12 @@ const Search: React.SFC = (props) =>
 
 const Home = (props) =>
 	<Search>
-		<HucFullTextSearchInput
-			onButtonClick={props.fullTextSearch}
-		/>
+		<div>
+			<HucFullTextSearchInput
+				onButtonClick={props.fullTextSearch}
+			/>
+			<Facets />
+		</div>
 		<div />
 		<HucSearchResults
 			onClickResult={(result) => history.push(`/documents/${result.id}`)}

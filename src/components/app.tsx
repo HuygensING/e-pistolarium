@@ -31,7 +31,7 @@ export default () => (
 		<ConnectedRouter history={history}>
 			<div style={{wrapperStyle}}>
 				<HucHeader
-					title="ePistolarium"
+					title="ePistolarium 2.0"
 					menuItems={["Home", "ePistolarium", "About"]}
 					onClickLogo={() => history.push('/')}
 					onClickMenuItem={(mi) => {

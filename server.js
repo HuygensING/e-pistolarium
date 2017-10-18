@@ -24,11 +24,15 @@ browserSync.watch(watchFiles, debounce(onFilesChanged, 300));
 const proxyOptions = url.parse('http://janus:8080');
 proxyOptions.route = '/api';
 
+const proxyOptions2 = url.parse('http://elasticsearch:9200');
+proxyOptions2.route = '/es';
+
 browserSync.init({
 	server: {
 		baseDir: [baseDir],
 		middleware: [
 			proxy(proxyOptions),
+			proxy(proxyOptions2),
 			modRewrite([
 				'^/css/(.*)$ /css/$1 [L]',
 				'^/js/(.*)$ /js/$1 [L]',
