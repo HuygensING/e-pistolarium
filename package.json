@@ -9,6 +9,7 @@
     "compose-test": "npm run compose-prod -- -f docker/test.yml",
     "compose-prod": "docker-compose -p epistolarium -f docker/production.yml",
     "dev": "npm run compose-dev -- up",
+    "test": "npm run compose-test -- up",
     "prod": "npm run compose-prod -- up",
     "watch": "webpack -w"
   },
