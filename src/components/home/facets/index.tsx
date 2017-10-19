@@ -7,7 +7,7 @@ import {
 	SearchkitProvider
 } from 'searchkit'
 
-const searchkit = new SearchkitManager("/es")
+const searchkit = new SearchkitManager("/api/documents/search", { searchUrlPath: '' })
 
 class Facets extends React.Component<null, null> {
 	public render() {
