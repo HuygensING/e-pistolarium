@@ -7,7 +7,7 @@ import {
 	SearchkitProvider
 } from 'searchkit'
 
-const searchkit = new SearchkitManager("http://localhost:3000/es")
+const searchkit = new SearchkitManager("/es")
 
 class Facets extends React.Component<null, null> {
 	public render() {
