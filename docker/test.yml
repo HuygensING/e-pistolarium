@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+  client:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    restart: always
+    volumes:
+      - secrets:/etc/nginx/ssl
+
+volumes:
+  secrets:

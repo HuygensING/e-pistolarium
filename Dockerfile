@@ -24,4 +24,4 @@ RUN rm -rf \
 	src
 RUN apk del nodejs
 
-EXPOSE 80
+EXPOSE 443 

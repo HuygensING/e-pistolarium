@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "compose-dev": "npm run compose-prod -- -f docker/development.yml",
+    "compose-test": "npm run compose-prod -- -f docker/test.yml",
     "compose-prod": "docker-compose -p epistolarium -f docker/production.yml",
     "dev": "npm run compose-dev -- up",
     "prod": "npm run compose-prod -- up",
