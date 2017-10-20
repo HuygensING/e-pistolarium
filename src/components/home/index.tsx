@@ -5,8 +5,9 @@ import { HucFullTextSearchInput, HucSearchResults } from 'huc-ui-components'
 import Facets from './facets'
 import Aside from './aside'
 import history from '../../store/history'
-import { fullTextSearch, receiveSearchResults } from '../../actions/search';
+import { fullTextSearch, receiveSearchResults, clearSemanticSuggestions } from '../../actions/search';
 import ResultBody from './result-body';
+import SemanticSuggestions from './semantic-suggestions'
 
 const Search: React.SFC = (props) =>
 	<div
@@ -25,6 +26,21 @@ const Home = (props) =>
 		<div>
 			<HucFullTextSearchInput
 				onButtonClick={props.fullTextSearch}
+				onChange={() => {
+					if (props.semanticSuggestions.length) props.clearSemanticSuggestions()
+				}}
+				onKeyDown={(ev) => {
+					if (ev.keyCode === 13) {
+						props.fullTextSearch(ev.target.value)
+					}
+				}}
+				query={props.fullTextSearchQuery}
+			/>
+			<SemanticSuggestions
+				onClickSuggestion={text => {
+					props.fullTextSearch(text)
+				}}
+				suggestions={props.semanticSuggestions}
 			/>
 			<Facets onChange={props.receiveSearchResults} />
 		</div>
@@ -42,9 +58,12 @@ const Home = (props) =>
 
 export default connect(
 	state => ({
+		fullTextSearchQuery: state.search.fullTextSearchQuery,
 		searchResults: state.search.results[state.search.results.length - 1],
+		semanticSuggestions: state.search.semanticSuggestions,
 	}),
 	{
+		clearSemanticSuggestions,
 		fullTextSearch,
 		receiveSearchResults,
 	}
