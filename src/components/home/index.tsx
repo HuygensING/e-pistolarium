@@ -5,7 +5,7 @@ import { HucFullTextSearchInput, HucSearchResults } from 'huc-ui-components'
 import Facets from './facets'
 import Aside from './aside'
 import history from '../../store/history'
-import { fullTextSearch } from '../../actions/search';
+import { fullTextSearch, receiveSearchResults } from '../../actions/search';
 import ResultBody from './result-body';
 
 const Search: React.SFC = (props) =>
@@ -26,7 +26,7 @@ const Home = (props) =>
 			<HucFullTextSearchInput
 				onButtonClick={props.fullTextSearch}
 			/>
-			<Facets />
+			<Facets onChange={props.receiveSearchResults} />
 		</div>
 		<div />
 		<HucSearchResults
@@ -46,5 +46,6 @@ export default connect(
 	}),
 	{
 		fullTextSearch,
+		receiveSearchResults,
 	}
 )(Home);
