@@ -8,6 +8,7 @@ import history from '../../store/history'
 import { fullTextSearch, receiveSearchResults, clearSemanticSuggestions } from '../../actions/search';
 import ResultBody from './result-body';
 import SemanticSuggestions from './semantic-suggestions'
+import FullTextSearch, { IProps as IFullTextSearchProps } from './full-text-search'
 
 const Search: React.SFC = (props) =>
 	<div
@@ -21,26 +22,20 @@ const Search: React.SFC = (props) =>
 		{props.children}
 	</div>
 
-const Home = (props) =>
+export interface IProps extends IFullTextSearchProps {
+	receiveSearchResults: (r: any, q?: string) => void
+	searchResults: {
+		total: number,
+
+	}
+}
+const Home: React.SFC<IProps> = (props) =>
 	<Search>
 		<div>
-			<HucFullTextSearchInput
-				onButtonClick={props.fullTextSearch}
-				onChange={() => {
-					if (props.semanticSuggestions.length) props.clearSemanticSuggestions()
-				}}
-				onKeyDown={(ev) => {
-					if (ev.keyCode === 13) {
-						props.fullTextSearch(ev.target.value)
-					}
-				}}
-				query={props.fullTextSearchQuery}
-			/>
+			<FullTextSearch {...props} />
 			<SemanticSuggestions
-				onClickSuggestion={text => {
-					props.fullTextSearch(text)
-				}}
-				suggestions={props.semanticSuggestions}
+				fullTextSearch={props.fullTextSearch}
+				semanticSuggestions={props.semanticSuggestions}
 			/>
 			<Facets onChange={props.receiveSearchResults} />
 		</div>

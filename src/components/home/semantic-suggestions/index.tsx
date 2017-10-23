@@ -2,24 +2,22 @@ import * as React from 'react'
 import Suggestion, { ISuggestion } from './suggestion';
 
 interface ISemanticSuggestions {
-	onClickSuggestion: (query: string) => void
-	suggestions: ISuggestion[]
+	fullTextSearch: (q: string) => void
+	semanticSuggestions: ISuggestion[]
 }
 const SemanticSuggestions: React.SFC<ISemanticSuggestions> = (props) =>
-	<section>
-		<ul>
-			{
-				props.suggestions.map(((s: ISuggestion) =>
-					<Suggestion
-						key={s.text}
-						onClick={(ev) => props.onClickSuggestion(s.text)}
-						suggestion={s}
-					>
-						{s.text}
-					</Suggestion>
-				))
-			}
-		</ul>
-	</section>
+	<ul style={{marginTop: '.5em'}}>
+		{
+			props.semanticSuggestions.map(((s: ISuggestion) =>
+				<Suggestion
+					key={s.text}
+					onClick={(ev) => props.fullTextSearch(s.text)}
+					suggestion={s}
+				>
+					{s.text}
+				</Suggestion>
+			))
+		}
+	</ul>
 
 export default SemanticSuggestions
