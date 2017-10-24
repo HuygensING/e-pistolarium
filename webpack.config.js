@@ -1,7 +1,9 @@
+const pkg = require('./package.json')
+
 module.exports = {
 	entry: "./src/index.tsx",
 	output: {
-			filename: "bundle.js",
+			filename: `bundle-${pkg.version}.js`,
 			path: __dirname + "/build"
 	},
 	resolve: {
