@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { HucFullTextSearchInput } from 'huc-ui-components'
-import { ISuggestion } from './semantic-suggestions/suggestion';
 import { postSearch } from '../../actions/search';
+import { ISuggestion } from 'pergamon-ui-components'
 
 const autoSuggest = async (query: string) => {
 	const xhr = await postSearch({

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { IAnnotation, Button, ePistolariumTags, RenderedText } from 'pergamon-ui-components'
+import { IAnnotation, Button, PergamonUITags, RenderedText } from 'pergamon-ui-components'
 import {activateAnnotation, setRootAnnotation} from "../../actions/annotation"
 import { Aside } from 'huc-ui-components'
 import OffCanvasAside from './aside'
@@ -48,7 +48,7 @@ class Document extends React.Component<IProps, IState> {
 						<RenderedText
 							activeAnnotation={this.props.activeAnnotation}
 							root={this.props.rootAnnotation}
-							tags={ePistolariumTags}
+							tags={PergamonUITags}
 						/>
 					</div>
 				</article>

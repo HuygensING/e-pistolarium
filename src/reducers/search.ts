@@ -1,6 +1,6 @@
 import { defaultAnnotation, IAnnotation } from 'pergamon-ui-components'
 import {renameProp, replaceItemInArray, setProps} from "./utils"
-import { ISuggestion } from '../components/home/semantic-suggestions/suggestion';
+import { ISuggestion } from 'pergamon-ui-components'
 
 interface IState {
 	fullTextSearchQuery: string
