@@ -34,6 +34,13 @@ class Document extends React.Component<IProps, IState> {
 		const rootAnnotationId = this.props.match.params.id;
 		this.props.setRootAnnotation(rootAnnotationId);
 	}
+
+	public componentWillReceiveProps(nextProps) {
+		const rootAnnotationId = nextProps.match.params.id;
+		if (this.props.rootAnnotation.id !== rootAnnotationId) {
+			this.props.setRootAnnotation(rootAnnotationId);
+		}
+	}
 	
 	public render() {
 		return (
@@ -55,6 +62,7 @@ class Document extends React.Component<IProps, IState> {
 				<OffCanvasAside
 					activateAnnotation={this.props.activateAnnotation}
 					activeAnnotation={this.props.activeAnnotation}
+					onChangeActiveAside={(activeAside) => this.setState({ activeAside })}
 					rootAnnotation={this.props.rootAnnotation}
 				/>
 			</section>

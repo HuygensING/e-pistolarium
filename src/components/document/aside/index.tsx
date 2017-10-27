@@ -5,10 +5,14 @@ import { AnnotationList, IAnnotation } from 'pergamon-ui-components'
 export interface IProps {
 	activateAnnotation: (a: IAnnotation) => void
 	activeAnnotation: IAnnotation
+	onChangeActiveAside: (a: Aside) => void
 	rootAnnotation: IAnnotation
 }
 const OffCanvasAside: React.SFC<IProps> = (props) =>
-	<HucOffCanvasAside open>
+	<HucOffCanvasAside
+		onChangeActiveAside={props.onChangeActiveAside}
+		open
+	>
 		<Panel type={Aside.Annotations}>
 			<AnnotationList
 				activateAnnotation={props.activateAnnotation}
