@@ -7,7 +7,7 @@ fi
 
 current_version=$(node -pe 'require("./package.json").version')
 
-npm version $1
+npm version $1 -m "v%s tagged"
 
 if [ $? -ne 0 ]; then exit 1; fi
 
@@ -22,5 +22,5 @@ sed -i -e "s/bundle-$current_version\.js/bundle-$next_version.js/g" index.html
 
 git add index.html
 git add package.json
-git commit -m "Bump to $next_version"
+git commit -m "v$next_version"
 git push && git push --tags
