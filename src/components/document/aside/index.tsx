@@ -13,7 +13,10 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 		onChangeActiveAside={props.onChangeActiveAside}
 		open
 	>
-		<Panel type={Aside.Annotations}>
+		<Panel
+			title="Named entities"
+			type={Aside.Annotations}
+		>
 			<AnnotationList
 				activateAnnotation={props.activateAnnotation}
 				activeAnnotation={props.activeAnnotation}
@@ -23,15 +26,17 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 				rootAnnotation={props.rootAnnotation}
 				sort={byStartEnd}
 			/>
-		</Panel>
-		{/* <Panel type={Aside.Visualisations}>
+			<h2 style={{ margin: '1em 0' }}>Notes</h2>
 			<AnnotationList
 				activateAnnotation={props.activateAnnotation}
 				activeAnnotation={props.activeAnnotation}
+				filter={((a: IAnnotation) =>
+					['note'].indexOf(a.type) > -1
+				)}
 				rootAnnotation={props.rootAnnotation}
 				sort={byStartEnd}
 			/>
-		</Panel> */}
+		</Panel>
 	</HucOffCanvasAside>
 
 export default OffCanvasAside
