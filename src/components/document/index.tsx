@@ -4,6 +4,7 @@ import { IAnnotation, Button, PergamonUITags, RenderedText } from 'pergamon-ui-c
 import {activateAnnotation, setRootAnnotation} from "../../actions/annotation"
 import { Aside } from 'huc-ui-components'
 import OffCanvasAside from './aside'
+import Metadata from './metadata'
 
 interface IProps {
 	activateAnnotation: (a: IAnnotation) => void;
@@ -51,6 +52,17 @@ class Document extends React.Component<IProps, IState> {
 				}}
 			>
 				<article style={textDivStyle(this.state.activeAside)}>
+					<Metadata
+						metadata={
+							this.props.rootAnnotation.children
+								.reduce((prev, curr) => {
+									if (curr.type === 'meta') {
+										prev[curr.attributes.type] = curr.attributes.value
+									}
+									return prev;
+								}, {})
+						}
+					/>
 					<div style={{ maxWidth: '700px', margin: 'auto' }}>
 						<RenderedText
 							activateAnnotation={this.props.activateAnnotation}
