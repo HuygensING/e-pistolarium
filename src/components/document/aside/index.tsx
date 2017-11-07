@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Aside, Panel, HucOffCanvasAside } from 'huc-ui-components'
 import { AnnotationList, byStartEnd, IAnnotation } from 'pergamon-ui-components'
+import Metadata from './metadata'
 
 export interface IProps {
 	activateAnnotation: (a: IAnnotation) => void
@@ -13,6 +14,12 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 		onChangeActiveAside={props.onChangeActiveAside}
 		open
 	>
+		<Panel
+			title="Metadata"
+			type={Aside.Metadata}
+		>
+			<Metadata rootAnnotation={props.rootAnnotation} />
+		</Panel>
 		<Panel
 			title="Named entities"
 			type={Aside.Annotations}

@@ -1,11 +1,21 @@
-import {renameProp, setProps} from "../reducers/utils";
-import { defaultAnnotation } from 'pergamon-ui-components';
-import { SYSTEM_ROOT_TYPE } from "../../src/constants";
+import {renameProp, setProps} from "../reducers/utils"
+import { defaultAnnotation } from 'pergamon-ui-components'
+import { SYSTEM_ROOT_TYPE } from "../../src/constants"
 
 const fetchRootAnnotation = async (id: string) => {
-	const response = await fetch(`/api/documents/${id}`);
-	return await response.json();
-};
+	const response = await fetch(`/api/documents/${id}`)
+	const root = await response.json()
+
+	return {
+		...defaultAnnotation,
+		...root,
+		metadata: root.annotations
+			.reduce((prev, curr) => {
+				if (curr.type === 'meta') prev[curr.attributes.type] = curr.attributes.value
+				return prev
+			}, {})
+	}
+}
 
 export const setRootAnnotation = (id) => async (dispatch, getState) => {
 	let rootAnnotation = getState().rootAnnotations.find(a => a.id === id);

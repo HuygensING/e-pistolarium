@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
 		}
 
 		case 'SET_ROOT_ANNOTATION': {
-			nextState = setProps(nextState, { root: action.rootAnnotation });
+			nextState = setProps(nextState, { root: action.rootAnnotation })
 		}
 
 		default:

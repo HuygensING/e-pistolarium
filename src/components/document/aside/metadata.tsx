@@ -4,7 +4,6 @@ import { IAnnotation } from 'pergamon-ui-components'
 const MetadataList = (props) =>
 	<ul
 		style={{
-			color: '#888',
 			fontFamily: "'Roboto', sans-serif",
 			margin: '3em auto',
 			maxWidth: '550px',
@@ -23,17 +22,12 @@ const MetadataItem = (props) =>
 const Label = (props) =>
 	<label
 		style={{
-			marginLeft: '-65px',
-			position: 'absolute',
-			textAlign: 'right',
-			width: '50px',
+			color: '#888',
+			fontSize: '.7em',
 		}}
 	>
 		{props.children}
 	</label>
-
-const Bold = (props) =>
-	<div style={{color: '#444', fontWeight: 700}}>{props.children}</div>
 
 export interface IMetadata {
 	rootAnnotation: IAnnotation
@@ -41,22 +35,28 @@ export interface IMetadata {
 const Metadata: React.SFC<IMetadata> = (props) =>
 	<MetadataList>
 		<MetadataItem>
-			<Label>FROM</Label>
-			<div>
-				<Bold>{props.rootAnnotation.metadata.sender}</Bold>
-				<div>{props.rootAnnotation.metadata.senderloc}</div>
-			</div>
-		</MetadataItem>
-		<MetadataItem>
-			<Label>TO</Label>
-			<div>
-				<Bold>{props.rootAnnotation.metadata.recipient}</Bold>
-				<div>{props.rootAnnotation.metadata.recipientloc}</div>
-			</div>
+			<Label>ID</Label>
+			<div>{props.rootAnnotation.id}</div>
 		</MetadataItem>
 		<MetadataItem>
 			<Label>DATE</Label>
-			<Bold>{props.rootAnnotation.metadata.date}</Bold>
+			<div>{props.rootAnnotation.metadata.date}</div>
+		</MetadataItem>
+		<MetadataItem>
+			<Label>SENDER</Label>
+			<div>{props.rootAnnotation.metadata.sender}</div>
+		</MetadataItem>
+		<MetadataItem>
+			<Label>SENDER LOCATION</Label>
+			<div>{props.rootAnnotation.metadata.senderloc}</div>
+		</MetadataItem>
+		<MetadataItem>
+			<Label>RECIPIENT</Label>
+			<div>{props.rootAnnotation.metadata.recipient}</div>
+		</MetadataItem>
+		<MetadataItem>
+			<Label>RECIPIENT LOCATION</Label>
+			<div>{props.rootAnnotation.metadata.recipientloc}</div>
 		</MetadataItem>
 	</MetadataList>
 

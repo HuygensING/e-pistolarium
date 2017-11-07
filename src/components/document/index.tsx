@@ -52,17 +52,7 @@ class Document extends React.Component<IProps, IState> {
 				}}
 			>
 				<article style={textDivStyle(this.state.activeAside)}>
-					<Metadata
-						metadata={
-							this.props.rootAnnotation.children
-								.reduce((prev, curr) => {
-									if (curr.type === 'meta') {
-										prev[curr.attributes.type] = curr.attributes.value
-									}
-									return prev;
-								}, {})
-						}
-					/>
+					<Metadata rootAnnotation={this.props.rootAnnotation} />
 					<div style={{ maxWidth: '700px', margin: 'auto' }}>
 						<RenderedText
 							activateAnnotation={this.props.activateAnnotation}
