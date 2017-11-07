@@ -21,12 +21,19 @@ export default (state = initialState, action) => {
 		}
 
 		case 'DEACTIVATE_ANNOTATION': {
-			nextState = unsetProp(nextState, 'active');
-			break;
+			nextState = unsetProp(nextState, 'active')
+			break
 		}
 
 		case 'SET_ROOT_ANNOTATION': {
 			nextState = setProps(nextState, { root: action.rootAnnotation })
+			break
+		}
+
+		case 'RECEIVE_KEYWORDS': {
+			const root = setProps(nextState.root, { keywords: action.keywords })
+			nextState = setProps(nextState, { root })
+			break
 		}
 
 		default:

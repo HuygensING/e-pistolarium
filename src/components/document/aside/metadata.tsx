@@ -30,34 +30,46 @@ const Label = (props) =>
 	</label>
 
 export interface IMetadata {
+	fetchKeywords: (root: IAnnotation) => void
 	rootAnnotation: IAnnotation
 }
-const Metadata: React.SFC<IMetadata> = (props) =>
-	<MetadataList>
-		<MetadataItem>
-			<Label>ID</Label>
-			<div>{props.rootAnnotation.id}</div>
-		</MetadataItem>
-		<MetadataItem>
-			<Label>DATE</Label>
-			<div>{props.rootAnnotation.metadata.date}</div>
-		</MetadataItem>
-		<MetadataItem>
-			<Label>SENDER</Label>
-			<div>{props.rootAnnotation.metadata.sender}</div>
-		</MetadataItem>
-		<MetadataItem>
-			<Label>SENDER LOCATION</Label>
-			<div>{props.rootAnnotation.metadata.senderloc}</div>
-		</MetadataItem>
-		<MetadataItem>
-			<Label>RECIPIENT</Label>
-			<div>{props.rootAnnotation.metadata.recipient}</div>
-		</MetadataItem>
-		<MetadataItem>
-			<Label>RECIPIENT LOCATION</Label>
-			<div>{props.rootAnnotation.metadata.recipientloc}</div>
-		</MetadataItem>
-	</MetadataList>
+class Metadata extends React.Component<IMetadata, null> {
+	public componentWillReceiveProps(nextProps) {
+		const root = nextProps.rootAnnotation
+		if (root.id != null) nextProps.fetchKeywords(root)
+	}
+
+	public render() {
+		return (
+			<MetadataList>
+				<MetadataItem>
+					<Label>ID</Label>
+					<div>{this.props.rootAnnotation.id}</div>
+				</MetadataItem>
+				<MetadataItem>
+					<Label>DATE</Label>
+					<div>{this.props.rootAnnotation.metadata.date}</div>
+				</MetadataItem>
+				<MetadataItem>
+					<Label>SENDER</Label>
+					<div>{this.props.rootAnnotation.metadata.sender}</div>
+				</MetadataItem>
+				<MetadataItem>
+					<Label>SENDER LOCATION</Label>
+					<div>{this.props.rootAnnotation.metadata.senderloc}</div>
+				</MetadataItem>
+				<MetadataItem>
+					<Label>RECIPIENT</Label>
+					<div>{this.props.rootAnnotation.metadata.recipient}</div>
+				</MetadataItem>
+				<MetadataItem>
+					<Label>RECIPIENT LOCATION</Label>
+					<div>{this.props.rootAnnotation.metadata.recipientloc}</div>
+				</MetadataItem>
+			</MetadataList>
+		)
+	}
+}
+
 
 export default Metadata

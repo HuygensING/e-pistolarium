@@ -1,17 +1,18 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { IAnnotation, Button, PergamonUITags, RenderedText } from 'pergamon-ui-components'
-import {activateAnnotation, setRootAnnotation} from "../../actions/annotation"
+import {activateAnnotation, setRootAnnotation, fetchKeywords} from "../../actions/annotation"
 import { Aside } from 'huc-ui-components'
 import OffCanvasAside from './aside'
 import Metadata from './metadata'
 
 interface IProps {
-	activateAnnotation: (a: IAnnotation) => void;
-	activeAnnotation: IAnnotation;
-	match: any;
-	rootAnnotation: IAnnotation;
-	setRootAnnotation: (s: string) => void;
+	activateAnnotation: (a: IAnnotation) => void
+	activeAnnotation: IAnnotation
+	fetchKeywords: (root: IAnnotation) => void
+	match: any
+	rootAnnotation: IAnnotation
+	setRootAnnotation: (s: string) => void
 }
 
 interface IState {
@@ -65,6 +66,7 @@ class Document extends React.Component<IProps, IState> {
 				<OffCanvasAside
 					activateAnnotation={this.props.activateAnnotation}
 					activeAnnotation={this.props.activeAnnotation}
+					fetchKeywords={this.props.fetchKeywords}
 					onChangeActiveAside={(activeAside) => this.setState({ activeAside })}
 					rootAnnotation={this.props.rootAnnotation}
 				/>
@@ -80,6 +82,7 @@ export default connect(
 	}),
 	{
 		activateAnnotation,
+		fetchKeywords,
 		setRootAnnotation,
 	}
 )(Document);

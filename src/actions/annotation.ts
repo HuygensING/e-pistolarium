@@ -17,6 +17,16 @@ const fetchRootAnnotation = async (id: string) => {
 	}
 }
 
+export const fetchKeywords = (root) => async (dispatch, getState) => {
+	if (root.hasOwnProperty('keywords')) return
+	const response = await fetch(`/api/documents/${root.id}/keywords`)
+	const keywords = await response.json()
+	dispatch({
+		keywords: keywords.keywords,
+		type: 'RECEIVE_KEYWORDS',
+	})
+}
+
 export const setRootAnnotation = (id) => async (dispatch, getState) => {
 	let rootAnnotation = getState().rootAnnotations.find(a => a.id === id);
 	if (rootAnnotation == null) rootAnnotation = defaultAnnotation;
