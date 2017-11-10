@@ -9,3 +9,7 @@ services:
       - "3001:3001"
     volumes:
       - ../:/app
+      - static:/app/static
+
+volumes:
+  static:

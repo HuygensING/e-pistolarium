@@ -34,7 +34,7 @@
     "hire-forms-select": "^2.2.10",
     "hire-messages": "^1.1.0",
     "huc-ui-components": "^1.0.11",
-    "pergamon-ui-components": "^1.4.1",
+    "pergamon-ui-components": "^1.4.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
@@ -43,6 +43,7 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "searchkit": "^2.3.0-6",
-    "styled-components": "^2.1.2"
+    "styled-components": "^2.1.2",
+    "timeline": "^1.0.1"
   }
 }
