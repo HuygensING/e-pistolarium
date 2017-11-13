@@ -1,35 +1,48 @@
 import * as React from 'react'
 import Timeline from 'timeline'
+import { postSearch } from '../../../../actions/search';
 
 export interface IState {
 	aggregate: any[]
+	events: any[]
 	from: Date,
 	to: Date,
 }
 class TimelineVisualization extends React.Component<null, IState> {
 	public state = {
 		aggregate: [],
+		events: [],
 		from: null,
 		to: null,
 	}
 
 	public async componentDidMount() {
-		const response = await fetch(`/api/documents/search`, {
-			body: JSON.stringify({
-				aggs: {
-					letter_per_year: {
-						date_histogram: {
-							field: 'date',
-							interval: 'year',
-						}
+		this.init()
+	}
+
+	public render() {
+		if (this.state.from == null) return null
+
+		return (
+			<Timeline
+				domainRatio={.01}
+				load={this.load}
+				{...this.state}
+			/>
+		)
+	}
+
+	private async init() {
+		const response = await postSearch({
+			aggs: {
+				letter_per_year: {
+					date_histogram: {
+						field: 'date',
+						interval: 'year',
 					}
-				},
-				size: 0,
-			}),
-			headers: {
-				'Content-Type': 'application/json',
+				}
 			},
-			method: 'POST',
+			size: 0,
 		})
 		const data = await response.json()
 		const aggregate = data.aggregations.letter_per_year.buckets.map(b => ({
@@ -44,18 +57,39 @@ class TimelineVisualization extends React.Component<null, IState> {
 		})
 	}
 
-	public render() {
-		if (this.state.from == null) return null
+	private load = async (from: Date, to: Date) => {
+		const response = await postSearch({
+			_source: [
+				'date',
+				'sender',
+				'recipient',
+			],
+			query: {
+				range: {
+					date: {
+						gte: from.toISOString(),
+						lte: to.toISOString(),
+					}
+				}
+			},
+			size: 10000,
+			sort: 'date',
+		})
+		const data = await response.json()
+		const events = data.hits.hits
+			.map(h => {
+				const sender = h._source.sender.replace(/\s\(.*\)/, '')
+				const recipient = h._source.recipient.replace(/\s\(.*\)/, '')
+				return {
+					date: new Date(h._source.date),
+					title: `${sender} - ${recipient}`
+				}
+			})
 
-		return (
-			<Timeline
-				aggregate={this.state.aggregate}
-				domainRatio={.1}
-				events={[]}
-				from={this.state.from}
-				to={this.state.to}
-			/>
-		)
+		this.setState({
+			events
+		})
+
 	}
 }
 
