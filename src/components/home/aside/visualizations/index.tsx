@@ -144,7 +144,8 @@ class VisualizationsPanel extends React.Component<IProps, IState> {
 					</Li>
 				</ul>
 				{
-					this.state.active === Vis.Timeline &&
+					(this.state.active === Vis.Timeline &&
+					this.props.fullScreen) &&
 					<TimelineVisualization />
 				}
 			</div>

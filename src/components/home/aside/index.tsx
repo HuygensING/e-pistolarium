@@ -7,7 +7,7 @@ interface IState {
 }
 class AsideComp extends React.Component<null, IState> {
 	public state = {
-		fullScreen: true,
+		fullScreen: false,
 	}
 
 	public render() {
@@ -15,7 +15,6 @@ class AsideComp extends React.Component<null, IState> {
 			<HucOffCanvasAside
 				fullScreen={this.state.fullScreen}
 				onClose={() => this.setState({ fullScreen: false })}
-				open
 			>
 				<Panel
 					style={{ height: '100%' }}
