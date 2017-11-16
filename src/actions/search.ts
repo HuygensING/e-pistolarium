@@ -18,6 +18,10 @@ export const clearSemanticSuggestions = () => (dispatch, getState) =>
 	dispatch({ type: 'CLEAR_SEMANTIC_SUGGESTIONS'})
 
 export const fullTextSearch = (query: string) => async (dispatch, getState) => {
+	dispatch({
+		type: 'FETCH_SEMANTIC_SUGGESTIONS',
+	})
+
 	const xhr = await postSearch({
 		query: {
 			query_string: {

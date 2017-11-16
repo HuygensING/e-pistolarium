@@ -24,9 +24,9 @@ const Search: React.SFC = (props) =>
 
 export interface IProps extends IFullTextSearchProps {
 	receiveSearchResults: (r: any, q?: string) => void
+	requestingSemanticSuggestions: boolean
 	searchResults: {
 		total: number,
-
 	}
 }
 const Home: React.SFC<IProps> = (props) =>
@@ -35,6 +35,7 @@ const Home: React.SFC<IProps> = (props) =>
 			<FullTextSearch {...props} />
 			<SemanticSuggestions
 				fullTextSearch={props.fullTextSearch}
+				requesting={props.requestingSemanticSuggestions}
 				semanticSuggestions={props.semanticSuggestions}
 			/>
 			<Facets onChange={props.receiveSearchResults} />
@@ -54,6 +55,7 @@ const Home: React.SFC<IProps> = (props) =>
 export default connect(
 	state => ({
 		fullTextSearchQuery: state.search.fullTextSearchQuery,
+		requestingSemanticSuggestions: state.search.requestingSemanticSuggestions,
 		searchResults: state.search.results[state.search.results.length - 1],
 		semanticSuggestions: state.search.semanticSuggestions,
 	}),

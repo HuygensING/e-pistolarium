@@ -4,17 +4,19 @@ import { ISuggestion } from 'pergamon-ui-components'
 
 interface IState {
 	fullTextSearchQuery: string
+	requestingSemanticSuggestions: boolean
 	results: any[]
 	semanticSuggestions: ISuggestion[]
 }
 
 const initialState: IState = {
 	fullTextSearchQuery: '',
+	requestingSemanticSuggestions: false,
 	results: [{
 		hits: [],
 		total: 0,
 	}],
-	semanticSuggestions: []
+	semanticSuggestions: [],
 }
 
 export default (state: IState = initialState, action) => {
@@ -30,9 +32,18 @@ export default (state: IState = initialState, action) => {
 			break
 		}
 
+		case 'FETCH_SEMANTIC_SUGGESTIONS': {
+			nextState = setProps(nextState, {
+				requestingSemanticSuggestions: true,
+			})
+
+			break
+		}
+
 		case 'RECEIVE_SEMANTIC_SUGGESTIONS': {
 			nextState = setProps(nextState, {
-				semanticSuggestions: action.semanticSuggestions
+				requestingSemanticSuggestions: false,
+				semanticSuggestions: action.semanticSuggestions,
 			})
 
 			break
