@@ -34,6 +34,7 @@ export const setRootAnnotation = (id) => async (dispatch, getState) => {
 		const fetchedAnnotation = await fetchRootAnnotation(id);
 		rootAnnotation = setProps(rootAnnotation, fetchedAnnotation);
 		rootAnnotation = setProps(rootAnnotation, {
+			annotations: rootAnnotation.annotations.map(a => ({ ...defaultAnnotation, ...a })),
 			end: rootAnnotation.text.length,
 			start: 0,
 			type: SYSTEM_ROOT_TYPE,
