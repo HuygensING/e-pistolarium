@@ -10,13 +10,14 @@ import { fullTextSearch, receiveSearchResults, clearSemanticSuggestions } from '
 import ResultBody from './result-body';
 import FullTextSearch, { IProps as IFullTextSearchProps } from './full-text-search'
 
-const Search: React.SFC = (props) =>
+const Wrapper: React.SFC = (props) =>
 	<div
 		role="search"
 		style={{
 			display: 'grid',
-			gridTemplateColumns: '320px 50px auto',
-			margin: '50px',
+			gridTemplateColumns: '320px 4em auto',
+			margin: '2em auto',
+			maxWidth: '1100px',
 		}}
 	>
 		{props.children}
@@ -30,8 +31,8 @@ export interface IProps extends IFullTextSearchProps {
 	}
 }
 const Home: React.SFC<IProps> = (props) =>
-	<Search>
-		<div>
+	<Wrapper>
+		<div style={{marginLeft: '2em'}}>
 			<FullTextSearch {...props} />
 			<SemanticSuggestions
 				fullTextSearch={props.fullTextSearch}
@@ -41,16 +42,18 @@ const Home: React.SFC<IProps> = (props) =>
 			<Facets onChange={props.receiveSearchResults} />
 		</div>
 		<div />
-		<HucSearchResults
-			onClickResult={(result) => history.push(`/documents/${result.id}`)}
-			resultBodyComponent={ResultBody}
-			searchResults={props.searchResults}
-		/>
+		<div style={{ marginRight: '2em' }}>
+			<HucSearchResults
+				onClickResult={(result) => history.push(`/documents/${result.id}`)}
+				resultBodyComponent={ResultBody}
+				searchResults={props.searchResults}
+			/>
+		</div>
 		{
 			props.searchResults.total > 0 &&
 			<Aside />
 		}
-	</Search>;
+	</Wrapper>;
 
 export default connect(
 	state => ({
