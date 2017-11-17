@@ -20,6 +20,7 @@ interface IState {
 
 const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 	boxSizing: 'border-box',
+	minWidth: '648px',
 	padding: '1em 1em 1em calc(65px + 1em)',
 	transition: 'all 300ms',
 	whiteSpace: 'normal',
