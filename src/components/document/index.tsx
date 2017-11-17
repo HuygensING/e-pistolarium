@@ -20,10 +20,10 @@ interface IState {
 
 const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 	boxSizing: 'border-box',
-	padding: '1em',
+	padding: '1em 1em 1em calc(65px + 1em)',
 	transition: 'all 300ms',
 	whiteSpace: 'normal',
-	width: activeAside === Aside.None ? '100%' : '50%',
+	width: activeAside === Aside.None ? '100%' : 'calc(100% - 440px)',
 });
 
 class Document extends React.Component<IProps, IState> {
