@@ -1,6 +1,15 @@
 import * as React from 'react'
 import { IAnnotation } from 'pergamon-ui-components'
 
+const downloadStringAsFile = (str, mimeType='text/plain') => {
+	const a = document.createElement('a')
+	const href = URL.createObjectURL(new Blob([str], { type: mimeType }))
+	a.href = href
+	document.body.appendChild(a)
+	a.click()
+	document.body.removeChild(a)
+	URL.revokeObjectURL(href)
+}
 const MetadataList = (props) =>
 	<ul
 		style={{
@@ -42,6 +51,20 @@ class Metadata extends React.Component<IMetadata, null> {
 	public render() {
 		return (
 			<MetadataList>
+				<MetadataItem>
+					<Label>XML</Label>
+					<div>
+						<button
+							onClick={async () => {
+								const response = await fetch(`/api/documents/${this.props.rootAnnotation.id}/orig`)
+								const xml = await response.text()
+								downloadStringAsFile(xml, 'text/xml')
+							}}
+						>
+							Download
+						</button>
+					</div>
+				</MetadataItem>
 				<MetadataItem>
 					<Label>ID</Label>
 					<div>{this.props.rootAnnotation.id}</div>
