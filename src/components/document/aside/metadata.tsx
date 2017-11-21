@@ -5,17 +5,21 @@ const downloadStringAsFile = (str, mimeType='text/plain') => {
 	const a = document.createElement('a')
 	const href = URL.createObjectURL(new Blob([str], { type: mimeType }))
 	a.href = href
+	a.target = '_blank'
 	document.body.appendChild(a)
 	a.click()
 	document.body.removeChild(a)
-	URL.revokeObjectURL(href)
+	// URL.revokeObjectURL(href)
 }
+
 const MetadataList = (props) =>
 	<ul
 		style={{
 			fontFamily: "'Roboto', sans-serif",
-			margin: '3em auto',
+			listStyle: 'none',
+			margin: '3em 0',
 			maxWidth: '550px',
+			padding: 0,
 		}}>
 		{props.children}
 	</ul>
