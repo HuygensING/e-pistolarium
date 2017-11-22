@@ -10,7 +10,8 @@ import {
 	SideBar,
 	RangeFilter,
 	ResetFilters,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	DynamicRangeFilter
 } from 'searchkit'
 
 const searchkit = new SearchkitManager("/api/documents/search", { searchUrlPath: '' })
@@ -23,6 +24,10 @@ class Facets extends SearchkitComponent<IProps, null> {
 
 	public componentDidMount() {
 		this.resultsListener = searchkit.addResultsListener(this.props.onChange)
+		searchkit.setQueryProcessor(queryObject => {
+			queryObject.sort = 'date'
+			return queryObject
+		})
 	}
 
 	public componentWillUnmount() {
@@ -34,6 +39,11 @@ class Facets extends SearchkitComponent<IProps, null> {
 			<SearchkitProvider searchkit={searchkit}>
 				<div>
 					<ResetFilters />
+					<DynamicRangeFilter
+						field="year"
+						id="range_year"
+						title="Date range"
+					/>
 					<RefinementListFilter
 						field="sender"
 						id="count_per_sender"
@@ -68,6 +78,13 @@ class Facets extends SearchkitComponent<IProps, null> {
 						operator="OR"
 						size={10}
 						title="Language"
+					/>
+					<RefinementListFilter
+						field="correspondence"
+						id="count_per_correspondence"
+						operator="OR"
+						size={10}
+						title="Correspondence"
 					/>
 				</div>
 			</SearchkitProvider>

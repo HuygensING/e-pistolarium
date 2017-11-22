@@ -27,7 +27,8 @@ export const fullTextSearch = (query: string) => async (dispatch, getState) => {
 			query_string: {
 				query: query
 			}
-		}
+		},
+		sort: 'date',
 	})
 	const data = await xhr.json()
 
