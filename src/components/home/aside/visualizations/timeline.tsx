@@ -22,14 +22,15 @@ class TimelineVisualization extends React.Component<null, IState> {
 
 	public render() {
 		if (this.state.from == null) return null
+		return null
 
-		return (
-			<Timeline
-				domainRatio={.01}
-				load={this.load}
-				{...this.state}
-			/>
-		)
+		// return (
+		// 	<timeline
+		// 		domainratio={.01}
+		// 		load={this.load}
+		// 		{...this.state}
+		// 	/>
+		// )
 	}
 
 	private async init() {

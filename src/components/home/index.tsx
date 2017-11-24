@@ -51,7 +51,6 @@ const Home: React.SFC<IProps> = (props) =>
 				resultBodyComponent={ResultBody}
 				searchResults={props.searchResults}
 			/>
-			{console.log(props.aggregate[0])}
 			{
 				props.aggregate.length &&
 				<div
