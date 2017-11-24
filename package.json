@@ -44,6 +44,6 @@
     "redux-thunk": "^2.2.0",
     "searchkit": "^2.3.0-6",
     "styled-components": "^2.1.2",
-    "timeline": "^1.1.0"
+    "timeline": "^1.1.1"
   }
 }
