@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { AnnotationList, Button, RenderedText } from 'pergamon-ui-components';
-import {Link} from "react-router-dom";
+import { Button } from 'pergamon-ui-components';
+import { Link } from "react-router-dom";
 import {getRootAnnotationIds} from "../../actions/root-annotation-ids";
 
 const RootAnnotations = (props) =>

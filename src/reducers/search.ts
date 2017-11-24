@@ -1,5 +1,4 @@
-import { defaultAnnotation, IAnnotation } from 'pergamon-ui-components'
-import {renameProp, replaceItemInArray, setProps} from "./utils"
+import { setProps } from "./utils"
 import { ISuggestion } from 'pergamon-ui-components'
 
 interface IState {

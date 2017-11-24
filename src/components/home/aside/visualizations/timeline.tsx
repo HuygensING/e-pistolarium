@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Timeline from 'timeline'
+// import Timeline from 'timeline'
 import { postSearch } from '../../../../actions/search';
 
 export interface IState {
@@ -58,40 +58,40 @@ class TimelineVisualization extends React.Component<null, IState> {
 		})
 	}
 
-	private load = async (from: Date, to: Date) => {
-		const response = await postSearch({
-			_source: [
-				'date',
-				'sender',
-				'recipient',
-			],
-			query: {
-				range: {
-					date: {
-						gte: from.toISOString(),
-						lte: to.toISOString(),
-					}
-				}
-			},
-			size: 10000,
-			sort: 'date',
-		})
-		const data = await response.json()
-		const events = data.hits.hits
-			.map(h => {
-				const sender = h._source.sender.replace(/\s\(.*\)/, '')
-				const recipient = h._source.recipient.replace(/\s\(.*\)/, '')
-				return {
-					date: new Date(h._source.date),
-					title: `${sender} - ${recipient}`
-				}
-			})
+	// private load = async (from: Date, to: Date) => {
+	// 	const response = await postSearch({
+	// 		_source: [
+	// 			'date',
+	// 			'sender',
+	// 			'recipient',
+	// 		],
+	// 		query: {
+	// 			range: {
+	// 				date: {
+	// 					gte: from.toISOString(),
+	// 					lte: to.toISOString(),
+	// 				}
+	// 			}
+	// 		},
+	// 		size: 10000,
+	// 		sort: 'date',
+	// 	})
+	// 	const data = await response.json()
+	// 	const events = data.hits.hits
+	// 		.map(h => {
+	// 			const sender = h._source.sender.replace(/\s\(.*\)/, '')
+	// 			const recipient = h._source.recipient.replace(/\s\(.*\)/, '')
+	// 			return {
+	// 				date: new Date(h._source.date),
+	// 				title: `${sender} - ${recipient}`
+	// 			}
+	// 		})
 
-		this.setState({
-			events
-		})
+	// 	this.setState({
+	// 		events
+	// 	})
 
-	}
+	// }
 }
 
 export default TimelineVisualization

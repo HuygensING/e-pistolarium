@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { IAnnotation, Button, Metadata, PergamonUITags, RenderedText } from 'pergamon-ui-components'
+import { IAnnotation, Metadata, PergamonUITags, RenderedText } from 'pergamon-ui-components'
 import {activateAnnotation, setRootAnnotation, fetchKeywords} from "../../actions/annotation"
 import { Aside } from 'huc-ui-components'
 import OffCanvasAside from './aside'

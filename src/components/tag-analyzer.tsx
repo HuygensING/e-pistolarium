@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { postSearch, post } from '../actions/search'
+import { post } from '../actions/search'
 
 export interface ITags {
 	key: string

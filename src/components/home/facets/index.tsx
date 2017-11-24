@@ -1,14 +1,9 @@
 import * as React from 'react'
 import {
 	RefinementListFilter,
-	SearchBox,
 	SearchkitComponent,
 	SearchkitManager,
 	SearchkitProvider,
-	Layout,
-	LayoutBody,
-	SideBar,
-	RangeFilter,
 	ResetFilters,
 	SearchkitComponentProps,
 	DynamicRangeFilter
