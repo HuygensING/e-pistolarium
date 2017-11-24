@@ -3,6 +3,7 @@ import {renameProp, replaceItemInArray, setProps} from "./utils"
 import { ISuggestion } from 'pergamon-ui-components'
 
 interface IState {
+	aggregate: any[]
 	fullTextSearchQuery: string
 	requestingSemanticSuggestions: boolean
 	results: any[]
@@ -10,6 +11,7 @@ interface IState {
 }
 
 const initialState: IState = {
+	aggregate: [],
 	fullTextSearchQuery: '',
 	requestingSemanticSuggestions: false,
 	results: [{
@@ -35,6 +37,14 @@ export default (state: IState = initialState, action) => {
 		case 'FETCH_SEMANTIC_SUGGESTIONS': {
 			nextState = setProps(nextState, {
 				requestingSemanticSuggestions: true,
+			})
+
+			break
+		}
+
+		case 'RECEIVE_SEARCH_RESULT_AGGREGATE': {
+			nextState = setProps(nextState, {
+				aggregate: action.aggregate,
 			})
 
 			break

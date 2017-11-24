@@ -14,6 +14,35 @@ const fetchSemanticSuggestions = (query: string) => async (dispatch, getState) =
 	})
 }
 
+const fetchYearAggregation = (esQuery) => async (dispatch, getState) => {
+	const response = await postSearch({
+		aggs: {
+			letter_per_year: {
+				date_histogram: {
+					field: 'date',
+					interval: 'year',
+				}
+			}
+		},
+		query: esQuery,
+		size: 0,
+	})
+	const data = await response.json()
+
+	console.log(data.aggregations)
+	dispatch(receiveYearAggregation(data.aggregations))
+}
+
+const receiveYearAggregation = (aggregations) => (dispatch, getState) =>
+	dispatch({
+		type: 'RECEIVE_SEARCH_RESULT_AGGREGATE',
+		aggregate: aggregations.letter_per_year.buckets.map(b => ({
+			count: b.doc_count,
+			year: +b.key_as_string.slice(0, 4),
+
+		}))
+	})
+
 export const clearSemanticSuggestions = () => (dispatch, getState) =>
 	dispatch({ type: 'CLEAR_SEMANTIC_SUGGESTIONS'})
 
@@ -22,21 +51,25 @@ export const fullTextSearch = (query: string) => async (dispatch, getState) => {
 		type: 'FETCH_SEMANTIC_SUGGESTIONS',
 	})
 
+	const esQuery = {
+		query_string: {
+			query: query
+		}
+	}
+
 	const xhr = await postSearch({
-		query: {
-			query_string: {
-				query: query
-			}
-		},
+		query: esQuery,
 		sort: 'date',
 	})
 	const data = await xhr.json()
 
 	dispatch(receiveSearchResults(data, query))
 	dispatch(fetchSemanticSuggestions(query))
+
+	dispatch(fetchYearAggregation(esQuery))
 }
 
-export const receiveSearchResults = (results, query:string = '') => (dispatch, getState) =>
+export const receiveSearchResults = (results, query:string = '') => (dispatch, getState) => {
 	dispatch({
 		fullTextSearchQuery: query,
 		searchResults: {
@@ -50,8 +83,13 @@ export const receiveSearchResults = (results, query:string = '') => (dispatch, g
 		type: 'RECEIVE_SEARCH_RESULTS',
 	})
 
-export const postSearch = (body) =>
-	fetch('/api/documents/search', {
+	dispatch(receiveYearAggregation(results.aggregations))
+}
+
+export const postSearch = (body) => post('/api/documents/search', body)
+
+export const post = (url, body) =>
+	fetch(url, {
 		body: JSON.stringify(body),
 		headers: {
 			'Content-Type': 'application/json',

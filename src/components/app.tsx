@@ -10,6 +10,7 @@ import Home from './home';
 import Document from './document';
 import RootAnnotations from './root-annotations';
 import { HucHeader } from 'huc-ui-components';
+import TagAnalyzer from './tag-analyzer'
 
 const wrapperStyle: React.CSSProperties = {
 	display: 'grid',
@@ -52,6 +53,10 @@ export default () => (
 					<Route
 						component={RootAnnotations}
 						path="/root-annotations"
+					/>
+					<Route
+						component={TagAnalyzer}
+						path="/analyze"
 					/>
 				</main>
 			</div>

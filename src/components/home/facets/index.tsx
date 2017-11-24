@@ -25,6 +25,12 @@ class Facets extends SearchkitComponent<IProps, null> {
 	public componentDidMount() {
 		this.resultsListener = searchkit.addResultsListener(this.props.onChange)
 		searchkit.setQueryProcessor(queryObject => {
+			queryObject.aggs.letter_per_year = {
+				date_histogram: {
+					field: 'date',
+					interval: 'year',
+				}
+			}
 			queryObject.sort = 'date'
 			return queryObject
 		})
@@ -72,13 +78,13 @@ class Facets extends SearchkitComponent<IProps, null> {
 						size={10}
 						title="Recipient Locations"
 					/>
-					<RefinementListFilter
+					{/* <RefinementListFilter
 						field="language"
 						id="count_per_language"
 						operator="OR"
 						size={10}
 						title="Language"
-					/>
+					/> */}
 					<RefinementListFilter
 						field="correspondence"
 						id="count_per_correspondence"
