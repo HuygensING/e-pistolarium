@@ -25,12 +25,24 @@ class Facets extends SearchkitComponent<IProps, null> {
 	public componentDidMount() {
 		this.resultsListener = searchkit.addResultsListener(this.props.onChange)
 		searchkit.setQueryProcessor(queryObject => {
-			queryObject.aggs.letter_per_year = {
+			const letterPerYear = {
 				date_histogram: {
 					field: 'date',
 					interval: 'year',
-				}
+				},
 			}
+
+			if (queryObject.hasOwnProperty('post_filter')) {
+				queryObject.aggs.letter_per_year = {
+					filter: queryObject.post_filter,
+					aggs: {
+						letter_per_year: letterPerYear
+					}
+				}
+			} else {
+				queryObject.aggs.letter_per_year = letterPerYear
+			}
+
 			queryObject.sort = 'date'
 			return queryObject
 		})

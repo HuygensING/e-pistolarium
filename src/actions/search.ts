@@ -14,34 +14,39 @@ const fetchSemanticSuggestions = (query: string) => async (dispatch, getState) =
 	})
 }
 
-const fetchYearAggregation = (esQuery) => async (dispatch, getState) => {
-	const response = await postSearch({
-		aggs: {
-			letter_per_year: {
-				date_histogram: {
-					field: 'date',
-					interval: 'year',
-				}
-			}
-		},
-		query: esQuery,
-		size: 0,
-	})
-	const data = await response.json()
+// const fetchYearAggregation = (esQuery) => async (dispatch, getState) => {
+// 	const response = await postSearch({
+// 		aggs: {
+// 			letter_per_year: {
+// 				date_histogram: {
+// 					field: 'date',
+// 					interval: 'year',
+// 				}
+// 			}
+// 		},
+// 		query: esQuery,
+// 		size: 0,
+// 	})
+// 	const data = await response.json()
+// 	console.log(1, data)
 
-	console.log(data.aggregations)
-	dispatch(receiveYearAggregation(data.aggregations))
-}
+// 	// dispatch(receiveYearAggregation(data.aggregations))
+// }
 
-const receiveYearAggregation = (aggregations) => (dispatch, getState) =>
+const receiveYearAggregation = (aggregations) => (dispatch, getState) => {
+	const lpy = (aggregations.letter_per_year.hasOwnProperty('letter_per_year')) ?
+		aggregations.letter_per_year.letter_per_year :
+		aggregations.letter_per_year
+
 	dispatch({
 		type: 'RECEIVE_SEARCH_RESULT_AGGREGATE',
-		aggregate: aggregations.letter_per_year.buckets.map(b => ({
+		aggregate: lpy.buckets.map(b => ({
 			count: b.doc_count,
 			year: +b.key_as_string.slice(0, 4),
 
 		}))
 	})
+}
 
 export const clearSemanticSuggestions = () => (dispatch, getState) =>
 	dispatch({ type: 'CLEAR_SEMANTIC_SUGGESTIONS'})
@@ -58,6 +63,14 @@ export const fullTextSearch = (query: string) => async (dispatch, getState) => {
 	}
 
 	const xhr = await postSearch({
+		aggs: {
+			letter_per_year: {
+				date_histogram: {
+					field: 'date',
+					interval: 'year',
+				}
+			}
+		},
 		query: esQuery,
 		sort: 'date',
 	})
@@ -65,8 +78,6 @@ export const fullTextSearch = (query: string) => async (dispatch, getState) => {
 
 	dispatch(receiveSearchResults(data, query))
 	dispatch(fetchSemanticSuggestions(query))
-
-	dispatch(fetchYearAggregation(esQuery))
 }
 
 export const receiveSearchResults = (results, query:string = '') => (dispatch, getState) => {
