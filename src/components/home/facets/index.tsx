@@ -8,17 +8,21 @@ import {
 	SearchkitComponentProps,
 	DynamicRangeFilter
 } from 'searchkit'
+import { SearchResults } from 'huc-ui-components'
 
 const searchkit = new SearchkitManager("/api/documents/search", { searchUrlPath: '' })
 
 export interface IProps extends SearchkitComponentProps {
-	onChange: (r: any) => void
+	receiveSearchResults: (query: Object, results: SearchResults) => void
 }
 class Facets extends SearchkitComponent<IProps, null> {
 	private resultsListener
+	private query: Object
 
 	public componentDidMount() {
-		this.resultsListener = searchkit.addResultsListener(this.props.onChange)
+		this.resultsListener = searchkit.addResultsListener(results =>
+			this.props.receiveSearchResults(this.query, results)
+		)
 		searchkit.setQueryProcessor(queryObject => {
 			const letterPerYear = {
 				date_histogram: {
@@ -38,7 +42,10 @@ class Facets extends SearchkitComponent<IProps, null> {
 				queryObject.aggs.letter_per_year = letterPerYear
 			}
 
+			// TODO pass size from reducer
+			queryObject.size = 20
 			queryObject.sort = 'date'
+			this.query = queryObject
 			return queryObject
 		})
 	}

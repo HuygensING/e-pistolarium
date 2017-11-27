@@ -48,7 +48,7 @@ class FullTextSearch extends React.Component<IProps, IState> {
 					}
 				}}
 				query={this.props.fullTextSearchQuery}
-				search={this.props.fullTextSearch}
+				search={(q) => this.props.fullTextSearch(q)}
 			/>
 		)
 	}

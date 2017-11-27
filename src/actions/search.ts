@@ -1,3 +1,5 @@
+import { SearchResults } from 'huc-ui-components'
+
 const fetchSemanticSuggestions = (query: string) => async (dispatch, getState) => {
 	const xhr = await fetch(`/api/search`, {
 		body: JSON.stringify({ query }),
@@ -13,25 +15,6 @@ const fetchSemanticSuggestions = (query: string) => async (dispatch, getState) =
 		semanticSuggestions: data.suggestions,
 	})
 }
-
-// const fetchYearAggregation = (esQuery) => async (dispatch, getState) => {
-// 	const response = await postSearch({
-// 		aggs: {
-// 			letter_per_year: {
-// 				date_histogram: {
-// 					field: 'date',
-// 					interval: 'year',
-// 				}
-// 			}
-// 		},
-// 		query: esQuery,
-// 		size: 0,
-// 	})
-// 	const data = await response.json()
-// 	console.log(1, data)
-
-// 	// dispatch(receiveYearAggregation(data.aggregations))
-// }
 
 const receiveYearAggregation = (aggregations) => (dispatch, getState) => {
 	const lpy = (aggregations.letter_per_year.hasOwnProperty('letter_per_year')) ?
@@ -62,28 +45,47 @@ export const fullTextSearch = (query: string) => async (dispatch, getState) => {
 		}
 	}
 
-	const xhr = await postSearch({
+	const body = {
 		aggs: {
 			letter_per_year: {
 				date_histogram: {
 					field: 'date',
 					interval: 'year',
-				}
-			}
+				},
+			},
 		},
 		query: esQuery,
 		sort: 'date',
-	})
+		size: getState().search.size,
+	}
+
+	const xhr = await postSearch(body)
 	const data = await xhr.json()
 
-	dispatch(receiveSearchResults(data, query))
+	dispatch(receiveSearchResults(body, data, query))
 	dispatch(fetchSemanticSuggestions(query))
 }
 
-export const receiveSearchResults = (results, query:string = '') => (dispatch, getState) => {
+export const fetchNextSearchResult = () => async (dispatch, getState) => {
+	const searchState = getState().search
+	const results = searchState.results
+	if (results.length) {
+		const lastResults = results[results.length - 1]
+		const body = lastResults.query
+		const size = searchState.size
+		body.from = body.hasOwnProperty('from') ? body.from + size : size
+		const xhr = await postSearch(body)
+		const data = await xhr.json()
+		dispatch(receiveSearchResults(body, data))
+	}
+}
+
+export const receiveSearchResults = (query, results: SearchResults, fullTextQuery:string = '') => (dispatch, getState) => {
+	const next = query.from != null ? 'NEXT_' : ''
 	dispatch({
-		fullTextSearchQuery: query,
-		searchResults: {
+		fullTextQuery,
+		query,
+		results: {
 			hits: results.hits.hits
 				.map(hit => ({
 					...{ id: hit._id },
@@ -91,10 +93,12 @@ export const receiveSearchResults = (results, query:string = '') => (dispatch, g
 				})),
 			total: results.hits.total,
 		},
-		type: 'RECEIVE_SEARCH_RESULTS',
+		type: `RECEIVE_${next}SEARCH_RESULTS`,
 	})
 
-	dispatch(receiveYearAggregation(results.aggregations))
+	if (results.hasOwnProperty('aggregations')) {
+		dispatch(receiveYearAggregation(results.aggregations))
+	}
 }
 
 export const postSearch = (body) => post('/api/documents/search', body)

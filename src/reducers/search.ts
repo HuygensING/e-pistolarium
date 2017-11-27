@@ -1,23 +1,23 @@
-import { setProps } from "./utils"
+import { setProps, replaceItemInArray } from "./utils"
 import { ISuggestion } from 'pergamon-ui-components'
+import { SearchResults } from 'huc-ui-components'
 
 interface IState {
 	aggregate: any[]
 	fullTextSearchQuery: string
 	requestingSemanticSuggestions: boolean
-	results: any[]
+	results: SearchResults[]
 	semanticSuggestions: ISuggestion[]
+	size: number
 }
 
 const initialState: IState = {
 	aggregate: [],
 	fullTextSearchQuery: '',
 	requestingSemanticSuggestions: false,
-	results: [{
-		hits: [],
-		total: 0,
-	}],
+	results: [],
 	semanticSuggestions: [],
+	size: 20,
 }
 
 export default (state: IState = initialState, action) => {
@@ -25,16 +25,30 @@ export default (state: IState = initialState, action) => {
 
 	switch (action.type) {
 		case 'RECEIVE_SEARCH_RESULTS': {
-			nextState = setProps(nextState, {
-				fullTextSearchQuery: action.fullTextSearchQuery,
-				results: nextState.results.concat(action.searchResults)
+			nextState = setProps(state, {
+				fullTextSearchQuery: action.fullTextQuery,
+				results: state.results.concat({
+					...action.results,
+					query: action.query,
+					id: JSON.stringify(action.query),
+				})
 			})
 
 			break
 		}
 
+		case 'RECEIVE_NEXT_SEARCH_RESULTS': {
+			const lastResults = state.results[state.results.length - 1]
+			const results = replaceItemInArray(state.results, setProps(lastResults, {
+				hits: lastResults.hits.concat(action.results.hits)
+			}))
+			nextState = setProps(state, { results })
+
+			break
+		}
+
 		case 'FETCH_SEMANTIC_SUGGESTIONS': {
-			nextState = setProps(nextState, {
+			nextState = setProps(state, {
 				requestingSemanticSuggestions: true,
 			})
 
@@ -42,7 +56,7 @@ export default (state: IState = initialState, action) => {
 		}
 
 		case 'RECEIVE_SEARCH_RESULT_AGGREGATE': {
-			nextState = setProps(nextState, {
+			nextState = setProps(state, {
 				aggregate: action.aggregate,
 			})
 
@@ -50,7 +64,7 @@ export default (state: IState = initialState, action) => {
 		}
 
 		case 'RECEIVE_SEMANTIC_SUGGESTIONS': {
-			nextState = setProps(nextState, {
+			nextState = setProps(state, {
 				requestingSemanticSuggestions: false,
 				semanticSuggestions: action.semanticSuggestions,
 			})

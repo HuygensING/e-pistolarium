@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { HucSearchResults } from 'huc-ui-components'
+import { HucSearchResults, SearchResults } from 'huc-ui-components'
 import { SemanticSuggestions } from 'pergamon-ui-components'
 import Facets from './facets'
 import Aside from './aside'
@@ -27,9 +27,7 @@ export interface IProps extends IFullTextSearchProps {
 	aggregate: any[]
 	receiveSearchResults: (r: any, q?: string) => void
 	requestingSemanticSuggestions: boolean
-	searchResults: {
-		total: number,
-	}
+	searchResults: SearchResults
 }
 const Home: React.SFC<IProps> = (props) =>
 	<Wrapper>
@@ -40,7 +38,7 @@ const Home: React.SFC<IProps> = (props) =>
 				requesting={props.requestingSemanticSuggestions}
 				semanticSuggestions={props.semanticSuggestions}
 			/>
-			<Facets onChange={props.receiveSearchResults} />
+			<Facets receiveSearchResults={props.receiveSearchResults} />
 		</div>
 		<div />
 		<div style={{ marginRight: '2em' }}>
@@ -91,7 +89,10 @@ const Home: React.SFC<IProps> = (props) =>
 			}
 	</div>
 	{
-		props.searchResults.total > 0 &&
+		(
+			props.searchResults != null &&
+			props.searchResults.total > 0
+		) &&
 		<Aside />
 	}
 </Wrapper>;

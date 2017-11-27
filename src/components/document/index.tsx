@@ -1,22 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { IAnnotation, Metadata, PergamonUITags, RenderedText } from 'pergamon-ui-components'
+import { IAnnotation, PergamonUITags, RenderedText } from 'pergamon-ui-components'
 import {activateAnnotation, setRootAnnotation, fetchKeywords} from "../../actions/annotation"
 import { Aside } from 'huc-ui-components'
 import OffCanvasAside from './aside'
-
-interface IProps {
-	activateAnnotation: (a: IAnnotation) => void
-	activeAnnotation: IAnnotation
-	fetchKeywords: (root: IAnnotation) => void
-	match: any
-	rootAnnotation: IAnnotation
-	setRootAnnotation: (s: string) => void
-}
-
-interface IState {
-	activeAside: Aside;
-}
+import Header from './header'
+import { fetchNextSearchResult } from '../../actions/search';
 
 const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 	boxSizing: 'border-box',
@@ -27,6 +16,19 @@ const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 	width: activeAside === Aside.None ? '100%' : 'calc(100% - 440px)',
 });
 
+interface IProps {
+	activateAnnotation: (a: IAnnotation) => void
+	activeAnnotation: IAnnotation
+	fetchKeywords: (root: IAnnotation) => void
+	fetchNextSearchResult: () => void
+	match: any
+	rootAnnotation: IAnnotation
+	lastSearchResult: any[]
+	setRootAnnotation: (s: string) => void
+}
+interface IState {
+	activeAside: Aside;
+}
 class Document extends React.Component<IProps, IState> {
 	public state = {
 		activeAside: Aside.Annotations,
@@ -53,7 +55,11 @@ class Document extends React.Component<IProps, IState> {
 				}}
 			>
 				<article style={textDivStyle(this.state.activeAside)}>
-					<Metadata rootAnnotation={this.props.rootAnnotation} />
+					<Header
+						fetchNextSearchResult={this.props.fetchNextSearchResult}
+						rootAnnotation={this.props.rootAnnotation}
+						lastSearchResult={this.props.lastSearchResult}
+					/>
 					<div style={{ maxWidth: '700px', margin: 'auto' }}>
 						<RenderedText
 							activateAnnotation={this.props.activateAnnotation}
@@ -79,10 +85,12 @@ export default connect(
 	state => ({
 		activeAnnotation: state.annotation.active,
 		rootAnnotation: state.annotation.root,
+		lastSearchResult: state.search.results[state.search.results.length - 1],
 	}),
 	{
 		activateAnnotation,
 		fetchKeywords,
+		fetchNextSearchResult,
 		setRootAnnotation,
 	}
 )(Document);

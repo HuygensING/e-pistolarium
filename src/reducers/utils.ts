@@ -1,4 +1,9 @@
-export const setProps = (obj, props) => ({ ...obj, ...props});
+// This is the proper setProps function, but due to a Typescript error, it does not
+// work yet, see:  https://github.com/Microsoft/TypeScript/issues/14409
+// export function setProps<T extends object>(obj: T, props: Partial<T>): T {
+// 	return ({ ...obj, ...props});
+// }
+export const setProps = (obj, props) => ({ ...obj, ...props})
 
 export const unsetProp = (obj, prop) => setProps(obj, { [prop]: null });
 
