@@ -1,11 +1,14 @@
 import * as React from 'react'
-import { Aside, HucOffCanvasAside, Panel } from 'huc-ui-components';
+import { Aside, HucOffCanvasAside, Panel, SearchResults } from 'huc-ui-components';
 import VisualizationsPanel from './visualizations'
 
+interface IProps {
+	searchResults: SearchResults
+}
 interface IState {
 	fullScreen: boolean
 }
-class AsideComp extends React.Component<null, IState> {
+class AsideComp extends React.PureComponent<IProps, IState> {
 	public state = {
 		fullScreen: false,
 	}
@@ -23,6 +26,7 @@ class AsideComp extends React.Component<null, IState> {
 					<VisualizationsPanel
 						fullScreen={this.state.fullScreen}
 						handleFullScreen={() => this.setState({ fullScreen: true })}
+						searchResults={this.props.searchResults}
 					/>
 				</Panel>
 			</HucOffCanvasAside>

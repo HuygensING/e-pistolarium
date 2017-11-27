@@ -1,5 +1,8 @@
 import * as React from 'react'
 import TimelineVisualization from './timeline'
+import CoCitationGraph from './graph/cocitation'
+import CorrespondentGraph from './graph/correspondent'
+import { SearchResults } from 'huc-ui-components'
 
 export interface ILi {
 	active: boolean
@@ -34,6 +37,7 @@ enum Vis { Map, Timeline, SmallGraph, BigGraph }
 export interface IProps {
 	fullScreen: boolean
 	handleFullScreen: () => void
+	searchResults: SearchResults
 }
 export interface IState {
 	active: Vis
@@ -144,9 +148,29 @@ class VisualizationsPanel extends React.Component<IProps, IState> {
 					</Li>
 				</ul>
 				{
-					(this.state.active === Vis.Timeline &&
-					this.props.fullScreen) &&
+					(
+						this.state.active === Vis.Timeline &&
+						this.props.fullScreen
+					) &&
 					<TimelineVisualization />
+				}
+				{
+					(
+						this.state.active === Vis.SmallGraph &&
+						this.props.fullScreen
+					) &&
+					<CorrespondentGraph
+						searchResults={this.props.searchResults}
+					/>
+				}
+				{
+					(
+						this.state.active === Vis.BigGraph &&
+						this.props.fullScreen
+					) &&
+					<CoCitationGraph
+						searchResults={this.props.searchResults}
+					/>
 				}
 			</div>
 		)

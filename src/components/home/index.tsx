@@ -93,7 +93,9 @@ const Home: React.SFC<IProps> = (props) =>
 			props.searchResults != null &&
 			props.searchResults.total > 0
 		) &&
-		<Aside />
+		<Aside
+			searchResults={props.searchResults}
+		/>
 	}
 </Wrapper>;
 
