@@ -20,7 +20,7 @@ class AsideComp extends React.PureComponent<IProps, IState> {
 				onClose={() => this.setState({ fullScreen: false })}
 			>
 				<Panel
-					style={{ height: '100%' }}
+					style={{ height: 'calc(100% - 65px)' }}
 					type={Aside.Visualisations}
 				>
 					<VisualizationsPanel

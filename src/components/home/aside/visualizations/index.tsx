@@ -14,16 +14,15 @@ export const Li: React.SFC<ILi> = (props) =>
 	<li
 		onClick={props.onClick}
 		style={{
-			backgroundColor: '#f2f2f2',
+			backgroundColor: props.fullScreen ? 'initial' : '#f2f2f2',
 			backgroundPosition: 0,
 			backgroundSize: 'cover',
 			border: props.fullScreen ? 'none' : '2px solid #ccc',
 			borderRadius: '6px',
 			cursor: 'pointer',
 			display: 'block',
-			fontSize: props.fullScreen ? '1em' : '1.5em',
 			fontWeight: props.active ? 'bold' : 'initial',
-			margin: props.fullScreen ? 0 : '1.5em',
+			marginBottom: '1em',
 			padding: props.fullScreen ? 0 : '1.5em',
 			transition: 'all 300ms',
 			width: props.fullScreen ? '100px' : 'auto',
@@ -33,7 +32,7 @@ export const Li: React.SFC<ILi> = (props) =>
 		{props.children}
 	</li>
 
-enum Vis { Map, Timeline, SmallGraph, BigGraph }
+enum Vis { Map, Timeline, CorrespondentGraph, CoCitationGraph }
 export interface IProps {
 	fullScreen: boolean
 	handleFullScreen: () => void
@@ -52,30 +51,18 @@ class VisualizationsPanel extends React.Component<IProps, IState> {
 			<div
 				style={{
 					display: this.props.fullScreen ? 'grid' : 'block',
-					gridTemplateColumns: '1fr 5fr',
+					gridTemplateColumns: '1fr 5fr 3em',
 					height: '100%',
 					width: '100%',
 				}}
 			>
-				<ul>
+				<ul style={{ margin: '3em 0', padding: 0 }}>
 					<Li
 						active={this.state.active === Vis.Map}
 						fullScreen={this.props.fullScreen}
 						onClick={() => {
 							this.setState({ active: Vis.Map})
 							this.props.handleFullScreen()
-						}}
-						style={{
-							backgroundImage: this.props.fullScreen ?
-								'none' :
-								`
-									linear-gradient(
-										to bottom,
-										rgba(255, 255, 255, 0.85),
-										rgba(80, 80, 80, 0.9)
-									),
-									url("/static/graphics/map.jpg")
-								`,
 						}}
 					>
 						Map
@@ -87,64 +74,28 @@ class VisualizationsPanel extends React.Component<IProps, IState> {
 							this.setState({ active: Vis.Timeline})
 							this.props.handleFullScreen()
 						}}
-						style={{
-							backgroundImage: this.props.fullScreen ?
-								'none' :
-								`
-									linear-gradient(
-										to bottom,
-										rgba(255, 255, 255, 0.6),
-										rgba(0, 0, 0, 0.5)
-									),
-									url("/static/graphics/timeline.png")
-								`,
-						}}
 					>
 						Timeline
 					</Li>
 					<Li
-						active={this.state.active === Vis.SmallGraph}
+						active={this.state.active === Vis.CorrespondentGraph}
 						fullScreen={this.props.fullScreen}
 						onClick={() => {
-							this.setState({ active: Vis.SmallGraph})
+							this.setState({ active: Vis.CorrespondentGraph})
 							this.props.handleFullScreen()
 						}}
-						style={{
-							backgroundImage: this.props.fullScreen ?
-								'none' :
-								`
-									linear-gradient(
-										to bottom,
-										rgba(255, 255, 255, 0.8),
-										rgba(100, 100, 100, 0.8)
-									),
-									url("/static/graphics/graph.png")
-								`,
-						}}
 					>
-						Small graph
+						Correspondent graph
 					</Li>
 					<Li
-						active={this.state.active === Vis.BigGraph}
+						active={this.state.active === Vis.CoCitationGraph}
 						fullScreen={this.props.fullScreen}
 						onClick={() => {
-							this.setState({ active: Vis.BigGraph})
+							this.setState({ active: Vis.CoCitationGraph})
 							this.props.handleFullScreen()
 						}}
-						style={{
-							backgroundImage: this.props.fullScreen ?
-								'none':
-								`
-									linear-gradient(
-										to bottom,
-										rgba(255, 255, 255, 0.8),
-										rgba(100, 100, 100, 0.8)
-									),
-									url("/static/graphics/graph.png")
-								`,
-						}}
 					>
-						Big graph
+						Cocitation graph
 					</Li>
 				</ul>
 				{
@@ -156,7 +107,7 @@ class VisualizationsPanel extends React.Component<IProps, IState> {
 				}
 				{
 					(
-						this.state.active === Vis.SmallGraph &&
+						this.state.active === Vis.CorrespondentGraph &&
 						this.props.fullScreen
 					) &&
 					<CorrespondentGraph
@@ -165,7 +116,7 @@ class VisualizationsPanel extends React.Component<IProps, IState> {
 				}
 				{
 					(
-						this.state.active === Vis.BigGraph &&
+						this.state.active === Vis.CoCitationGraph &&
 						this.props.fullScreen
 					) &&
 					<CoCitationGraph
