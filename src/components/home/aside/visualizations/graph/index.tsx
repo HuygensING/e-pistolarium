@@ -39,7 +39,12 @@ class Graph extends React.Component<IProps, null> {
 			.selectAll('line')
 			.data(this.props.links)
 			.enter().append('line')
-			.attr('stroke-width',(d: any) => d.w)
+			.attr('stroke-width', d => {
+				let width = (d.w/1000) * 10
+				if (width < 1) width = 1
+				else if (width > 10) width = 10
+				return width
+			})
 			.attr('stroke', (d: any) => '#444');
 
 		const node = svg.append("g")
