@@ -9,7 +9,7 @@ export interface IProps {
 	subset: SearchResults
 }
 const PrevNext: React.SFC<IProps> = (props) => {
-	if (!props.subset.length) return null
+	if (!props.subset.hits.length) return null
 
 	const index = props.subset.hits.findIndex(h => h.id === props.annotation.id)
 	const prev = props.subset.hits[index - 1]
