@@ -55,7 +55,7 @@ class Graph extends React.Component<IProps, null> {
 				.attr("r", 3)
 				.attr("stroke", '#000');
 
-		var label = svg.append('g')
+		const label = svg.append('g')
 			.attr('class', 'labels')
 			.selectAll("text")
 			.data(this.props.nodes)
