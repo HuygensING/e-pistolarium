@@ -73,7 +73,18 @@ class Document extends React.Component<IProps, IState> {
 					activateAnnotation={this.props.activateAnnotation}
 					activeAnnotation={this.props.activeAnnotation}
 					fetchKeywords={this.props.fetchKeywords}
-					onChangeActiveAside={(activeAside) => this.setState({ activeAside })}
+					onChangeActiveAside={(activeAside) => {
+						const prevActiveAside = this.state.activeAside
+						this.setState({ activeAside }, () => {
+							if (prevActiveAside === Aside.None || activeAside === Aside.None) {
+								// Set a timeout, because the resize has to be triggered
+								// after the aside's slide animation is finished!
+								setTimeout(() => {
+									window.dispatchEvent(new Event('resize'))
+								}, 350)
+							}
+						})
+					}}
 					rootAnnotation={this.props.rootAnnotation}
 				/>
 			</section>
