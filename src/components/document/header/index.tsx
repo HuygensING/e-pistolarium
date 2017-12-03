@@ -1,7 +1,8 @@
 import * as React from 'react'
-import PrevNext from './prevnext'
 import { IAnnotation, Metadata } from 'pergamon-ui-components'
 import { SearchResults } from 'huc-ui-components'
+import history from '../../../store/history'
+import PrevNext from './prevnext'
 
 
 const Wrapper: React.SFC = (props) =>
@@ -24,11 +25,22 @@ export interface IProps {
 const Header: React.SFC<IProps> = (props) =>
 	<Wrapper>
 		<Metadata rootAnnotation={props.rootAnnotation} />
-		<PrevNext
-			annotation={props.rootAnnotation}
-			fetchNextSearchResult={props.fetchNextSearchResult}
-			subset={props.lastSearchResult}
-		/>
+		<div style={{ display: 'grid', gridTemplateRows: '1fr 1fr' }}>
+			<button
+				onClick={() => history.push('/')}
+				style={{
+					height: '3em',
+					marginBottom: '1em',
+				}}
+			>
+				Back to search results
+			</button>
+			<PrevNext
+				annotation={props.rootAnnotation}
+				fetchNextSearchResult={props.fetchNextSearchResult}
+				subset={props.lastSearchResult}
+			/>
+		</div>
 	</Wrapper>
 
 Header.defaultProps = {
