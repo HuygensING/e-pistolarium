@@ -11,7 +11,7 @@
     "dev": "npm run compose-dev -- up",
     "test": "npm run compose-test -- up",
     "prod": "npm run compose-prod -- up",
-    "watch": "webpack -w"
+    "watch": "rm -rf build && webpack -w"
   },
   "author": "",
   "license": "ISC",
@@ -44,7 +44,6 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "searchkit": "^2.3.0-6",
-    "styled-components": "^2.1.2",
     "timeline": "^1.1.5"
   }
 }

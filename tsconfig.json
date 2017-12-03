@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react",
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "node",
     "noUnusedLocals": true,
     "outDir": "build",
     "removeComments": true,

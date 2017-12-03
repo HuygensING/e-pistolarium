@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Timeline, { DomainType } from 'timeline'
 import { postSearch } from '../../../../actions/search';
 
 export interface IState {
@@ -8,7 +7,8 @@ export interface IState {
 	from: Date,
 	to: Date,
 }
-class TimelineVisualization extends React.Component<null, IState> {
+class TimelineVisualization extends React.PureComponent<null, IState> {
+	private timeline
 	public state = {
 		aggregate: [],
 		events: [],
@@ -17,6 +17,7 @@ class TimelineVisualization extends React.Component<null, IState> {
 	}
 
 	public async componentDidMount() {
+		this.timeline = await import('timeline')
 		this.init()
 	}
 
@@ -24,16 +25,16 @@ class TimelineVisualization extends React.Component<null, IState> {
 		if (this.state.from == null) return null
 
 		return (
-			<Timeline
+			<this.timeline.default
 				domains={[
 					{
 						heightRatio: .25,
 						topOffsetRatio: .75,
-						type: DomainType.Sparkline,
+						type: this.timeline.DomainType.Sparkline,
 					},
 					{
 						heightRatio: .75,
-						type: DomainType.Event,
+						type: this.timeline.DomainType.Event,
 						visibleRatio: .01,
 					},
 				]}

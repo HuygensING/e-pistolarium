@@ -1,29 +1,32 @@
 import * as React from 'react'
-import {
-	RefinementListFilter,
-	SearchkitComponent,
-	SearchkitManager,
-	SearchkitProvider,
-	ResetFilters,
-	SearchkitComponentProps,
-	DynamicRangeFilter
-} from 'searchkit'
+// import {
+// 	RefinementListFilter,
+// 	SearchkitComponent,
+// 	SearchkitManager,
+// 	SearchkitProvider,
+// 	ResetFilters,
+// 	SearchkitComponentProps,
+// 	DynamicRangeFilter
+// } from 'searchkit'
 import { SearchResults } from 'huc-ui-components'
 
-const searchkit = new SearchkitManager("/api/documents/search", { searchUrlPath: '' })
 
-export interface IProps extends SearchkitComponentProps {
+export interface IProps {
 	receiveSearchResults: (query: Object, results: SearchResults) => void
 }
-class Facets extends SearchkitComponent<IProps, null> {
-	private resultsListener
+class Facets extends React.Component<IProps, null> {
 	private query: Object
+	private resultsListener
+	private searchkit
+	private searchkitManager
 
-	public componentDidMount() {
-		this.resultsListener = searchkit.addResultsListener(results =>
+	public async componentDidMount() {
+		this.searchkit = await import('searchkit')
+		this.searchkitManager = new this.searchkit.SearchkitManager("/api/documents/search", { searchUrlPath: '' })
+		this.resultsListener = this.searchkitManager.addResultsListener(results =>
 			this.props.receiveSearchResults(this.query, results)
 		)
-		searchkit.setQueryProcessor(queryObject => {
+		this.searchkitManager.setQueryProcessor(queryObject => {
 			const letterPerYear = {
 				date_histogram: {
 					field: 'date',
@@ -48,6 +51,7 @@ class Facets extends SearchkitComponent<IProps, null> {
 			this.query = queryObject
 			return queryObject
 		})
+		this.forceUpdate()
 	}
 
 	public componentWillUnmount() {
@@ -55,8 +59,16 @@ class Facets extends SearchkitComponent<IProps, null> {
 	}
 
 	public render() {
+		if (!this.searchkit) return null
+		const {
+			RefinementListFilter,
+			SearchkitProvider,
+			ResetFilters,
+			DynamicRangeFilter
+		} = this.searchkit
+
 		return (
-			<SearchkitProvider searchkit={searchkit}>
+			<SearchkitProvider searchkit={this.searchkitManager}>
 				<div>
 					<ResetFilters />
 					<DynamicRangeFilter

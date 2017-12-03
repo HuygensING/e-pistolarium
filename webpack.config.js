@@ -3,8 +3,8 @@ const pkg = require('./package.json')
 module.exports = {
 	entry: "./src/index.tsx",
 	output: {
-			filename: `bundle-${pkg.version}.js`,
-			path: __dirname + "/build"
+			chunkFilename: `./build/[name].bundel-${pkg.version}.js`,
+			filename: `./build/bundle-${pkg.version}.js`,
 	},
 	resolve: {
 			// Add '.ts' and '.tsx' as resolvable extensions.

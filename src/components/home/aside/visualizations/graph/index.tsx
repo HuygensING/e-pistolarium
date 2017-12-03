@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as d3 from 'd3';
 
 export interface IProps {
 	links: any
@@ -8,6 +7,8 @@ export interface IProps {
 	distance?: any
 }
 class Graph extends React.Component<IProps, null> {
+	private d3
+
 	public static defaultProps: Partial<IProps> = {
 		distance: 200,
 		links: [],
@@ -15,7 +16,8 @@ class Graph extends React.Component<IProps, null> {
 		strength: -100,
 	}
 
-	public componentDidMount() {
+	public async componentDidMount() {
+		this.d3 = await import('d3')
 		this.createGraph()
 	}
 
@@ -24,15 +26,15 @@ class Graph extends React.Component<IProps, null> {
 	}
 
 	public async createGraph() {
-		const svg = d3.select("#graph");
+		const svg = this.d3.select("#graph");
 		const svgNode = svg.node() as Element;
 		const svgRect = svgNode.getBoundingClientRect();
 		const { height, width } = svgRect;
 
-		const simulation = d3.forceSimulation(this.props.nodes)
-			.force('charge', d3.forceManyBody().strength(this.props.strength))
-			.force('link', d3.forceLink(this.props.links).distance(this.props.distance))
-			.force('center', d3.forceCenter(width/2, height/2));
+		const simulation = this.d3.forceSimulation(this.props.nodes)
+			.force('charge', this.d3.forceManyBody().strength(this.props.strength))
+			.force('link', this.d3.forceLink(this.props.links).distance(this.props.distance))
+			.force('center', this.d3.forceCenter(width/2, height/2));
 
 		const link = svg.append('g')
 			.attr('class', 'this.props.links')
@@ -99,23 +101,23 @@ class Graph extends React.Component<IProps, null> {
 			});
 
 		const dragstarted = (d) => {
-			if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+			if (!this.d3.event.active) simulation.alphaTarget(0.3).restart();
 			d.fx = d.x;
 			d.fy = d.y;
 		};
 
 		const dragged = (d) => {
-			d.fx = d3.event.x;
-			d.fy = d3.event.y;
+			d.fx = this.d3.event.x;
+			d.fy = this.d3.event.y;
 		};
 
 		const dragended = (d) => {
-			if (!d3.event.active) simulation.alphaTarget(0);
+			if (!this.d3.event.active) simulation.alphaTarget(0);
 			d.fx = null;
 			d.fy = null;
 		};
 
-		const drag = d3.drag()
+		const drag = this.d3.drag()
 			.on("start", dragstarted)
 			.on("drag", dragged)
 			.on("end", dragended);
