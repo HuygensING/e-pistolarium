@@ -1,18 +1,10 @@
 import * as React from 'react'
-// import {
-// 	RefinementListFilter,
-// 	SearchkitComponent,
-// 	SearchkitManager,
-// 	SearchkitProvider,
-// 	ResetFilters,
-// 	SearchkitComponentProps,
-// 	DynamicRangeFilter
-// } from 'searchkit'
 import { SearchResults } from 'huc-ui-components'
 
 
 export interface IProps {
 	receiveSearchResults: (query: Object, results: SearchResults) => void
+	searchResults: SearchResults
 }
 class Facets extends React.Component<IProps, null> {
 	private query: Object

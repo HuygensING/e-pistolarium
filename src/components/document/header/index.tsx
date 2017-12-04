@@ -9,7 +9,7 @@ const Wrapper: React.SFC = (props) =>
 	<div
 		style={{
 			display: 'grid',
-			gridTemplateColumns: '1fr 1fr',
+			gridTemplateColumns: '3fr 1fr',
 			margin: '3em auto',
 			width: '550px',
 		}}
@@ -29,11 +29,10 @@ const Header: React.SFC<IProps> = (props) =>
 			<button
 				onClick={() => history.push('/')}
 				style={{
-					height: '3em',
-					marginBottom: '1em',
+					height: '2em',
 				}}
 			>
-				Back to search results
+				&lt; search results
 			</button>
 			<PrevNext
 				annotation={props.rootAnnotation}

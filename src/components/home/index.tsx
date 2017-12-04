@@ -45,7 +45,10 @@ class Home extends React.PureComponent<IProps, null> {
 						requesting={this.props.requestingSemanticSuggestions}
 						semanticSuggestions={this.props.semanticSuggestions}
 					/>
-					<Facets receiveSearchResults={this.props.receiveSearchResults} />
+					<Facets
+						receiveSearchResults={this.props.receiveSearchResults}
+						searchResults={this.props.searchResults}
+					/>
 				</div>
 				<div />
 				<div style={{ marginRight: '2em' }}>
