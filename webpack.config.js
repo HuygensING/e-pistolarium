@@ -1,10 +1,15 @@
 const pkg = require('./package.json')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const plugins = []
-if (process.env.NODE_ENV === 'production') plugins.push(new UglifyJsPlugin())
-
 const outputDir = 'build'
+
+const plugins = []
+if (process.env.NODE_ENV === 'production') {
+	plugins.push(
+		new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
+		new UglifyJsPlugin(),
+	)
+} 
 
 module.exports = {
 	entry: "./src/index.tsx",
