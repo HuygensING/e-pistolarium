@@ -1,6 +1,6 @@
 {
   "name": "e-pistolarium-client",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "Client for e-Pistolarium",
   "repository": "https://github.com/HuygensING/e-pistolarium-client.git",
   "scripts": {
@@ -37,7 +37,7 @@
     "hire-forms-select": "^2.2.10",
     "hire-messages": "^1.1.0",
     "huc-ui-components": "^1.1.5",
-    "pergamon-ui-components": "^1.9.3",
+    "pergamon-ui-components": "^1.9.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
