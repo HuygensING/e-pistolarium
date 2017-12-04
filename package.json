@@ -1,6 +1,6 @@
 {
   "name": "e-pistolarium-client",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "description": "Client for e-Pistolarium",
   "repository": "https://github.com/HuygensING/e-pistolarium-client.git",
   "scripts": {

@@ -13,7 +13,6 @@ if [ $? -ne 0 ]; then exit 1; fi
 
 next_version=$(node -pe 'require("./package.json").version')
 
-rm -rf build/*
 npm run build
 if [ $? -ne 0 ]; then exit 1; fi
 
