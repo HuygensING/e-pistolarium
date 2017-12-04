@@ -1,11 +1,18 @@
 const pkg = require('./package.json')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
+const plugins = []
+if (process.env.NODE_ENV === 'production') plugins.push(new UglifyJsPlugin())
+
+const outputDir = 'build'
 
 module.exports = {
 	entry: "./src/index.tsx",
 	output: {
-			chunkFilename: `./build/[name].bundel-${pkg.version}.js`,
-			filename: `./build/bundle-${pkg.version}.js`,
+			chunkFilename: `./${outputDir}/[name].bundel-${pkg.version}.js`,
+			filename: `./${outputDir}/bundle-${pkg.version}.js`,
 	},
+	plugins,
 	resolve: {
 			// Add '.ts' and '.tsx' as resolvable extensions.
 			extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
@@ -21,7 +28,7 @@ module.exports = {
 	},
 	externals: {
 		react: "React",
-		'react-dom': "ReactDOM",
+		"react-dom": "ReactDOM",
 	},
 };
 

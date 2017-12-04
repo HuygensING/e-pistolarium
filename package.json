@@ -4,14 +4,14 @@
   "description": "Client for e-Pistolarium",
   "repository": "https://github.com/HuygensING/e-pistolarium-client.git",
   "scripts": {
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "compose-dev": "npm run compose-prod -- -f docker/development.yml",
     "compose-test": "npm run compose-prod -- -f docker/test.yml",
     "compose-prod": "docker-compose -p epistolarium -f docker/production.yml",
     "dev": "npm run compose-dev -- up",
     "test": "npm run compose-test -- up",
     "prod": "npm run compose-prod -- up",
-    "watch": "rm -rf build && webpack -w"
+    "watch": "./watch.sh"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,8 @@
     "lodash.debounce": "^4.0.8",
     "proxy-middleware": "^0.15.0",
     "typescript": "2.5.3",
+    "uglify-es": "^3.2.1",
+    "uglifyjs-webpack-plugin": "^1.1.2",
     "url": "^0.11.0",
     "webpack": "^3.5.6"
   },

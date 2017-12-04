@@ -1,6 +1,6 @@
 version: "2.1"
 services:
-  client:
+  dev_client:
     build:
       context: ../
       dockerfile: docker/Dockerfile-dev
