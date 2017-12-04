@@ -37,9 +37,9 @@ class CoCitationGraph extends React.Component<IProps, IState> {
 		let location = response.headers.get('Location')
 		if (location == null) return
 
-		location = location.slice(0, 4) === '/api' ?
-			`/api/${location.slice(4)}/cocitations` :
-			location
+		// location = location.slice(0, 4) === '/api' ?
+		// 	`/api/${location.slice(4)}/cocitations` :
+		// 	location
 
 		const response2 = await fetch(location)
 		const data = await response2.json()
