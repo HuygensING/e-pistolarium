@@ -4,7 +4,7 @@
   "description": "Client for e-Pistolarium",
   "repository": "https://github.com/HuygensING/e-pistolarium-client.git",
   "scripts": {
-    "build": "NODE_ENV=production webpack",
+    "build": "./build.sh",
     "compose-dev": "npm run compose-prod -- -f docker/development.yml",
     "compose-test": "npm run compose-prod -- -f docker/test.yml",
     "compose-prod": "docker-compose -p epistolarium -f docker/production.yml",
