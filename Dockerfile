@@ -5,6 +5,7 @@ RUN apk add nodejs
 
 WORKDIR /usr/share/nginx/html
 
+COPY build.sh .
 COPY package.json .
 COPY webpack.config.js .
 COPY tsconfig.json .
@@ -21,6 +22,7 @@ RUN cp node_modules/react-dom/dist/react-dom.min.js build/react-dom.js
 
 # Clean up
 RUN rm -rf \
+	build.sh \
 	package.json \
 	webpack.config.js \
 	tsconfig.json \
