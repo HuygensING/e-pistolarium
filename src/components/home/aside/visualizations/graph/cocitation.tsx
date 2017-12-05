@@ -37,7 +37,8 @@ class CoCitationGraph extends React.Component<IProps, IState> {
 		let location = response.headers.get('Location')
 		if (location == null) return
 
-		// location = location.replace('https://test.epistolarium.huygens.knaw.nl/', '')
+		const prodUrl = 'https://test.epistolarium.huygens.knaw.nl/'
+		if (location.indexOf(prodUrl)) location = location.replace(prodUrl, '')
 		location = location + '/cocitations'
 		// location = location.slice(0, 4) === '/api' ?
 		// 	`/api/${location.slice(4)}/cocitations` :
