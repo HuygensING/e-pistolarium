@@ -1,13 +1,13 @@
 {
-  "name": "e-pistolarium-client",
+  "name": "pergamon-client",
   "version": "0.0.43",
-  "description": "Client for e-Pistolarium",
-  "repository": "https://github.com/HuygensING/e-pistolarium-client.git",
+  "description": "Client for Pergamon",
+  "repository": "https://github.com/HuygensING/pergamon-client.git",
   "scripts": {
     "build": "sh ./build.sh",
     "compose-dev": "npm run compose-prod -- -f docker/development.yml",
     "compose-test": "npm run compose-prod -- -f docker/test.yml",
-    "compose-prod": "docker-compose -p epistolarium -f docker/production.yml",
+    "compose-prod": "docker-compose -p correspondence -f docker/production.yml",
     "dev": "npm run compose-dev -- up",
     "test": "npm run compose-test -- up",
     "prod": "npm run compose-prod -- up",

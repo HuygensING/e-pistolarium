@@ -1,4 +1,4 @@
-# ePistolarium client
+# Pergamon client
 
 ## Development
 
