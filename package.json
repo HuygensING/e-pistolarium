@@ -6,6 +6,8 @@
   "scripts": {
     "build": "sh ./scripts/build.sh",
     "bump": "sh ./scripts/bump.sh",
+    "deploy-test": "sh ./scripts/deploy-test.sh",
+    "deploy-prod": "sh ./scripts/deploy-prod.sh",
     "dev": "sh ./scripts/dev.sh",
     "prod": "sh ./scripts/prod.sh",
     "watch": "sh ./scripts/watch.sh"

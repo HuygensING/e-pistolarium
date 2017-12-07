@@ -5,12 +5,12 @@ RUN apk add nodejs
 
 WORKDIR /usr/share/nginx/html
 
-COPY build.sh .
 COPY package.json .
 COPY webpack.config.js .
 COPY tsconfig.json .
 COPY index.html .
 COPY src src/
+COPY scripts scripts/ 
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
@@ -27,6 +27,7 @@ RUN rm -rf \
 	webpack.config.js \
 	tsconfig.json \
 	src \
+	scripts \
 	node_modules
 RUN apk del nodejs
 
