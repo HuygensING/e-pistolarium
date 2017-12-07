@@ -41,7 +41,7 @@ export interface IProps {
 export interface IState {
 	active: Vis
 }
-class VisualizationsPanel extends React.Component<IProps, IState> {
+class VisualizationsPanel extends React.PureComponent<IProps, IState> {
 	public state = {
 		active: Vis.Timeline
 	}

@@ -46,7 +46,7 @@ export interface IMetadata {
 	fetchKeywords: (root: IAnnotation) => void
 	rootAnnotation: IAnnotation
 }
-class Metadata extends React.Component<IMetadata, null> {
+class Metadata extends React.PureComponent<IMetadata, null> {
 	public componentWillReceiveProps(nextProps) {
 		const root = nextProps.rootAnnotation
 		if (root.id != null) nextProps.fetchKeywords(root)

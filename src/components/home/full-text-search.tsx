@@ -30,7 +30,7 @@ export interface IProps {
 export interface IState {
 	suggestions: string[]
 }
-class FullTextSearch extends React.Component<IProps, IState> {
+class FullTextSearch extends React.PureComponent<IProps, IState> {
 	public state = {
 		suggestions: []
 	}

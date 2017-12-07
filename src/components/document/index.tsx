@@ -29,7 +29,7 @@ interface IProps {
 interface IState {
 	activeAside: Aside;
 }
-class Document extends React.Component<IProps, IState> {
+class Document extends React.PureComponent<IProps, IState> {
 	public state = {
 		activeAside: Aside.Annotations,
 	}

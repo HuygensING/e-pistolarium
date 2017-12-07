@@ -6,7 +6,7 @@ export interface IProps {
 	strength?: any
 	distance?: any
 }
-class Graph extends React.Component<IProps, null> {
+class Graph extends React.PureComponent<IProps, null> {
 	private d3
 
 	public static defaultProps: Partial<IProps> = {

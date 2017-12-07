@@ -11,7 +11,7 @@ export interface IState {
 	links: any
 	nodes: any
 }
-class CorrespondentGraph extends React.Component<IProps, IState> {
+class CorrespondentGraph extends React.PureComponent<IProps, IState> {
 	public state = {
 		nodes: [],
 		links: [],

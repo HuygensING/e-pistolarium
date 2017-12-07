@@ -11,7 +11,7 @@ export interface IState {
 	links: any
 	nodes: any
 }
-class CoCitationGraph extends React.Component<IProps, IState> {
+class CoCitationGraph extends React.PureComponent<IProps, IState> {
 	public state = {
 		nodes: [],
 		links: [],

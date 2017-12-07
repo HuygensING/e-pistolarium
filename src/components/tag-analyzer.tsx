@@ -8,7 +8,7 @@ export interface ITags {
 export interface IState {
 	tags: ITags[]
 }
-class TagAnalyzer extends React.Component<null, IState> {
+class TagAnalyzer extends React.PureComponent<null, IState> {
 	public state = {
 		tags: []
 	}
