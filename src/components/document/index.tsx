@@ -35,14 +35,16 @@ class Document extends React.PureComponent<IProps, IState> {
 	}
 
 	public componentDidMount() {
-		const rootAnnotationId = this.props.match.params.id;
-		this.props.setRootAnnotation(rootAnnotationId);
+		const rootAnnotationId = this.props.match.params.id
+		this.props.setRootAnnotation(rootAnnotationId)
 	}
 
 	public componentWillReceiveProps(nextProps) {
-		const rootAnnotationId = nextProps.match.params.id;
-		if (this.props.rootAnnotation.id !== rootAnnotationId) {
-			this.props.setRootAnnotation(rootAnnotationId);
+		if (this.props.match.params.id !== nextProps.match.params.id) {
+			this.props.setRootAnnotation(nextProps.match.params.id)
+		}
+		else if (this.props.rootAnnotation !== nextProps.rootAnnotation) {
+			this.props.setRootAnnotation(nextProps.rootAnnotation.id)
 		}
 	}
 	

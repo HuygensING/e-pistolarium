@@ -28,7 +28,9 @@ export const fetchKeywords = (root) => async (dispatch, getState) => {
 }
 
 export const setRootAnnotation = (id) => async (dispatch, getState) => {
-	let rootAnnotation = getState().rootAnnotations.find(a => a.id === id);
+	const state = getState()
+	if (state.annotation.root.id === id) return
+	let rootAnnotation = state.rootAnnotations.find(a => a.id === id);
 	if (rootAnnotation == null) rootAnnotation = defaultAnnotation;
 	if (rootAnnotation.type == null) {
 		const fetchedAnnotation = await fetchRootAnnotation(id);
