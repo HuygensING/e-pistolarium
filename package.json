@@ -4,13 +4,13 @@
   "description": "Client for Pergamon",
   "repository": "https://github.com/HuygensING/pergamon-client.git",
   "scripts": {
-    "build": "sh ./scripts/build.sh",
-    "bump": "sh ./scripts/bump.sh",
-    "deploy-test": "sh ./scripts/deploy-test.sh",
-    "deploy-prod": "sh ./scripts/deploy-prod.sh",
-    "dev": "sh ./scripts/dev.sh",
-    "prod": "sh ./scripts/prod.sh",
-    "watch": "sh ./scripts/watch.sh"
+    "build": "./scripts/build.sh",
+    "bump": "./scripts/bump.sh",
+    "deploy-test": "./scripts/deploy-test.sh",
+    "deploy-prod": "./scripts/deploy-prod.sh",
+    "dev": "./scripts/dev.sh",
+    "prod": "./scripts/prod.sh",
+    "watch": "./scripts/watch.sh"
   },
   "author": "",
   "license": "ISC",
