@@ -36,9 +36,6 @@ class CoCitationGraph extends React.PureComponent<IProps, IState> {
 
 		let location = response.headers.get('Location')
 		if (location == null) return
-
-		const apiUrlRe = /https:\/\/(\w+\.)?(\w+)\.huygens\.knaw\.nl\//
-		if (location.indexOf('huygens.knaw.nl')) location = location.replace(apiUrlRe, '')
 		location = location + '/cocitations'
 
 		const response2 = await fetch(location)
