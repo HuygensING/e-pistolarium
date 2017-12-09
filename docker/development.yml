@@ -1,15 +1,14 @@
 version: "2.1"
 services:
   dev_client:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile-dev
+    command: ["node", "server.js"]
+    image: node:9-alpine
     ports:
       - "3000:3000"
       - "3001:3001"
     volumes:
       - ../:/app
       - static:/app/static
-
+    working_dir: /app
 volumes:
   static:
