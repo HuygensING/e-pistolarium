@@ -1,22 +1,23 @@
-import { defaultAnnotation, IAnnotation } from 'pergamon-ui-components';
+import { Annotation } from 'pergamon-ui-components';
 import {unsetProp, setProps} from "./utils";
 
 interface IState {
-	active: IAnnotation;
-	root: IAnnotation;
+	active: Annotation
+	root: Annotation
 }
 
 const initialState: IState = {
 	active: null,
-	root: defaultAnnotation,
-};
+	root: new Annotation(),
+}
 
-export default (state = initialState, action) => {
-	let nextState = state;
+export default (state: IState = initialState, action) => {
+	let nextState: IState = state;
 
 	switch (action.type) {
 		case 'ACTIVATE_ANNOTATION': {
-			nextState = setProps(nextState, { active: action.annotation });
+			const active = state.root.annotations.find(a => a.id === action.annotationId)
+			nextState = setProps(nextState, { active })
 			break;
 		}
 
@@ -31,7 +32,7 @@ export default (state = initialState, action) => {
 		}
 
 		case 'RECEIVE_KEYWORDS': {
-			const root = setProps(nextState.root, { keywords: action.keywords })
+			const root = setProps(nextState.root, { keywords: new Set(action.keywords) })
 			nextState = setProps(nextState, { root })
 			break
 		}

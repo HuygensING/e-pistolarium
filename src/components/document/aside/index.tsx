@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Aside, Panel, HucOffCanvasAside } from 'huc-ui-components'
-import { AnnotationList, byStartEnd, IAnnotation, Keywords } from 'pergamon-ui-components'
+import { AnnotationList, IAnnotation, Keywords } from 'pergamon-ui-components'
 import Metadata from './metadata'
 
 export interface IProps {
-	activateAnnotation: (a: IAnnotation) => void
+	activateAnnotation: (id: string) => void
 	activeAnnotation: IAnnotation
 	fetchKeywords: (root: IAnnotation) => void
 	onChangeActiveAside: (a: Aside) => void
@@ -36,7 +36,6 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 					['persName', 'placeName', 'geogName', 'name'].indexOf(a.type) > -1
 				)}
 				rootAnnotation={props.rootAnnotation}
-				sort={byStartEnd}
 			/>
 			<h2 style={{ margin: '1em 0' }}>Notes</h2>
 			<AnnotationList
@@ -46,7 +45,6 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 					['note'].indexOf(a.type) > -1
 				)}
 				rootAnnotation={props.rootAnnotation}
-				sort={byStartEnd}
 			/>
 		</Panel>
 	</HucOffCanvasAside>

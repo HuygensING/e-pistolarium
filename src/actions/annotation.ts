@@ -1,24 +1,13 @@
-import {renameProp, setProps} from "../reducers/utils"
-import { defaultAnnotation } from 'pergamon-ui-components'
-import { SYSTEM_ROOT_TYPE } from "../../src/constants"
+import { Annotation } from 'pergamon-ui-components'
 
-const fetchRootAnnotation = async (id: string) => {
+const fetchRootAnnotation = async (id: string): Promise<Annotation> => {
 	const response = await fetch(`/api/documents/${id}`)
-	const root = await response.json()
-
-	return {
-		...defaultAnnotation,
-		...root,
-		metadata: root.annotations
-			.reduce((prev, curr) => {
-				if (curr.type === 'meta') prev[curr.attributes.type] = curr.attributes.value
-				return prev
-			}, {})
-	}
+	const root: Partial<Annotation> = await response.json()
+	return new Annotation(root)
 }
 
-export const fetchKeywords = (root) => async (dispatch, getState) => {
-	if (root.hasOwnProperty('keywords')) return
+export const fetchKeywords = (root: Annotation) => async (dispatch, getState) => {
+	if (root.keywords != null) return
 	const response = await fetch(`/api/documents/${root.id}/keywords`)
 	const keywords = await response.json()
 	dispatch({
@@ -30,20 +19,11 @@ export const fetchKeywords = (root) => async (dispatch, getState) => {
 export const setRootAnnotation = (id) => async (dispatch, getState) => {
 	const state = getState()
 	if (state.annotation.root.id === id) return
-	let rootAnnotation = state.rootAnnotations.find(a => a.id === id);
-	if (rootAnnotation == null) rootAnnotation = defaultAnnotation;
-	if (rootAnnotation.type == null) {
-		const fetchedAnnotation = await fetchRootAnnotation(id);
-		rootAnnotation = setProps(rootAnnotation, fetchedAnnotation);
-		rootAnnotation = setProps(rootAnnotation, {
-			annotations: rootAnnotation.annotations.map(a => ({ ...defaultAnnotation, ...a })),
-			end: rootAnnotation.text.length,
-			start: 0,
-			type: SYSTEM_ROOT_TYPE,
-		});
-		rootAnnotation = renameProp(rootAnnotation, 'annotations', 'children');
-		rootAnnotation = renameProp(rootAnnotation, 'target', 'parent');
 
+	let rootAnnotation = state.rootAnnotations.find(a => a.id === id)
+	if (rootAnnotation == null) rootAnnotation = new Annotation()
+	if (rootAnnotation.end == null) {
+		rootAnnotation = await fetchRootAnnotation(id)
 		dispatch({
 			rootAnnotation,
 			type: 'RECEIVE_ROOT_ANNOTATION',
@@ -56,14 +36,14 @@ export const setRootAnnotation = (id) => async (dispatch, getState) => {
 	});
 };
 
-export const activateAnnotation = (annotation) => async (dispatch, getState) => {
+export const activateAnnotation = (annotationId: string) => async (dispatch, getState) => {
 	const activeAnnotation = getState().annotation.active;
-	if (activeAnnotation == null || activeAnnotation.id !== annotation.id) {
+	if (activeAnnotation == null || activeAnnotation.id !== annotationId) {
 		dispatch({
-			annotation,
+			annotationId,
 			type: 'ACTIVATE_ANNOTATION',
 		});
-	} else if (activeAnnotation.id === annotation.id) {
+	} else if (activeAnnotation.id === annotationId) {
 		dispatch(deactivateAnnotation());
 	}
 };

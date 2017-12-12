@@ -1,8 +1,10 @@
 import * as React from 'react'
-import { IAnnotation, Metadata } from 'pergamon-ui-components'
+import { Metadata } from 'pergamon-ui-components'
 import { SearchResults } from 'huc-ui-components'
 import history from '../../../store/history'
 import PrevNext from './prevnext'
+import { Annotation } from 'pergamon-ui-components'
+
 
 
 const Wrapper: React.SFC = (props) =>
@@ -20,7 +22,7 @@ const Wrapper: React.SFC = (props) =>
 export interface IProps {
 	fetchNextSearchResult: any
 	lastSearchResult: SearchResults
-	rootAnnotation: IAnnotation
+	rootAnnotation: Annotation
 }
 const Header: React.SFC<IProps> = (props) =>
 	<Wrapper>

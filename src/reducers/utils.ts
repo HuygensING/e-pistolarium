@@ -20,11 +20,22 @@ export const renameProp = (obj, oldKey, newKey) => {
 	return nextObj;
 };
 
-export const replaceItemInArray = (array, ...items) =>
-	array.map(x => {
-		const item = items.find(y => y.id === x.id);
-		return item != null ? item : x;
+export const replaceItemInArray = (array, ...items) => {
+	const found = items.map(i => false)
+
+	const nextArray = array.map(x => {
+		const index = items.findIndex(y => y.id === x.id);
+		if (index > -1) found[index] = true
+		return index > -1 ? items[index] : x;
 	});
+
+	const notFoundItems = found.reduce((prev, curr, index) => {
+		if (!curr) prev.push(items[index])
+		return prev
+	}, [])
+
+	return nextArray.concat(notFoundItems)
+}
 
 export const updatePropInArray = (array, id, callback) =>
 	array.map((item, index) =>

@@ -1,14 +1,14 @@
-import { defaultAnnotation, IAnnotation } from 'pergamon-ui-components';
-import { replaceItemInArray, setProps } from "./utils";
+import { Annotation } from 'pergamon-ui-components';
+import { replaceItemInArray } from "./utils";
 
-const initialState: IAnnotation[] = [];
+const initialState: Annotation[] = [];
 
 export default (state = initialState, action) => {
 	let nextState = state;
 
 	switch (action.type) {
 		case 'RECEIVE_ROOT_ANNOTATION_IDS': {
-			nextState = action.rootAnnotationIds.map(id => setProps(defaultAnnotation, { id }));
+			nextState = action.rootAnnotationIds.map(id => new Annotation({ id }));
 			break;
 		}
 

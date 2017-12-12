@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { IAnnotation } from 'pergamon-ui-components'
+import { Annotation } from 'pergamon-ui-components'
 import { SearchResults } from 'huc-ui-components'
 import Link from './link-to-root-annotation'
 
 export interface IProps {
-	annotation: IAnnotation
+	annotation: Annotation
 	fetchNextSearchResult: () => void
 	subset: SearchResults
 }

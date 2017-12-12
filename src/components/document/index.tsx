@@ -6,6 +6,7 @@ import { Aside } from 'huc-ui-components'
 import OffCanvasAside from './aside'
 import Header from './header'
 import { fetchNextSearchResult } from '../../actions/search';
+import { Annotation } from 'pergamon-ui-components'
 
 const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 	boxSizing: 'border-box',
@@ -17,12 +18,12 @@ const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 });
 
 interface IProps {
-	activateAnnotation: (a: IAnnotation) => void
+	activateAnnotation: (id: string) => void
 	activeAnnotation: IAnnotation
-	fetchKeywords: (root: IAnnotation) => void
+	fetchKeywords: (root: Annotation) => void
 	fetchNextSearchResult: () => void
 	match: any
-	rootAnnotation: IAnnotation
+	rootAnnotation: Annotation
 	lastSearchResult: any[]
 	setRootAnnotation: (s: string) => void
 }
