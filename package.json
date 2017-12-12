@@ -1,6 +1,6 @@
 {
   "name": "pergamon-client",
-  "version": "0.0.45",
+  "version": "0.1.0",
   "description": "Client for Pergamon",
   "repository": "https://github.com/HuygensING/pergamon-client.git",
   "scripts": {
