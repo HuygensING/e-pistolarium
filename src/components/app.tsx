@@ -7,7 +7,7 @@ import history from '../store/history';
 import Home from './home';
 import Document from './document';
 import RootAnnotations from './root-annotations';
-import { HucHeader } from 'huc-ui-components';
+import { HucBrandLabel, HucHeader } from 'huc-ui-components';
 import TagAnalyzer from './tag-analyzer'
 
 const wrapperStyle: React.CSSProperties = {
@@ -29,6 +29,7 @@ export default () => (
 					}}
 					onClickTitle={() => history.push('/')}
 				/>
+				<HucBrandLabel />
 				<main>
 					<Route
 						component={Home}
