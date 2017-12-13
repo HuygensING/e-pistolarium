@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { IAnnotation } from 'pergamon-ui-components'
+import { Annotation } from 'pergamon-ui-components'
 
 const downloadStringAsFile = (str, mimeType='text/plain') => {
 	const a = document.createElement('a')
@@ -43,11 +43,11 @@ const Label = (props) =>
 	</label>
 
 export interface IMetadata {
-	fetchKeywords: (root: IAnnotation) => void
-	rootAnnotation: IAnnotation
+	fetchKeywords: (root: Annotation) => void
+	rootAnnotation: Annotation
 }
 class Metadata extends React.PureComponent<IMetadata, null> {
-	public componentWillReceiveProps(nextProps) {
+	public componentWillReceiveProps(nextProps: IMetadata) {
 		const root = nextProps.rootAnnotation
 		if (root.id != null) nextProps.fetchKeywords(root)
 	}
@@ -75,23 +75,23 @@ class Metadata extends React.PureComponent<IMetadata, null> {
 				</MetadataItem>
 				<MetadataItem>
 					<Label>DATE</Label>
-					<div>{this.props.rootAnnotation.metadata.date}</div>
+					<div>{this.props.rootAnnotation.metadata.get('date')}</div>
 				</MetadataItem>
 				<MetadataItem>
 					<Label>SENDER</Label>
-					<div>{this.props.rootAnnotation.metadata.sender}</div>
+					<div>{this.props.rootAnnotation.metadata.get('sender')}</div>
 				</MetadataItem>
 				<MetadataItem>
 					<Label>SENDER LOCATION</Label>
-					<div>{this.props.rootAnnotation.metadata.senderloc}</div>
+					<div>{this.props.rootAnnotation.metadata.get('senderloc')}</div>
 				</MetadataItem>
 				<MetadataItem>
 					<Label>RECIPIENT</Label>
-					<div>{this.props.rootAnnotation.metadata.recipient}</div>
+					<div>{this.props.rootAnnotation.metadata.get('recipient')}</div>
 				</MetadataItem>
 				<MetadataItem>
 					<Label>RECIPIENT LOCATION</Label>
-					<div>{this.props.rootAnnotation.metadata.recipientloc}</div>
+					<div>{this.props.rootAnnotation.metadata.get('recipientloc')}</div>
 				</MetadataItem>
 			</MetadataList>
 		)
