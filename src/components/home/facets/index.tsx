@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { SearchResults } from 'huc-ui-components'
+import { fontStyle } from 'pergamon-ui-components'
 
 
 export interface IProps {
@@ -61,7 +62,7 @@ class Facets extends React.PureComponent<IProps, null> {
 
 		return (
 			<SearchkitProvider searchkit={this.searchkitManager}>
-				<div>
+				<div style={fontStyle}>
 					<ResetFilters />
 					<DynamicRangeFilter
 						field="year"
