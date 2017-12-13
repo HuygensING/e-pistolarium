@@ -1,4 +1,5 @@
 import { Annotation } from 'pergamon-ui-components'
+import { setProps } from '../reducers/utils';
 
 const fetchRootAnnotation = async (id: string): Promise<Annotation> => {
 	const response = await fetch(`/api/documents/${id}`)
@@ -9,10 +10,12 @@ const fetchRootAnnotation = async (id: string): Promise<Annotation> => {
 export const fetchKeywords = (root: Annotation) => async (dispatch, getState) => {
 	if (root.keywords != null) return
 	const response = await fetch(`/api/documents/${root.id}/keywords`)
-	const keywords = await response.json()
+	const data = await response.json()
+	const rootAnnotation = setProps(root, { keywords: data.keywords })
+
 	dispatch({
-		keywords: keywords.keywords,
-		type: 'RECEIVE_KEYWORDS',
+		rootAnnotation,
+		type: 'SET_ROOT_ANNOTATION',
 	})
 }
 
@@ -24,10 +27,6 @@ export const setRootAnnotation = (id) => async (dispatch, getState) => {
 	if (rootAnnotation == null) rootAnnotation = new Annotation()
 	if (rootAnnotation.end == null) {
 		rootAnnotation = await fetchRootAnnotation(id)
-		dispatch({
-			rootAnnotation,
-			type: 'RECEIVE_ROOT_ANNOTATION',
-		});
 	}
 
 	dispatch({

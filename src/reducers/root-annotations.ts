@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
 			break;
 		}
 
-		case 'RECEIVE_ROOT_ANNOTATION': {
+		case 'SET_ROOT_ANNOTATION': {
 			nextState = replaceItemInArray(nextState, action.rootAnnotation);
 		}
 

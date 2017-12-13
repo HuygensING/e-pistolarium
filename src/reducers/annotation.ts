@@ -31,12 +31,6 @@ export default (state: IState = initialState, action) => {
 			break
 		}
 
-		case 'RECEIVE_KEYWORDS': {
-			const root = setProps(nextState.root, { keywords: new Set(action.keywords) })
-			nextState = setProps(nextState, { root })
-			break
-		}
-
 		default:
 	}
 

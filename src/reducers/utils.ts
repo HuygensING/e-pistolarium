@@ -37,7 +37,7 @@ export const replaceItemInArray = (array, ...items) => {
 	return nextArray.concat(notFoundItems)
 }
 
-export const updatePropInArray = (array, id, callback) =>
-	array.map((item, index) =>
-		(item.id === id) ? setProps(item, callback(item)) : item
+export const updatePropInItemInArray = (array, item, props) =>
+	array.map((aItem, index) =>
+		(aItem.id === item.id) ? setProps(aItem, props) : aItem
 	);
