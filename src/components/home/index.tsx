@@ -5,9 +5,10 @@ import { SemanticSuggestions } from 'pergamon-ui-components'
 import Facets from './facets'
 import Aside from './aside'
 import history from '../../store/history'
-import { fullTextSearch, receiveSearchResults, clearSemanticSuggestions } from '../../actions/search';
+import { fullTextSearch, receiveSearchResults, clearSemanticSuggestions, fetchNextSearchResult } from '../../actions/search';
 import ResultBody from './result-body';
 import FullTextSearch, { IProps as IFullTextSearchProps } from './full-text-search'
+import debounce from 'lodash.debounce'
 
 const Wrapper: React.SFC = (props) =>
 	<div
@@ -24,6 +25,7 @@ const Wrapper: React.SFC = (props) =>
 
 export interface IProps extends IFullTextSearchProps {
 	aggregate: any[]
+	fetchNextSearchResult: () => void
 	receiveSearchResults: (r: any, q?: string) => void
 	requestingSemanticSuggestions: boolean
 	searchResults: SearchResults
@@ -33,7 +35,17 @@ class Home extends React.PureComponent<IProps, null> {
 
 	public async componentDidMount() {
 		this.timeline = await import('timeline')
+		document.addEventListener('scroll', this.onScrollDebounced)
 	}
+	
+	private onScroll = () => {
+		const doc = document.documentElement
+		if (doc.scrollHeight - (doc.scrollTop + doc.clientHeight) < doc.scrollHeight * 0.1) {
+			this.props.fetchNextSearchResult()
+		}
+	}
+
+	private onScrollDebounced = debounce(this.onScroll, 100)
 
 	public render() {
 		return (
@@ -51,7 +63,12 @@ class Home extends React.PureComponent<IProps, null> {
 					/>
 				</div>
 				<div />
-				<div style={{ marginRight: '2em' }}>
+				<div
+					style={{
+						marginBottom: '10em',
+						marginRight: '2em',
+					}}
+				>
 					<HucSearchResults
 						onClickResult={(result) => history.push(`/documents/${result.id}`)}
 						resultBodyComponent={ResultBody}
@@ -125,6 +142,7 @@ export default connect(
 	}),
 	{
 		clearSemanticSuggestions,
+		fetchNextSearchResult,
 		fullTextSearch,
 		receiveSearchResults,
 	}
