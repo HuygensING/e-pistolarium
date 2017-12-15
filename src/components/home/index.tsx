@@ -37,6 +37,10 @@ class Home extends React.PureComponent<IProps, null> {
 		this.timeline = await import('timeline')
 		document.addEventListener('scroll', this.onScrollDebounced)
 	}
+
+	public componentWillUnmount() {
+		document.removeEventListener('scroll', this.onScrollDebounced)
+	}
 	
 	private onScroll = () => {
 		const doc = document.documentElement
