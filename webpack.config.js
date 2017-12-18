@@ -1,8 +1,9 @@
+const path = require('path')
 const webpack = require('webpack')
 const pkg = require('./package.json')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const outputDir = 'build'
+const outputDir = './build'
 
 const plugins = []
 if (process.env.NODE_ENV === 'production') {
@@ -13,8 +14,10 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
 	entry: "./src/index.tsx",
 	output: {
-		chunkFilename: `./${outputDir}/[name].bundel-${pkg.version}.js`,
-		filename: `./${outputDir}/bundle-${pkg.version}.js`,
+		chunkFilename: `[name].bundel-${pkg.version}.js`,
+		filename: `bundle-${pkg.version}.js`,
+		path: path.resolve(__dirname, outputDir),
+		publicPath: '/build/',
 	},
 	plugins,
 	resolve: {

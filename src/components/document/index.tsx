@@ -6,7 +6,7 @@ import { Aside } from 'huc-ui-components'
 import OffCanvasAside from './aside'
 import Header from './header'
 import { fetchNextSearchResult } from '../../actions/search';
-import { Annotation } from 'pergamon-ui-components'
+import { Annotation, TreeNode } from 'pergamon-ui-components'
 
 const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 	boxSizing: 'border-box',
@@ -28,11 +28,13 @@ interface IProps {
 	setRootAnnotation: (s: string) => void
 }
 interface IState {
-	activeAside: Aside;
+	activeAside: Aside
+	tree: TreeNode[]
 }
 class Document extends React.PureComponent<IProps, IState> {
 	public state = {
 		activeAside: Aside.Annotations,
+		tree: null,
 	}
 
 	public componentDidMount() {
@@ -67,6 +69,7 @@ class Document extends React.PureComponent<IProps, IState> {
 						<RenderedText
 							activateAnnotation={this.props.activateAnnotation}
 							activeAnnotation={this.props.activeAnnotation}
+							onChange={(tree) => this.setState({ tree })}
 							root={this.props.rootAnnotation}
 							tags={PergamonUITags}
 						/>
@@ -89,6 +92,7 @@ class Document extends React.PureComponent<IProps, IState> {
 						})
 					}}
 					rootAnnotation={this.props.rootAnnotation}
+					tree={this.state.tree}
 				/>
 			</section>
 		);
