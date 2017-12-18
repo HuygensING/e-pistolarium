@@ -23,7 +23,9 @@ class CorrespondentGraph extends React.PureComponent<IProps, IState> {
 			body.query :
 			body.hasOwnProperty('post_filter') ?
 				body.post_filter :
-				{ match_all: {} }	
+				{ bool: {} }
+
+		body.bool.must_not = [{term: {recipient: "?"}}, {term: {sender: "?"}}]
 
 		const response = await fetch('/api/documents/graph?field1=sender&field2=recipient', {
 			body: JSON.stringify(body),
