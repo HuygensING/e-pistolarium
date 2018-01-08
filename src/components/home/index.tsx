@@ -97,27 +97,30 @@ class Home extends React.PureComponent<IProps, null> {
 						>
 							<div />
 							<div />
-							<div
-								style={{
-									backgroundColor: 'white',
-									border: '1px solid #ccc',
-									boxShadow: '0 0 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23)',
-									height: '40px',
-									padding: '1em 1em 1.25em 1em',
-								}}
-							>
-								<this.timeline.default
-									aggregate={this.props.aggregate}
-									domains={[{
-										domainLabels: true,
-										rulers: false,
-										type: this.timeline.DomainType.Sparkline,
-									}]}
-									from={new Date(this.props.aggregate[0].year, 0, 1)}
-									to={new Date(this.props.aggregate[this.props.aggregate.length - 1].year, 0, 1)}
-								/>
-								<div />
-							</div>
+							{
+								this.props.aggregate.length > 1 &&
+								<div
+									style={{
+										backgroundColor: 'white',
+										border: '1px solid #ccc',
+										boxShadow: '0 0 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23)',
+										height: '40px',
+										padding: '1em 1em 1.25em 1em',
+									}}
+								>
+									<this.timeline.default
+										aggregate={this.props.aggregate}
+										domains={[{
+											domainLabels: true,
+											rulers: false,
+											type: this.timeline.DomainType.Sparkline,
+										}]}
+										from={new Date(this.props.aggregate[0].year, 0, 1)}
+										to={new Date(this.props.aggregate[this.props.aggregate.length - 1].year, 0, 1)}
+									/>
+									<div />
+								</div>
+							}
 							<div />
 						</div>
 					}
