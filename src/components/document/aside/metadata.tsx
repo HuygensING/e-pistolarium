@@ -74,6 +74,10 @@ class Metadata extends React.PureComponent<IMetadata, null> {
 					<div>{this.props.rootAnnotation.id}</div>
 				</MetadataItem>
 				<MetadataItem>
+					<Label>CORRESPONDENCE</Label>
+					<div>{this.props.rootAnnotation.metadata.get('correspondence')}</div>
+				</MetadataItem>
+				<MetadataItem>
 					<Label>DATE</Label>
 					<div>{this.props.rootAnnotation.metadata.get('date')}</div>
 				</MetadataItem>

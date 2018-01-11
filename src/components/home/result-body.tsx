@@ -2,49 +2,51 @@ import * as React from 'react'
 import { IResultBody } from 'huc-ui-components'
 
 interface ICell {
-	colSpan?: number;
-	right?: boolean;
+	bold?: boolean
+	small?: boolean
+	right?: boolean
 }
 const Cell: React.SFC<ICell> = (props) =>
-	<td
-		colSpan={props.colSpan}
+	<div
 		style={{
+			color: props.small ? '#888' : 'black',
+			fontSize: props.small ? '.85em' : '1em',
+			fontWeight: props.bold ? 'bold' : 'normal',
 			textAlign: props.right ? 'right' : 'left'
 		}}
 	>
 		{props.children}
-	</td>
+	</div>
 
 const ResultBody: React.SFC<IResultBody> = (props) =>
 	<section>
-		<table
-			style={{
-				width: '100%'
-			}}
-		>
-			<tbody>
-				<tr
-					style={{
-						fontWeight: 'bold'
-					}}
-				>
-					<Cell colSpan={2}>{props.result.date}</Cell>
-				</tr>
-				<tr>
-					<Cell>{props.result.sender}</Cell>
-					<Cell right>{props.result.recipient}</Cell>
-				</tr>
-				<tr
-					style={{
-						color: '#888',
-						fontSize: '.85em',
-					}}
-				>
-					<Cell>{props.result.senderloc}</Cell>
-					<Cell right>{props.result.recipientloc}</Cell>
-				</tr>
-			</tbody>
-		</table>
+			<div
+				style={{
+					display: 'grid',
+					gridTemplateRows: '1fr .5fr .5fr 1fr 1fr',
+					gridTemplateColumns: '4fr auto 4fr',
+				}}
+			>
+				<Cell bold>{props.result.date}</Cell>
+				<div/>
+				<Cell right>{props.result.correspondence}</Cell>
+				<div style={{ gridColumn: '1 / 4' }} />
+				<div style={{ borderTop: '1px solid #CCC', gridColumn: '1 / 4' }} />
+				<Cell>{props.result.sender}</Cell>
+				<div>⇒</div>
+				<Cell right>{props.result.recipient}</Cell>
+				<Cell small>{props.result.senderloc}</Cell>
+				<div/>
+				<Cell right small>{props.result.recipientloc}</Cell>
+			</div>
 	</section>
 
 export default ResultBody
+				// </div>
+				// <div
+				// 	style={{
+				// 		color: '#888',
+				// 		fontSize: '.85em',
+				// 	}}
+				// >
+				// </div>
