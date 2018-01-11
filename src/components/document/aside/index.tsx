@@ -35,7 +35,7 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 				activateAnnotation={props.activateAnnotation}
 				activeAnnotation={props.activeAnnotation}
 				filter={((a: Annotation) =>
-					['persName', 'placeName', 'geogName', 'name'].indexOf(a.type) > -1
+					['persName', 'placeName', 'geogName', 'name', 'rs'].indexOf(a.type) > -1
 				)}
 				rootAnnotation={props.rootAnnotation}
 			/>
