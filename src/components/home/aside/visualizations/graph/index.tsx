@@ -25,7 +25,7 @@ class Graph extends React.PureComponent<IProps, null> {
 		this.createGraph()
 	}
 
-	public async createGraph() {
+	private async createGraph() {
 		const svg = this.d3.select("#graph");
 		const svgNode = svg.node() as Element;
 		const svgRect = svgNode.getBoundingClientRect();
@@ -37,7 +37,7 @@ class Graph extends React.PureComponent<IProps, null> {
 			.force('center', this.d3.forceCenter(width/2, height/2));
 
 		const link = svg.append('g')
-			.attr('class', 'this.props.links')
+			.attr('class', 'links')
 			.selectAll('line')
 			.data(this.props.links)
 			.enter().append('line')
@@ -50,7 +50,7 @@ class Graph extends React.PureComponent<IProps, null> {
 			.attr('stroke', (d: any) => '#444');
 
 		const node = svg.append("g")
-			.attr("class", "this.props.nodes")
+			.attr("class", "nodes")
 			.selectAll("circle")
 			.data(this.props.nodes)
 			.enter().append("circle")

@@ -9,12 +9,14 @@ export interface IProps {
 }
 export interface IState {
 	links: any
+	loading: boolean
 	nodes: any
 }
 class CoCitationGraph extends React.PureComponent<IProps, IState> {
 	public state = {
-		nodes: [],
 		links: [],
+		loading: true,
+		nodes: [],
 	}
 
 	public async componentDidMount() {
@@ -64,10 +66,12 @@ class CoCitationGraph extends React.PureComponent<IProps, IState> {
 			return prev
 		}, [])
 
-		this.setState({ links, nodes })
+		this.setState({ links, loading: false, nodes })
 	}
 
 	public render() {
+		if (this.state.loading) return <img src="http://design.huygens.knaw.nl/static/icons/loader.svg" />
+
 		return (
 			<Graph
 				links={this.state.links}
