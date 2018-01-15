@@ -7,6 +7,7 @@ import OffCanvasAside from './aside'
 import Header from './header'
 import { fetchNextSearchResult } from '../../actions/search';
 import { Annotation, TreeNode } from 'pergamon-ui-components'
+import { SearchResults } from 'huc-ui-components'
 
 const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
 	boxSizing: 'border-box',
@@ -24,16 +25,18 @@ interface IProps {
 	fetchNextSearchResult: () => void
 	match: any
 	rootAnnotation: Annotation
-	lastSearchResult: any[]
+	lastSearchResult: SearchResults
 	setRootAnnotation: (s: string) => void
 }
 interface IState {
 	activeAside: Aside
+	keyword: string
 	tree: TreeNode[]
 }
 class Document extends React.PureComponent<IProps, IState> {
 	public state = {
 		activeAside: Aside.Annotations,
+		keyword: null,
 		tree: null,
 	}
 
@@ -70,6 +73,30 @@ class Document extends React.PureComponent<IProps, IState> {
 							activateAnnotation={this.props.activateAnnotation}
 							activeAnnotation={this.props.activeAnnotation}
 							onChange={(tree) => this.setState({ tree })}
+							onRef={(el) => {
+								const sr = this.props.lastSearchResult
+								const hi = async (term) => {
+									const Mark = await import('mark.js')
+									const inst = new Mark(el)
+									inst.unmark()
+									inst.mark(term)
+								}
+
+								if (el != null) {
+									if (this.state.keyword != null) {
+										hi(this.state.keyword)
+									}
+									else if (
+										sr != null &&
+										sr.hasOwnProperty('query') &&
+										sr.query.hasOwnProperty('query') &&
+										sr.query.query.hasOwnProperty('query_string') &&
+										sr.query.query.query_string.hasOwnProperty('query')
+									) {
+										hi(sr.query.query.query_string.query)
+									}
+								}
+							}}
 							root={this.props.rootAnnotation}
 							tags={PergamonUITags}
 						/>
@@ -91,6 +118,7 @@ class Document extends React.PureComponent<IProps, IState> {
 							}
 						})
 					}}
+					onClickKeyword={(keyword) => this.setState({ keyword })}
 					rootAnnotation={this.props.rootAnnotation}
 					tree={this.state.tree}
 				/>

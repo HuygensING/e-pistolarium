@@ -9,6 +9,7 @@ export interface IProps {
 	activeAnnotation: Annotation
 	fetchKeywords: (root: Annotation) => void
 	onChangeActiveAside: (a: Aside) => void
+	onClickKeyword: (keyword) => void
 	rootAnnotation: Annotation
 	tree: TreeNode
 }
@@ -25,7 +26,10 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 				fetchKeywords={props.fetchKeywords}
 				rootAnnotation={props.rootAnnotation}
 			/>
-			<Keywords keywords={props.rootAnnotation.keywords} />
+			<Keywords
+				keywords={props.rootAnnotation.keywords}
+				onClickKeyword={props.onClickKeyword}
+			/>
 		</Panel>
 		<Panel
 			title="Named entities"

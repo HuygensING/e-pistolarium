@@ -23,6 +23,7 @@
     "browser-sync": "^2.18.13",
     "connect-modrewrite": "^0.10.1",
     "lodash.debounce": "^4.0.8",
+    "mark.js": "^8.11.1",
     "proxy-middleware": "^0.15.0",
     "typescript": "2.5.3",
     "uglify-es": "^3.2.1",
