@@ -62,7 +62,7 @@ class CorrespondentGraph extends React.PureComponent<IProps, IState> {
 	}
 
 	public render() {
-		if (this.state.loading) return <img src="http://design.huygens.knaw.nl/static/icons/loader.svg" />
+		if (this.state.loading) return <img src="/static/graphics/ui/loader.svg" />
 
 		return (
 			<Graph
