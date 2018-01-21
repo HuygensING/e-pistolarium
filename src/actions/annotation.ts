@@ -1,5 +1,6 @@
 import { Annotation } from 'pergamon-ui-components'
-import { setProps } from '../reducers/utils';
+import { setProps } from '../reducers/utils'
+import { updateState } from '../props';
 
 const fetchRootAnnotation = async (id: string): Promise<Annotation> => {
 	const response = await fetch(`/api/documents/${id}`)
@@ -7,16 +8,13 @@ const fetchRootAnnotation = async (id: string): Promise<Annotation> => {
 	return new Annotation(root)
 }
 
-export const fetchKeywords = (root: Annotation) => async (dispatch, getState) => {
+export const fetchKeywords = async (root: Annotation) => {
 	if (root.keywords != null) return
 	const response = await fetch(`/api/documents/${root.id}/keywords`)
 	const data = await response.json()
 	const rootAnnotation = setProps(root, { keywords: data.keywords })
 
-	dispatch({
-		rootAnnotation,
-		type: 'SET_ROOT_ANNOTATION',
-	})
+	updateState('SET_ROOT_ANNOTATION', { rootAnnotation })
 }
 
 export const setRootAnnotation = (id) => async (dispatch, getState) => {
@@ -35,18 +33,21 @@ export const setRootAnnotation = (id) => async (dispatch, getState) => {
 	});
 };
 
-export const activateAnnotation = (annotationId: string) => async (dispatch, getState) => {
-	const activeAnnotation = getState().annotation.active;
-	if (activeAnnotation == null || activeAnnotation.id !== annotationId) {
-		dispatch({
-			annotationId,
-			type: 'ACTIVATE_ANNOTATION',
-		});
-	} else if (activeAnnotation.id === annotationId) {
-		dispatch(deactivateAnnotation());
-	}
+export const activateAnnotation = (annotationId: string) => {
+	updateState('ACTIVATE_ANNOTATION', { annotationId })
+	// const activeAnnotation = getState().annotation.active;
+	// if (activeAnnotation == null || activeAnnotation.id !== annotationId) {
+	// 	dispatch({
+	// 		annotationId,
+	// 		type: 'ACTIVATE_ANNOTATION',
+	// 	});
+	// } else if (activeAnnotation.id === annotationId) {
+	// 	dispatch(deactivateAnnotation());
+	// }
 };
 
 export const deactivateAnnotation = () => async (dispatch, getState) => {
-	dispatch({ type: 'DEACTIVATE_ANNOTATION' });
+	updateState('DEACTIVATE_ANNOTATION')
+	// updateState('annotations', { annotationId })
+	// dispatch({ type: 'DEACTIVATE_ANNOTATION' });
 };

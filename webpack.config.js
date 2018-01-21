@@ -3,21 +3,26 @@ const webpack = require('webpack')
 const pkg = require('./package.json')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const outputDir = './build'
+const outputDir = './static/js'
 
-const plugins = []
+const plugins = [
+	new webpack.optimize.CommonsChunkPlugin({ name: 'commons', filename: `commons-${pkg.version}.js` })
+]
 if (process.env.NODE_ENV === 'production') {
 	plugins.push(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }))
 	plugins.push(new UglifyJsPlugin())
 } 
 
 module.exports = {
-	entry: "./src/index.tsx",
+	entry: {
+		document: "./src/components/document2/index.tsx",
+		search: "./src/components/search2/index.tsx",
+	},
 	output: {
-		chunkFilename: `[name].bundel-${pkg.version}.js`,
-		filename: `bundle-${pkg.version}.js`,
+		chunkFilename: `[id].chunk-${pkg.version}.js`,
+		filename: `[name].bundle-${pkg.version}.js`,
 		path: path.resolve(__dirname, outputDir),
-		publicPath: '/build/',
+		publicPath: '/js/',
 	},
 	plugins,
 	resolve: {

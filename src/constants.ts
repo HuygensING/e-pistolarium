@@ -1,3 +1,6 @@
+export const PROPS = 'pergamon_props'
+export const STATE_CHANGE = 'pergamon_state_change'
+
 export const orange: string = '#FF5722';
 export const orangeLight: string = '#ff9d7e';
 export const orangeRGB: string = '255, 87, 34';
