@@ -12,15 +12,15 @@ const search_1 = require("../components/search2/search");
 const props_1 = require("../props");
 const template_1 = require("./template");
 const fetchRootAnnotation = async (id) => {
-    const response = await fetch(`http://localhost:8080/documents/${id}`);
+    const response = await fetch(`http://janus:8080/documents/${id}`);
     return await response.json();
 };
 const app = express();
-app.use(express.static(path.resolve(__dirname, '../../static')));
+app.disable('x-powered-by');
+app.use(express.static(path.resolve(__dirname, '../../static_local')));
 app.use(express.static(path.resolve(__dirname, '../../node_modules')));
-app.use(express.static(path.resolve(__dirname, '../../node_modules')));
-app.use('/api', proxy('http://localhost:8080'));
-app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../../static/home/index.html')));
+app.use('/api', proxy('http://janus:8080'));
+app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../../static_local/home/index.html')));
 app.get('/documents/:id', async (req, res) => {
     const annotation = await fetchRootAnnotation(req.params.id);
     const appString = server_1.renderToString(React.createElement(document_1.default, Object.assign({}, props_1.getServerProps({ annotations: { rootAnnotation: new pergamon_ui_components_1.Annotation(annotation) } }))));

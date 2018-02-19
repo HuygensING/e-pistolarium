@@ -1,14 +1,18 @@
 version: "2.1"
 services:
-  dev_client:
-    command: ["node", "server.js"]
-    image: node:9-alpine
-    ports:
-      - "3000:3000"
-      - "3001:3001"
+
+  client:
+    # command: ["node", "server.js"]
+    # image: node:9-alpine
+    build:
+      context: ../
+      dockerfile: Dockerfile
     volumes:
       - ../:/app
-      - static:/app/static
-    working_dir: /app
+      - static:/app/static_local/static
+    # working_dir: /app
+
 volumes:
   static:
+  secrets:
+  proxy_config:

@@ -16,19 +16,20 @@ import { getServerProps } from '../props'
 import template from './template'
 
 const fetchRootAnnotation = async (id: string): Promise<Annotation> => {
-	const response = await fetch(`http://localhost:8080/documents/${id}`)
+	const response = await fetch(`http://janus:8080/documents/${id}`)
 	return await response.json()
 }
 
 const app = express()
-app.use(express.static(path.resolve(__dirname, '../../static')))
-app.use(express.static(path.resolve(__dirname, '../../node_modules')))
+app.disable('x-powered-by')
+
+app.use(express.static(path.resolve(__dirname, '../../static_local')))
 app.use(express.static(path.resolve(__dirname, '../../node_modules')))
 
-app.use('/api', proxy('http://localhost:8080'))
+app.use('/api', proxy('http://janus:8080'))
 
 app.get('/', (req, res) => 
-	res.sendFile(path.resolve(__dirname, '../../static/home/index.html'))
+	res.sendFile(path.resolve(__dirname, '../../static_local/home/index.html'))
 )
 
 app.get('/documents/:id', async (req, res) => {

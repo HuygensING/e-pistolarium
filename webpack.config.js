@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const pkg = require('./package.json')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const outputDir = './static/js'
+const outputDir = './static_local/js'
 
 const plugins = [
 	new webpack.optimize.CommonsChunkPlugin({ name: 'commons', filename: `commons-${pkg.version}.js` })
