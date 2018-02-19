@@ -4,3 +4,4 @@ node_modules
 build
 docker/janus
 docker/production.yml
+static_local/js
