@@ -10,7 +10,8 @@
     "deploy-prod": "./scripts/deploy-prod.sh",
     "dev": "./scripts/dev.sh",
     "prod": "./scripts/prod.sh",
-    "watch": "./scripts/watch.sh"
+    "watch": "./scripts/watch.sh",
+    "watch.server": "./scripts/watch.server.sh"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "connect-modrewrite": "^0.10.2",
     "lodash.debounce": "^4.0.8",
     "mark.js": "^8.11.1",
+    "nodemon": "^1.15.1",
     "proxy-middleware": "^0.15.0",
     "typescript": "2.6.2",
     "uglify-es": "^3.3.7",

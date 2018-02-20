@@ -1,18 +1,15 @@
 version: "2.1"
 services:
-
   client:
-    # command: ["node", "server.js"]
-    # image: node:9-alpine
     build:
       context: ../
       dockerfile: Dockerfile
+    command: ["node_modules/.bin/nodemon", "server/server/index.js"]
     environment:
       - NODE_ENV=development
     volumes:
       - ../:/app
       - static:/app/static_local/static
-    # working_dir: /app
 
 volumes:
   static:
