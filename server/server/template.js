@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const pkg = require('../../package.json');
 const constants_1 = require("../constants");
+const ReactEnv = process.env.NODE_ENV === 'production' ? 'production.min' : 'development';
 const template = (prefix, body, props) => `<!DOCTYPE html>
 <html>
 	<head>
@@ -14,8 +15,8 @@ const template = (prefix, body, props) => `<!DOCTYPE html>
 	</head>
 	<body>
 		<div id="container">${body}</div>
-		<script src="/react/umd/react.development.js"></script>
-		<script src="/react-dom/umd/react-dom.development.js"></script>
+		<script src="/react/umd/react.${ReactEnv}.js"></script>
+		<script src="/react-dom/umd/react-dom.${ReactEnv}.js"></script>
 		<script src="/js/commons-${pkg.version}.js"></script>
 		<script src="/js/${prefix}.bundle-${pkg.version}.js"></script>
 	</body>
