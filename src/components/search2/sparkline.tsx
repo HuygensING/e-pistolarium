@@ -9,6 +9,7 @@ const Wrapper = (props) =>
 			margin: '0 auto',
 			left: 0,
 			right: 0,
+			pointerEvents: 'none',
 			position: 'fixed',
 			width: '1100px',
 		}}

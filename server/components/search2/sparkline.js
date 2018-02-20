@@ -8,6 +8,7 @@ const Wrapper = (props) => React.createElement("div", { style: {
         margin: '0 auto',
         left: 0,
         right: 0,
+        pointerEvents: 'none',
         position: 'fixed',
         width: '1100px',
     } }, props.children);

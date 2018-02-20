@@ -2,6 +2,7 @@
 node_modules
 *.iml
 build
+server
 docker/janus
 docker/production.yml
 static_local/js
