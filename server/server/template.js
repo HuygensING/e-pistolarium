@@ -7,6 +7,7 @@ const template = (prefix, body, props) => `<!DOCTYPE html>
 <html>
 	<head>
 		<title>Pergamon SSR</title>
+		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i|Roboto:300,300i,700" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/searchkit/2.0.0/theme.css">
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/css/searchkit.css">
