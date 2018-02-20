@@ -9,6 +9,11 @@
 - `npm run watch`
 - `npm run watch-server`
 
+## Bump
+- `npm run bump -- patch` or
+- `npm run bump -- minor` or
+- `npm run bump -- major`
+
 ## Deploy to test
 - `npm run deploy-test`
 
