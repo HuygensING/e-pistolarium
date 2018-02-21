@@ -3,7 +3,6 @@ import { Metadata } from 'pergamon-ui-components'
 import { SearchResults } from 'huc-ui-components'
 import PrevNext from './prevnext'
 import { Annotation } from 'pergamon-ui-components'
-import { changeLocation } from '../../../utils'
 
 const Wrapper: React.SFC = (props) =>
 	<div
@@ -24,15 +23,8 @@ export interface IProps {
 const Header: React.SFC<IProps> = (props) =>
 	<Wrapper>
 		<Metadata rootAnnotation={props.rootAnnotation} />
-		<div style={{ display: 'grid', gridTemplateRows: '1fr 1fr' }}>
-			<button
-				onClick={() => changeLocation('/search')}
-				style={{
-					height: '2em',
-				}}
-			>
-				&lt; search results
-			</button>
+		<div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', textAlign: 'right' }}>
+			<a href="/search">Search</a>
 			<PrevNext {...props} />
 		</div>
 	</Wrapper>

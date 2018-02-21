@@ -1,1 +1,1 @@
-export const changeLocation = (location) => { window.location.href = location }
+// export const changeLocation = (location) => { window.location.href = location }

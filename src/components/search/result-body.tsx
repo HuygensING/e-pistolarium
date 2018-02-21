@@ -2,15 +2,17 @@ import * as React from 'react'
 import { IResultBody } from 'huc-ui-components'
 
 const Wrapper = (props) =>
-	<section
+	<a
+		href={`/documents/${props.result.id}`}
 		style={{
 			display: 'grid',
 			gridTemplateRows: '1fr .5fr .5fr 1fr 1fr',
 			gridTemplateColumns: '4fr auto 4fr',
+			textDecoration: 'none',
 		}}
 	>
 		{props.children}
-	</section>
+	</a>
 
 interface ICell {
 	bold?: boolean
@@ -30,7 +32,7 @@ const Cell: React.SFC<ICell> = (props) =>
 	</div>
 
 const ResultBody: React.SFC<IResultBody> = (props) =>
-	<Wrapper>
+	<Wrapper result={props.result}>
 		<Cell bold>{props.result.date}</Cell>
 		<div/>
 		<Cell right>{props.result.correspondence}</Cell>

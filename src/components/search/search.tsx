@@ -9,7 +9,6 @@ import { IProps } from '../../props'
 import { receiveSearchResults, fetchNextSearchResult } from '../../actions/search'
 import Sparkline from './sparkline'
 import App from '../app'
-import { changeLocation } from '../../utils'
 
 const Wrapper = (props) =>
 	<div
@@ -58,7 +57,7 @@ class Search extends React.PureComponent<Partial<IProps>> {
 						}}
 					>
 						<HucSearchResults
-							onClickResult={(result) => changeLocation(`/documents/${result.id}`)}
+							// onClickResult={(result) => changeLocation(`/documents/${result.id}`)}
 							resultBodyComponent={ResultBody}
 							searchResults={this.props.search.results}
 						/>

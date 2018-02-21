@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { HucBrandLabel, HucHeader } from 'huc-ui-components';
-import { changeLocation } from '../utils'
+// import { changeLocation } from '../utils'
 
 const Wrapper = (props) => 
 	<div style={{
@@ -15,11 +15,11 @@ export default (props) => (
 		<HucHeader
 			title="Correspondence"
 			menuItems={["Home", "Correspondence", "About"]}
-			onClickLogo={() => changeLocation('/')}
-			onClickMenuItem={(mi) => {
-				if (mi === 'Home') changeLocation('/')
+			menuLocations={{
+				About: "/about",
+				Correspondence: "/search",
+				Home: "/",
 			}}
-			onClickTitle={() => changeLocation('/')}
 		/>
 		<HucBrandLabel />
 		<main>

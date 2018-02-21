@@ -41,7 +41,7 @@
     "hire-forms-input": "^3.0.4",
     "hire-forms-select": "^2.2.10",
     "hire-messages": "^1.1.0",
-    "huc-ui-components": "^1.1.9",
+    "huc-ui-components": "^1.2.0",
     "node-fetch": "^1.7.3",
     "pergamon-ui-components": "^2.1.9",
     "react": "^16.2.0",
