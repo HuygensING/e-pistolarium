@@ -1,15 +1,18 @@
 version: "2.1"
+
 services:
   client:
-    build:
-      context: ../
-      dockerfile: Dockerfile
+    image: node:9-alpine
     command: ["node_modules/.bin/nodemon", "server/server/index.js"]
     environment:
       - NODE_ENV=development
+    expose:
+      - "3000"
     volumes:
       - ../:/app
       - static:/app/static_local/static
+      - ../../huc-ui-components:/app/node_modules/huc-ui-components
+    working_dir: /app
 
 volumes:
   static:
