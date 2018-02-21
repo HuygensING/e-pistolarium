@@ -16,9 +16,9 @@ next_version=$(node -pe 'require("./package.json").version')
 npm run build
 if [ $? -ne 0 ]; then exit 1; fi
 
-sed -i -e "s/bundle-$current_version\.js/bundle-$next_version.js/g" index.html
+# sed -i -e "s/bundle-$current_version\.js/bundle-$next_version.js/g" index.html
 
-git add index.html
+# git add index.html
 git add package.json
 git commit -m "v$next_version"
 git push && git push --tags

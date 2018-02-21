@@ -9,7 +9,6 @@ COPY package.json .
 COPY webpack.config.js .
 COPY tsconfig.json .
 COPY tsconfig.server.json .
-COPY index.html .
 COPY src src/
 COPY static_local static_local/
 COPY scripts scripts/ 
