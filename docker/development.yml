@@ -15,6 +15,24 @@ services:
       - ../../pergamon-ui-components:/app/node_modules/pergamon-ui-components
     working_dir: /app
 
+  watch:
+    image: node:9-alpine
+    command: ["npm", "run", "watch"]
+    volumes:
+      - ../:/app
+      - ../../huc-ui-components:/app/node_modules/huc-ui-components
+      - ../../pergamon-ui-components:/app/node_modules/pergamon-ui-components
+    working_dir: /app
+
+  watch-server:
+    image: node:9-alpine
+    command: ["npm", "run", "watch.server"]
+    volumes:
+      - ../:/app
+      - ../../huc-ui-components:/app/node_modules/huc-ui-components
+      - ../../pergamon-ui-components:/app/node_modules/pergamon-ui-components
+    working_dir: /app
+
 volumes:
   static:
   secrets:
