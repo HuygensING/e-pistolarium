@@ -14,6 +14,8 @@ class AsideComp extends React.PureComponent<IProps, IState> {
 	}
 
 	public render() {
+		if (this.props.searchResults == null || this.props.searchResults.total !> 0) return null
+
 		return (
 			<HucOffCanvasAside
 				fullScreen={this.state.fullScreen}

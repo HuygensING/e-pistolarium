@@ -2,20 +2,20 @@ import * as React from 'react'
 import { Annotation } from 'pergamon-ui-components'
 import { SearchResults } from 'huc-ui-components'
 import Link from './link-to-root-annotation'
+import { fetchNextSearchResult } from '../../../../actions/search'
 
 export interface IProps {
-	annotation: Annotation
-	fetchNextSearchResult: () => void
-	subset: SearchResults
+	rootAnnotation: Annotation
+	searchResults: SearchResults
 }
 const PrevNext: React.SFC<IProps> = (props) => {
-	if (!props.subset.hits.length) return null
+	if (props.searchResults == null || !props.searchResults.hits.length) return null
 
-	const index = props.subset.hits.findIndex(h => h.id === props.annotation.id)
-	const prev = props.subset.hits[index - 1]
-	const next = props.subset.hits[index + 1]
+	const index = props.searchResults.hits.findIndex(h => h.id === props.rootAnnotation.id)
+	const prev = props.searchResults.hits[index - 1]
+	const next = props.searchResults.hits[index + 1]
 
-	if (next == null) props.fetchNextSearchResult()
+	if (next == null) fetchNextSearchResult()
 
 	return (
 		<ul

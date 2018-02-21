@@ -1,84 +1,85 @@
-import { setProps, replaceItemInArray } from "./utils"
-import { ISuggestion } from 'pergamon-ui-components'
-import { SearchResults } from 'huc-ui-components'
+import { setProps } from "./utils"
+import { ISearchState } from "../props"
 
-interface IState {
-	aggregate: any[]
-	fullTextSearchQuery: string
-	requestingSemanticSuggestions: boolean
-	results: SearchResults[]
-	semanticSuggestions: ISuggestion[]
-	size: number
-}
-
-const initialState: IState = {
+const initialState: ISearchState = {
 	aggregate: [],
-	fullTextSearchQuery: '',
 	requestingSemanticSuggestions: false,
-	results: [],
+	results: null,
 	semanticSuggestions: [],
 	size: 20,
 }
 
-export default (state: IState = initialState, action) => {
+const getAggregate = (results) => {
+	if (!results.hasOwnProperty('aggregations')) return []
+
+	const lpy = (results.aggregations.letter_per_year.hasOwnProperty('letter_per_year')) ?
+		results.aggregations.letter_per_year.letter_per_year :
+		results.aggregations.letter_per_year
+
+	return lpy.buckets.map(b => ({
+		count: b.doc_count,
+		year: +b.key_as_string.slice(0, 4),
+	}))
+}
+
+export default (state: ISearchState = initialState, type: string, changedState) => {
 	let nextState = state
 
-	switch (action.type) {
+	switch (type) {
 		case 'RECEIVE_SEARCH_RESULTS': {
 			nextState = setProps(state, {
-				fullTextSearchQuery: action.fullTextQuery,
-				results: state.results.concat({
-					...action.results,
-					query: action.query,
-					id: JSON.stringify(action.query),
-				})
+				aggregate: getAggregate(changedState.results),
+				results: {
+					...changedState.results,
+					query: changedState.query,
+					id: JSON.stringify(changedState.query),
+				}
 			})
 
 			break
 		}
 
 		case 'RECEIVE_NEXT_SEARCH_RESULTS': {
-			const lastResults = state.results[state.results.length - 1]
-			const results = replaceItemInArray(state.results, setProps(lastResults, {
-				hits: lastResults.hits.concat(action.results.hits)
-			}))
+			const results = setProps(state.results, {
+				hits: state.results.hits.concat(changedState.results.hits)
+			})
 			nextState = setProps(state, { results })
 
 			break
 		}
 
-		case 'FETCH_SEMANTIC_SUGGESTIONS': {
-			nextState = setProps(state, {
-				requestingSemanticSuggestions: true,
-			})
+		// case 'FETCH_SEMANTIC_SUGGESTIONS': {
+		// 	nextState = setProps(state, {
+		// 		requestingSemanticSuggestions: true,
+		// 	})
 
-			break
-		}
+		// 	break
+		// }
 
-		case 'RECEIVE_SEARCH_RESULT_AGGREGATE': {
-			nextState = setProps(state, {
-				aggregate: action.aggregate,
-			})
+		// case 'RECEIVE_SEARCH_RESULT_AGGREGATE': {
+		// 	nextState = setProps(state, {
+		// 		aggregate: action.aggregate,
+		// 	})
 
-			break
-		}
+		// 	break
+		// }
 
-		case 'RECEIVE_SEMANTIC_SUGGESTIONS': {
-			nextState = setProps(state, {
-				requestingSemanticSuggestions: false,
-				semanticSuggestions: action.semanticSuggestions,
-			})
+		// case 'RECEIVE_SEMANTIC_SUGGESTIONS': {
+		// 	nextState = setProps(state, {
+		// 		requestingSemanticSuggestions: false,
+		// 		semanticSuggestions: action.semanticSuggestions,
+		// 	})
 
-			break
-		}
+		// 	break
+		// }
 
-		case 'CLEAR_SEMANTIC_SUGGESTIONS': {
-			nextState = setProps(nextState, {
-				semanticSuggestions: []
-			})
+		// case 'CLEAR_SEMANTIC_SUGGESTIONS': {
+		// 	nextState = setProps(nextState, {
+		// 		semanticSuggestions: []
+		// 	})
 
-			break
-		}
+		// 	break
+		// }
 
 		default:
 	}

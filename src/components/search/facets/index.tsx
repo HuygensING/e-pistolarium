@@ -5,7 +5,6 @@ import { fontStyle } from 'pergamon-ui-components'
 
 export interface IProps {
 	receiveSearchResults: (query: Object, results: SearchResults) => void
-	searchResults: SearchResults
 }
 class Facets extends React.PureComponent<IProps, null> {
 	private query: Object

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Annotation } from 'pergamon-ui-components'
+import { fetchKeywords } from '../../../actions/annotation'
 
 const downloadStringAsFile = (str, mimeType='text/plain') => {
 	const a = document.createElement('a')
@@ -43,13 +44,12 @@ const Label = (props) =>
 	</label>
 
 export interface IMetadata {
-	fetchKeywords: (root: Annotation) => void
 	rootAnnotation: Annotation
 }
 class Metadata extends React.PureComponent<IMetadata, null> {
-	public componentWillReceiveProps(nextProps: IMetadata) {
-		const root = nextProps.rootAnnotation
-		if (root.id != null) nextProps.fetchKeywords(root)
+	public componentDidMount() {
+		const root = this.props.rootAnnotation
+		if (root.id != null) fetchKeywords(root)
 	}
 
 	public render() {

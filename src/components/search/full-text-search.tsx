@@ -1,56 +1,51 @@
 import * as React from 'react'
 import { HucFullTextSearchInput } from 'huc-ui-components'
-import { postSearch } from '../../actions/search';
-import { ISuggestion } from 'pergamon-ui-components'
+import { autoSuggest, searchFullText, searchSemanticSuggestions } from '../../actions/full-text-search'
+import { SemanticSuggestions } from 'pergamon-ui-components'
 
-const autoSuggest = async (query: string) => {
-	const xhr = await postSearch({
-		suggest: {
-			woorden: {
-				text: query,
-				term: {
-					field: 'body',
-				},
-			},
-		}
-	})
-
-	const data = await xhr.json()
-
-	return data.suggest.woorden[0].options.map(x => x.text)
-}
 
 export interface IProps {
-	autoSuggest: (q: string) => string[]
-	clearSemanticSuggestions: () => void
-	fullTextSearch: (q: string) => void
-	fullTextSearchQuery: string
-	semanticSuggestions: ISuggestion[]
+	// requestingSemanticSuggestions: boolean
+	// semanticSuggestions: ISuggestion[]
 }
 export interface IState {
+	requesting: boolean
 	suggestions: string[]
 }
 class FullTextSearch extends React.PureComponent<IProps, IState> {
 	public state = {
-		suggestions: []
+		requesting: false,
+		suggestions: [],
 	}
 
 	public render() {
 		return (
-			<HucFullTextSearchInput
-				autoSuggest={autoSuggest}
-				onChange={() => {
-					if (this.props.semanticSuggestions.length) this.props.clearSemanticSuggestions()
-				}}
-				onKeyDown={(ev) => {
-					if (ev.keyCode === 13) {
-						this.props.fullTextSearch(ev.target.value)
-					}
-				}}
-				query={this.props.fullTextSearchQuery}
-				search={(q) => this.props.fullTextSearch(q)}
-			/>
+			<>
+				<HucFullTextSearchInput
+					autoSuggest={autoSuggest}
+					onChange={() => {
+						if (this.state.suggestions.length) this.setState({ suggestions: [] })
+					}}
+					onKeyDown={(ev) => {
+						if (ev.keyCode === 13) this.search(ev.target.value)
+					}}
+					query={''}
+					search={(q) => this.search(q)}
+				/>
+				<SemanticSuggestions
+					onClickSuggestion={searchFullText}
+					requesting={this.state.requesting}
+					semanticSuggestions={this.state.suggestions}
+				/>
+			</>
 		)
+	}
+
+	private search = async (query) => {
+		this.setState({ requesting: true })
+		searchFullText(query)	
+		const suggestions = await searchSemanticSuggestions(query)
+		this.setState({ suggestions, requesting: false })
 	}
 }
 

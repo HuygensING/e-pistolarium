@@ -9,8 +9,8 @@ import { renderToString } from 'react-dom/server'
 
 import { Annotation } from 'pergamon-ui-components'
 
-import Document from '../components/document2/document'
-import Search from '../components/search2/search'
+import Document from '../components/document/document'
+import Search from '../components/search/search'
 
 import { getServerProps } from '../props'
 import template from './template'

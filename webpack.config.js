@@ -15,8 +15,8 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
 	entry: {
-		document: "./src/components/document2/index.tsx",
-		search: "./src/components/search2/index.tsx",
+		document: "./src/components/document/index.tsx",
+		search: "./src/components/search/index.tsx",
 	},
 	output: {
 		chunkFilename: `[id].chunk-${pkg.version}.js`,

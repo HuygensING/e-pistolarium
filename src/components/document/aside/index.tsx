@@ -1,17 +1,14 @@
 import * as React from 'react'
 import { Aside, Panel, HucOffCanvasAside } from 'huc-ui-components'
-import { AnnotationList, Annotation, Keywords, TreeNode } from 'pergamon-ui-components'
+import { AnnotationList, Annotation, Keywords } from 'pergamon-ui-components'
 import Metadata from './metadata'
-import Tree from './tree'
 
 export interface IProps {
 	activateAnnotation: (id: string) => void
 	activeAnnotation: Annotation
-	fetchKeywords: (root: Annotation) => void
 	onChangeActiveAside: (a: Aside) => void
 	onClickKeyword: (keyword) => void
 	rootAnnotation: Annotation
-	tree: TreeNode
 }
 const OffCanvasAside: React.SFC<IProps> = (props) =>
 	<HucOffCanvasAside
@@ -23,7 +20,6 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 			type={Aside.Metadata}
 		>
 			<Metadata
-				fetchKeywords={props.fetchKeywords}
 				rootAnnotation={props.rootAnnotation}
 			/>
 			<Keywords
@@ -52,17 +48,6 @@ const OffCanvasAside: React.SFC<IProps> = (props) =>
 				)}
 				rootAnnotation={props.rootAnnotation}
 			/>
-		</Panel>
-		<Panel
-			title="Annotation tree"
-			style={{
-				height: '100%',
-				overflow: 'scroll',
-				width: '300%',
-			}}
-			type={Aside.Visualisations}
-		>
-			<Tree text={props.rootAnnotation.text} tree={props.tree} />
 		</Panel>
 	</HucOffCanvasAside>
 

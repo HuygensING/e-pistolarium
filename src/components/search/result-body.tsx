@@ -1,6 +1,17 @@
 import * as React from 'react'
 import { IResultBody } from 'huc-ui-components'
 
+const Wrapper = (props) =>
+	<section
+		style={{
+			display: 'grid',
+			gridTemplateRows: '1fr .5fr .5fr 1fr 1fr',
+			gridTemplateColumns: '4fr auto 4fr',
+		}}
+	>
+		{props.children}
+	</section>
+
 interface ICell {
 	bold?: boolean
 	small?: boolean
@@ -19,27 +30,19 @@ const Cell: React.SFC<ICell> = (props) =>
 	</div>
 
 const ResultBody: React.SFC<IResultBody> = (props) =>
-	<section>
-			<div
-				style={{
-					display: 'grid',
-					gridTemplateRows: '1fr .5fr .5fr 1fr 1fr',
-					gridTemplateColumns: '4fr auto 4fr',
-				}}
-			>
-				<Cell bold>{props.result.date}</Cell>
-				<div/>
-				<Cell right>{props.result.correspondence}</Cell>
-				<div style={{ gridColumn: '1 / 4' }} />
-				<div style={{ borderTop: '1px solid #CCC', gridColumn: '1 / 4' }} />
-				<Cell>{props.result.sender}</Cell>
-				<div>⇒</div>
-				<Cell right>{props.result.recipient}</Cell>
-				<Cell small>{props.result.senderloc}</Cell>
-				<div/>
-				<Cell right small>{props.result.recipientloc}</Cell>
-			</div>
-	</section>
+	<Wrapper>
+		<Cell bold>{props.result.date}</Cell>
+		<div/>
+		<Cell right>{props.result.correspondence}</Cell>
+		<div style={{ gridColumn: '1 / 4' }} />
+		<div style={{ borderTop: '1px solid #CCC', gridColumn: '1 / 4' }} />
+		<Cell>{props.result.sender}</Cell>
+		<div>⇒</div>
+		<Cell right>{props.result.recipient}</Cell>
+		<Cell small>{props.result.senderloc}</Cell>
+		<div/>
+		<Cell right small>{props.result.recipientloc}</Cell>
+	</Wrapper>
 
 export default ResultBody
 				// </div>

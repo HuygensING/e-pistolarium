@@ -1,7 +1,7 @@
 import { Annotation, ISuggestion } from 'pergamon-ui-components'
 import { ISearchResults } from 'huc-ui-components'
 import { PROPS, STATE_CHANGE } from './constants'
-import searchReducer from './reducers/search2'
+import searchReducer from './reducers/search'
 import annotationsReducer from './reducers/annotations'
 export interface IAnnotationsState {
 	rootAnnotation: Annotation
