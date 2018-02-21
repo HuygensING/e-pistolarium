@@ -7,14 +7,19 @@ import OffCanvasAside from './aside'
 import Header from './header'
 import { activateAnnotation } from '../../actions/annotation';
 
-const textDivStyle = (activeAside: Aside): React.CSSProperties => ({
-	boxSizing: 'border-box',
-	minWidth: '648px',
-	padding: '1em 1em 1em calc(65px + 1em)',
-	transition: 'all 300ms',
-	whiteSpace: 'normal',
-	width: activeAside === Aside.None ? '100%' : 'calc(100% - 440px)',
-});
+const Article = (props) =>
+	<article
+		style={{
+			boxSizing: 'border-box',
+			minWidth: '648px',
+			padding: '1em 1em 1em calc(65px + 1em)',
+			transition: 'all 300ms',
+			whiteSpace: 'normal',
+			width: props.activeAside === Aside.None ? '100%' : 'calc(100% - 440px)',
+		}}
+	>
+		{props.children}
+	</article>
 
 // ToDo Move to Document as method
 const highlightTerm = (el, searchResults, keyword) => {
@@ -59,7 +64,7 @@ export default class Document extends React.PureComponent<Partial<IProps>, IStat
 						whiteSpace: 'nowrap',
 					}}
 				>
-					<article style={textDivStyle(this.state.activeAside)}>
+					<Article activeAside={this.state.activeAside}>
 						<Header
 							rootAnnotation={this.props.annotations.rootAnnotation}
 							searchResults={this.props.search.results}
@@ -73,7 +78,7 @@ export default class Document extends React.PureComponent<Partial<IProps>, IStat
 								tags={PergamonUITags}
 							/>
 						</div>
-					</article>
+					</Article>
 					<OffCanvasAside
 						activateAnnotation={activateAnnotation}
 						activeAnnotation={this.props.annotations.activeAnnotation}
