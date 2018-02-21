@@ -12,6 +12,7 @@ services:
       - ../:/app
       - static:/app/static_local/static
       - ../../huc-ui-components:/app/node_modules/huc-ui-components
+      - ../../pergamon-ui-components:/app/node_modules/pergamon-ui-components
     working_dir: /app
 
 volumes:
