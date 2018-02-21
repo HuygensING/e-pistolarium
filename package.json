@@ -43,7 +43,7 @@
     "hire-messages": "^1.1.0",
     "huc-ui-components": "^1.2.0",
     "node-fetch": "^1.7.3",
-    "pergamon-ui-components": "^2.1.9",
+    "pergamon-ui-components": "^2.1.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
