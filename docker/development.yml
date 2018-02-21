@@ -4,10 +4,14 @@ services:
   client:
     image: node:9-alpine
     command: ["node_modules/.bin/nodemon", "server/server/index.js"]
+    depends_on:
+      - watch
+      - watch-server
     environment:
       - NODE_ENV=development
     expose:
       - "3000"
+    user: node
     volumes:
       - ../:/app
       - static:/app/static_local/static
@@ -18,6 +22,7 @@ services:
   watch:
     image: node:9-alpine
     command: ["npm", "run", "watch"]
+    user: node
     volumes:
       - ../:/app
       - ../../huc-ui-components:/app/node_modules/huc-ui-components
@@ -27,6 +32,7 @@ services:
   watch-server:
     image: node:9-alpine
     command: ["npm", "run", "watch.server"]
+    user: node
     volumes:
       - ../:/app
       - ../../huc-ui-components:/app/node_modules/huc-ui-components
