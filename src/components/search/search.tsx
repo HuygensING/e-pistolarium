@@ -57,7 +57,6 @@ class Search extends React.PureComponent<Partial<IProps>> {
 						}}
 					>
 						<HucSearchResults
-							// onClickResult={(result) => changeLocation(`/documents/${result.id}`)}
 							resultBodyComponent={ResultBody}
 							searchResults={this.props.search.results}
 						/>

@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { postSearch } from '../../../../actions/search';
+import { postSearch } from '../../../../actions/search'
+import '../../../../array'
 
 export interface IState {
 	aggregate: any[]
@@ -45,7 +46,7 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 	}
 
 	private async init() {
-		const response = await postSearch({
+		const data = await postSearch({
 			aggs: {
 				letter_per_year: {
 					date_histogram: {
@@ -56,7 +57,7 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 			},
 			size: 0,
 		})
-		const data = await response.json()
+
 		const aggregate = data.aggregations.letter_per_year.buckets.map(b => ({
 				count: b.doc_count,
 				year: +b.key_as_string.slice(0, 4),
@@ -70,7 +71,7 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 	}
 
 	private fetchEvents = async (from: Date, to: Date) => {
-		const response = await postSearch({
+		const data = await postSearch({
 			_source: [
 				'date',
 				'sender',
@@ -87,7 +88,6 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 			size: 10000,
 			sort: 'date',
 		})
-		const data = await response.json()
 		const events = data.hits.hits
 			.map(h => {
 				const sender = h._source.sender.replace(/\s\(.*\)/, '')
