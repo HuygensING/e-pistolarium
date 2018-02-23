@@ -9,6 +9,7 @@ const template = (prefix: string, body: string, props: Partial<IProps>): string 
 <html>
 	<head>
 		<title>Pergamon SSR</title>
+		<link rel="icon" href="/home/images/favi/favi-pergamon.png" sizes="any" type="image/png">
 		<link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i|Roboto:300,300i,700" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/searchkit/2.0.0/theme.css">
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
