@@ -19,6 +19,7 @@ const Wrapper = (props) =>
 
 const SparklineBorder = (props) =>
 	<div
+		id={props.id}
 		style={{
 			backgroundColor: 'white',
 			border: '1px solid #ccc',
@@ -40,34 +41,31 @@ export default class Sparkline extends React.PureComponent<IProps> {
 
 	public async componentDidMount() {
 		this.timeline = await import('timeline')
+		new this.timeline.default({
+			aggregate: this.props.aggregate,
+			domains: [{
+				type: 'SPARKLINE'
+			}],
+			rootElement: document.getElementById('timeline')
+		})
+						// <this.timeline.default
+						// 	aggregate={this.props.aggregate}
+						// 	domains={[{
+						// 		domainLabels: true,
+						// 		rulers: false,
+						// 		type: this.timeline.DomainType.Sparkline,
+						// 	}]}
+						// 	from={new Date(this.props.aggregate[0].year, 0, 1)}
+						// 	to={new Date(this.props.aggregate[this.props.aggregate.length - 1].year, 0, 1)}
+						// />
 	}
 
 	public render() {
-		if (
-			this.timeline == null || 
-			!this.props.aggregate.length
-		) return null
-
 		return (
 			<Wrapper>
 				<div />
 				<div />
-				{
-					this.props.aggregate.length > 1 &&
-					<SparklineBorder>
-						<this.timeline.default
-							aggregate={this.props.aggregate}
-							domains={[{
-								domainLabels: true,
-								rulers: false,
-								type: this.timeline.DomainType.Sparkline,
-							}]}
-							from={new Date(this.props.aggregate[0].year, 0, 1)}
-							to={new Date(this.props.aggregate[this.props.aggregate.length - 1].year, 0, 1)}
-						/>
-						<div />
-					</SparklineBorder>
-				}
+				<SparklineBorder id="timeline" />
 				<div />
 			</Wrapper>
 

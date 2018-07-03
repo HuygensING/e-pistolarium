@@ -19,33 +19,42 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 
 	public async componentDidMount() {
 		this.timeline = await import('timeline')
-		this.init()
+		const aggregate = await this.fetchAggregate()
+		const events = await this.fetchEvents(new Date(aggregate.first().year, 0, 1), new Date(aggregate.last().year, 0, 1))
+		new this.timeline.default({
+			aggregate,
+			domains: [
+				{
+					heightRatio: .75,
+					type: "EVENTS",
+					visibleRatio: .0005,
+				},
+				{
+					heightRatio: .125,
+					hasIndicatorFor: 0,
+					topOffsetRatio: .75,
+					type: "SPARKLINE",
+					visibleRatio: .2,
+				},
+				{
+					heightRatio: .125,
+					hasIndicatorFor: 0,
+					topOffsetRatio: .875,
+					type: "SPARKLINE",
+				},
+			],
+			events,
+			rootElement: document.getElementById('vistimeline')
+		})
 	}
 
 	public render() {
-		if (this.state.from == null) return null
-
 		return (
-			<this.timeline.default
-				domains={[
-					{
-						heightRatio: .25,
-						topOffsetRatio: .75,
-						type: this.timeline.DomainType.Sparkline,
-					},
-					{
-						heightRatio: .75,
-						type: this.timeline.DomainType.Event,
-						visibleRatio: .01,
-					},
-				]}
-				fetchEvents={this.fetchEvents}
-				{...this.state}
-			/>
+			<div id="vistimeline" />
 		)
 	}
 
-	private async init() {
+	private async fetchAggregate() {
 		const data = await postSearch({
 			aggs: {
 				letter_per_year: {
@@ -58,16 +67,10 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 			size: 0,
 		})
 
-		const aggregate = data.aggregations.letter_per_year.buckets.map(b => ({
-				count: b.doc_count,
-				year: +b.key_as_string.slice(0, 4),
-			}))
-
-		this.setState({
-			aggregate,
-			from: new Date(aggregate.first().year, 0, 1),
-			to: new Date(aggregate.last().year, 0, 1),
-		})
+		return data.aggregations.letter_per_year.buckets.map(b => ({
+			count: b.doc_count,
+			year: +b.key_as_string.slice(0, 4),
+		}))
 	}
 
 	private fetchEvents = async (from: Date, to: Date) => {
@@ -88,7 +91,8 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 			size: 10000,
 			sort: 'date',
 		})
-		const events = data.hits.hits
+
+		return data.hits.hits
 			.map(h => {
 				const sender = h._source.sender.replace(/\s\(.*\)/, '')
 				const recipient = h._source.recipient.replace(/\s\(.*\)/, '')
@@ -97,11 +101,6 @@ class TimelineVisualization extends React.PureComponent<null, IState> {
 					title: `${sender} - ${recipient}`
 				}
 			})
-
-		this.setState({
-			events
-		})
-
 	}
 }
 
