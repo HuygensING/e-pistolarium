@@ -2,7 +2,7 @@
 
 # Client
 rm -rf static_local/js
-NODE_ENV=production node_modules/.bin/webpack --mode production
+node_modules/.bin/webpack --mode production
 
 # Express
 rm -rf server

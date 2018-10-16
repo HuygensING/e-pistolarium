@@ -1,7 +1,7 @@
 # Pergamon client
 
 ## Before each
-- Symlink `production.yml` and `janus` from the `deploy` repo to `./docker`
+- Symlink `production.yml` from the `deploy` repo to `./docker`
 
 ## Development
 - Copy the Docker volume data from the test server to the local Docker volumes dir
