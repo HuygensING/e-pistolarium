@@ -21,9 +21,9 @@ const template = (prefix: string, body: string, props: Partial<IProps>): string 
 		<div id="container">${body}</div>
 		<script src="/react/umd/react.${ReactEnv}.js"></script>
 		<script src="/react-dom/umd/react-dom.${ReactEnv}.js"></script>
-		<script src="/js/commons-${pkg.version}.js"></script>
 		<script src="/js/${prefix}.bundle-${pkg.version}.js"></script>
 	</body>
+	${ReactEnv === 'development' ? '<script src="/reload/reload.js"></script>' : ''}
 </html>`
 
 export default template

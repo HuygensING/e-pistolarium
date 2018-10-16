@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const outputDir = './static_local/js'
 
 const plugins = [
-	new webpack.optimize.CommonsChunkPlugin({ name: 'commons', filename: `commons-${pkg.version}.js` })
+	// new webpack.optimize.CommonsChunkPlugin({ name: 'commons', filename: `commons-${pkg.version}.js` })
 ]
 if (process.env.NODE_ENV === 'production') {
 	plugins.push(new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }))
@@ -30,7 +30,7 @@ module.exports = {
 		extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
 	},
 	module: {
-		loaders: [
+		rules: [
 			// All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
 			{
 				test: /\.tsx?$/,
@@ -41,5 +41,5 @@ module.exports = {
 	externals: {
 		react: "React",
 		"react-dom": "ReactDOM",
-	},
+	}
 }

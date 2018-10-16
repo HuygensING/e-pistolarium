@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Aside, HucOffCanvasAside, Panel, SearchResults } from 'huc-ui-components';
+import { Aside, HucOffCanvasAside, Panel, ISearchResults } from 'huc-ui-components';
 import VisualizationsPanel from './visualizations'
 
 interface IProps {
-	searchResults: SearchResults
+	searchResults: ISearchResults
 }
 interface IState {
 	fullScreen: boolean

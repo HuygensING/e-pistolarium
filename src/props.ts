@@ -1,4 +1,4 @@
-import { Annotation, ISuggestion } from 'pergamon-ui-components'
+import { Annotation } from 'pergamon-ui-components'
 import { ISearchResults } from 'huc-ui-components'
 import { PROPS, STATE_CHANGE } from './constants'
 import searchReducer from './reducers/search'
@@ -7,7 +7,10 @@ export interface IAnnotationsState {
 	rootAnnotation: Annotation
 	activeAnnotation?: Annotation
 }
-
+interface ISuggestion {
+	text: string
+	weight: number
+}
 export interface ISearchState {
 	aggregate: any[]
 	requestingSemanticSuggestions: boolean

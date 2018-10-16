@@ -1,4 +1,3 @@
-import { ISearchResults } from 'huc-ui-components'
 import { updateState } from '../props'
 import { PROPS } from '../constants'
 
@@ -15,7 +14,7 @@ export const fetchNextSearchResult = async () => {
 	}
 }
 
-export const receiveSearchResults = (query, results: ISearchResults) => {
+export const receiveSearchResults = (query, results: any) => {
 	results = {
 		aggregations: results.aggregations,
 		hits: results.hits.hits

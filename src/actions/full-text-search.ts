@@ -1,6 +1,6 @@
 import { postSearch, receiveSearchResults } from './search';
 
-export const autoSuggest = async (query: string) => {
+export const autoSuggest = async (query: string): Promise<string[]> => {
 	const body = {
 		suggest: {
 			woorden: {

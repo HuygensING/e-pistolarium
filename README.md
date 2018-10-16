@@ -5,7 +5,7 @@
 
 ## Development
 - Copy the Docker volume data from the test server to the local Docker volumes dir
-- `npm run dev`
+- `npm run start:dev`
 
 ## Bump
 - `npm run bump -- patch` or

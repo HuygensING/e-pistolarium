@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { IResultBody } from 'huc-ui-components'
 
 const Wrapper = (props) =>
 	<a
@@ -31,7 +30,7 @@ const Cell: React.SFC<ICell> = (props) =>
 		{props.children}
 	</div>
 
-const ResultBody: React.SFC<IResultBody> = (props) =>
+const ResultBody: React.SFC<any> = (props) =>
 	<Wrapper result={props.result}>
 		<Cell bold>{props.result.date}</Cell>
 		<div/>

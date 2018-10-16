@@ -9,18 +9,18 @@ const initialState: ISearchState = {
 	size: 20,
 }
 
-const getAggregate = (results) => {
-	if (!results.hasOwnProperty('aggregations')) return []
+// const getAggregate = (results) => {
+// 	if (!results.hasOwnProperty('aggregations')) return []
 
-	const lpy = (results.aggregations.letter_per_year.hasOwnProperty('letter_per_year')) ?
-		results.aggregations.letter_per_year.letter_per_year :
-		results.aggregations.letter_per_year
+// 	const lpy = (results.aggregations.letter_per_year.hasOwnProperty('letter_per_year')) ?
+// 		results.aggregations.letter_per_year.letter_per_year :
+// 		results.aggregations.letter_per_year
 
-	return lpy.buckets.map(b => ({
-		count: b.doc_count,
-		year: +b.key_as_string.slice(0, 4),
-	}))
-}
+// 	return lpy.buckets.map(b => ({
+// 		count: b.doc_count,
+// 		year: +b.key_as_string.slice(0, 4),
+// 	}))
+// }
 
 export default (state: ISearchState = initialState, type: string, changedState) => {
 	let nextState = state
@@ -28,7 +28,7 @@ export default (state: ISearchState = initialState, type: string, changedState) 
 	switch (type) {
 		case 'RECEIVE_SEARCH_RESULTS': {
 			nextState = setProps(state, {
-				aggregate: getAggregate(changedState.results),
+				// aggregate: getAggregate(changedState.results),
 				results: {
 					...changedState.results,
 					query: changedState.query,

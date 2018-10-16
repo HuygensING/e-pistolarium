@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { SearchResults } from 'huc-ui-components'
+import { ISearchResults } from 'huc-ui-components'
 import Graph from './index'
 
 export interface IProps {
-	searchResults: SearchResults
+	searchResults: ISearchResults
 	strength?: any
 	distance?: any
 }

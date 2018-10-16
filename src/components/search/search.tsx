@@ -1,3 +1,4 @@
+/*
 import * as React from 'react'
 import { HucSearchResults } from 'huc-ui-components'
 import Facets from './facets'
@@ -23,13 +24,6 @@ const Wrapper = (props) =>
 		{props.children}
 	</div>
 
-// export interface IProps extends IFullTextSearchProps {
-// 	aggregate?: any[]
-// 	fetchNextSearchResult?: () => void
-// 	receiveSearchResults?: (r: any, q?: string) => void
-// 	requestingSemanticSuggestions?: boolean
-// 	searchResults?: SearchResults
-// }
 class Search extends React.PureComponent<Partial<IProps>> {
 	public componentDidMount() {
 		document.addEventListener('scroll', this.onScrollDebounced)
@@ -79,18 +73,4 @@ class Search extends React.PureComponent<Partial<IProps>> {
 }
 
 export default Search
-// export default connect(
-// 	state => ({
-// 		aggregate: state.search.aggregate,
-// 		fullTextSearchQuery: state.search.fullTextSearchQuery,
-// 		requestingSemanticSuggestions: state.search.requestingSemanticSuggestions,
-// 		searchResults: state.search.results[state.search.results.length - 1],
-// 		semanticSuggestions: state.search.semanticSuggestions,
-// 	}),
-// 	{
-// 		clearSemanticSuggestions,
-// 		fetchNextSearchResult,
-// 		fullTextSearch,
-// 		receiveSearchResults,
-// 	}
-// )(Home);
+*/

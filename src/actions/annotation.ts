@@ -4,7 +4,7 @@ import { updateState } from '../props';
 
 const fetchRootAnnotation = async (id: string): Promise<Annotation> => {
 	const response = await fetch(`/api/documents/${id}`)
-	const root: Partial<Annotation> = await response.json()
+	const root: any = await response.json()
 	return new Annotation(root)
 }
 

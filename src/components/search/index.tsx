@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { hydrate, render } from 'react-dom'
 import { getClientProps } from '../../props'
-import Search from './search'
+import Search from './search.new'
 import { STATE_CHANGE } from '../../constants'
 
 hydrate(<Search {...getClientProps()} />, document.getElementById('container'))

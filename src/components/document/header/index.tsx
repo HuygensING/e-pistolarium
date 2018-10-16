@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Metadata } from 'pergamon-ui-components'
-import { SearchResults } from 'huc-ui-components'
+import { ISearchResults } from 'huc-ui-components'
 import PrevNext from './prevnext'
 import { Annotation } from 'pergamon-ui-components'
 
@@ -17,7 +17,7 @@ const Wrapper: React.SFC = (props) =>
 	</div>
 
 export interface IProps {
-	searchResults: SearchResults
+	searchResults: ISearchResults
 	rootAnnotation: Annotation
 }
 const Header: React.SFC<IProps> = (props) =>

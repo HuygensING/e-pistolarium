@@ -2,13 +2,14 @@ import * as React from 'react'
 import { postSearch } from '../../../../actions/search'
 import '../../../../array'
 
+interface Props {}
 export interface IState {
 	aggregate: any[]
 	events: any[]
 	from: Date,
 	to: Date,
 }
-class TimelineVisualization extends React.PureComponent<null, IState> {
+class TimelineVisualization extends React.PureComponent<Props, IState> {
 	private timeline
 	public state = {
 		aggregate: [],

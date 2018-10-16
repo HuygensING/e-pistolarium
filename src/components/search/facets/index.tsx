@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { SearchResults } from 'huc-ui-components'
+import { ISearchResults } from 'huc-ui-components'
 import { fontStyle } from 'pergamon-ui-components'
 
 
 export interface IProps {
-	receiveSearchResults: (query: Object, results: SearchResults) => void
+	receiveSearchResults: (query: Object, results: ISearchResults) => void
 }
-class Facets extends React.PureComponent<IProps, null> {
+class SKFacets extends React.PureComponent<IProps, null> {
 	private query: Object
 	private resultsListener
 	private searchkit
@@ -116,4 +116,4 @@ class Facets extends React.PureComponent<IProps, null> {
 	}
 }
 
-export default Facets
+export default SKFacets

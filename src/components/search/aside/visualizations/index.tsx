@@ -2,7 +2,7 @@ import * as React from 'react'
 import TimelineVisualization from './timeline'
 import CoCitationGraph from './graph/cocitation'
 import CorrespondentGraph from './graph/correspondent'
-import { SearchResults } from 'huc-ui-components'
+import { ISearchResults } from 'huc-ui-components'
 
 export interface ILi {
 	active: boolean
@@ -36,7 +36,7 @@ enum Vis { Map, Timeline, CorrespondentGraph, CoCitationGraph }
 export interface IProps {
 	fullScreen: boolean
 	handleFullScreen: () => void
-	searchResults: SearchResults
+	searchResults: ISearchResults
 }
 export interface IState {
 	active: Vis

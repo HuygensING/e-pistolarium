@@ -13,11 +13,14 @@ services:
       - "3000"
     ports:
       - "3000:3000"
+      - "9856:9856"
     user: node
     volumes:
       - ../:/app
       - static:/app/static_local/static
       - ../../huc-ui-components:/app/node_modules/huc-ui-components
+      - ../../huc-faceted-search:/app/node_modules/huc-faceted-search
+      - ../../hire-range-slider:/app/node_modules/huc-faceted-search/node_modules/hire-range-slider
       - ../../pergamon-ui-components:/app/node_modules/pergamon-ui-components
       - ../../timeline:/app/node_modules/timeline
     working_dir: /app
@@ -25,10 +28,14 @@ services:
   watch:
     image: node:9-alpine
     command: ["npm", "run", "watch"]
+    environment:
+      - NODE_ENV=development
     user: node
     volumes:
       - ../:/app
       - ../../huc-ui-components:/app/node_modules/huc-ui-components
+      - ../../huc-faceted-search:/app/node_modules/huc-faceted-search
+      - ../../hire-range-slider:/app/node_modules/huc-faceted-search/node_modules/hire-range-slider
       - ../../pergamon-ui-components:/app/node_modules/pergamon-ui-components
       - ../../timeline:/app/node_modules/timeline
     working_dir: /app
@@ -37,10 +44,14 @@ services:
   watch-server:
     image: node:9-alpine
     command: ["npm", "run", "watch.server"]
+    environment:
+      - NODE_ENV=development
     user: node
     volumes:
       - ../:/app
       - ../../huc-ui-components:/app/node_modules/huc-ui-components
+      - ../../huc-faceted-search:/app/node_modules/huc-faceted-search
+      - ../../hire-range-slider:/app/node_modules/huc-faceted-search/node_modules/hire-range-slider
       - ../../pergamon-ui-components:/app/node_modules/pergamon-ui-components
       - ../../timeline:/app/node_modules/timeline
     working_dir: /app
