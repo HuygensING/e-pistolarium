@@ -45,7 +45,7 @@
     "hire-messages": "^1.1.0",
     "huc-faceted-search": "^1.0.1",
     "huc-ui-components": "^1.2.1",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.6.1",
     "pergamon-ui-components": "^2.1.11",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
